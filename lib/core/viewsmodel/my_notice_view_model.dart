@@ -33,31 +33,17 @@ class MyNoticeViewModel extends BaseModel {
       noticies = SharedManager().loginRequest.noticies;
     else
       NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
-        //setState(() {
         if (response.statusCode == 200) {
           Map<String, dynamic> map = jsonDecode(response.body);
           var responseNotice = ResponseNotice.fromJson(map);
           noticies = responseNotice.notices;
         }
-        //   });
       });
   }
 
   openLeftDrawer() {
     MainViewModel.openLeftMenu();
   }
-
-  // void gotoSucces(Notice notice) async {
-  //   NoticeApiServices.instance.updateNoticeSuccess(notice).then((response) {
-  //     //  setState(() {
-  //     if (response.statusCode == 204) {
-  //       noticies = (json.decode(response.body) as List)
-  //           .map((i) => Notice.fromJson(i))
-  //           .toList();
-  //     }
-  //     //    });
-  //   });
-  // }
 
   void gotoSucces(Notice notice) async {
     if (notice.noticeStatus & 128 != 128) {
@@ -77,16 +63,13 @@ class MyNoticeViewModel extends BaseModel {
           title: new Text("Bildiri"),
           content: new Text(txt),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Onayla"),
               onPressed: () {
                 if (isDeleted) {
                   NoticeApiServices.instance.updateNoticeDelete(notice).then((response) {
-                    // setState(() {
                     if (response.statusCode == 204) {
                       NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
-                        // setState(() {
                         if (response.statusCode == 200) {
                           Map<String, dynamic> map = jsonDecode(response.body);
                           var responseNotice = ResponseNotice.fromJson(map);
@@ -98,18 +81,14 @@ class MyNoticeViewModel extends BaseModel {
                           SharedManager().loginRequest = userLogin;
 
                           navigator.navigateToRemove(Pages.MyNotice);
-                        } else {
-                          // bakilacak
-                        }
+                        } else {}
                       });
                     }
                   });
                 } else {
                   NoticeApiServices.instance.updateNoticeSuccess(notice).then((response) {
-                    // setState(() {
                     if (response.statusCode == 204) {
                       NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
-                        // setState(() {
                         if (response.statusCode == 200) {
                           Map<String, dynamic> map = jsonDecode(response.body);
                           var responseNotice = ResponseNotice.fromJson(map);
@@ -121,12 +100,9 @@ class MyNoticeViewModel extends BaseModel {
                           SharedManager().loginRequest = userLogin;
 
                           navigator.navigateToRemove(Pages.MyNotice);
-                        } else {
-                          // bakilacak
-                        }
+                        } else {}
                       });
                     }
-                    // });
                   });
                 }
               },

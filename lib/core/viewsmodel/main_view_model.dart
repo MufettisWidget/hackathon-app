@@ -18,20 +18,12 @@ class MainViewModel extends BaseModel {
 
   static GlobalKey<ScaffoldState> mainScaffoldKey = GlobalKey();
 
-  //SharedManager _sharedManager = new SharedManager();
-
-  // Campaigns campaignDetail;
-  // List<News> news = new List();
-  // News newsDetail;
-
   HomeView homeView;
   AllNewsView allNews;
   CustomerLogin customerLogin;
   DoNoticeView doNoticeView;
   int currentIndex = 0;
   LeftDrawerWidget leftDrawerWidget;
-  // NotificationListRequestModel notificationListRequestModel =
-  //     new NotificationListRequestModel();
 
   List<Widget> bottomBarChildren = [
     CustomerNoticeMapView(),
@@ -50,9 +42,6 @@ class MainViewModel extends BaseModel {
   }
 
   MainViewModel() {
-    // _apiService = new ApiServices();
-    // campaignRequestModel = new CampaignRequestModel();
-
     homeView = HomeView(
       goToNoticeList: goToNoticeList,
       goToMapNoticeView: goToMapNoticeView,
@@ -71,21 +60,11 @@ class MainViewModel extends BaseModel {
 
     leftDrawerWidget = LeftDrawerWidget(
       onChangeTokenStatus: () {
-        //TODO başka sayfadaysa burayı kapat
         if (currentIndex == 0) {
           if (homeView.homeViewModel != null) {
             homeView.homeViewModel.getHomeData();
-          } else {
-            // homeView = HomeView(
-            //   goToNoticeList: goToNoticeList,
-            //   goToMapNoticeView: goToMapNoticeView,
-            // );
-            // homeView.homeViewModel.getHomeData();
-          }
+          } else {}
         }
-        // else if (currentIndex == 4) {
-        //   //  customerNoticeMapView.customerNoticeMapView.notifyListeners();
-        // }
       },
       returnMain: () {
         notifyListeners();

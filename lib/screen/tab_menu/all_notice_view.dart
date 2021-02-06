@@ -240,8 +240,6 @@ class AllNoticeState extends State<AllNoticeView> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           _iconLabelButtonEdit(notice),
-          // _iconLabelButtonDelete(notice),
-          // _iconLabelButtonSuccess(notice)
         ],
       );
 
@@ -260,60 +258,12 @@ class AllNoticeState extends State<AllNoticeView> {
         ],
       );
 
-  // Widget _iconLabelDelete(String text) => Wrap(
-  //       crossAxisAlignment: WrapCrossAlignment.end,
-  //       spacing: 5,
-  //       children: <Widget>[
-  //         Icon(
-  //           Icons.delete,
-  //           color: CupertinoColors.inactiveGray,
-  //         ),
-  //         Text(text),
-  //         SizedBox(
-  //           width: 10,
-  //         )
-  //       ],
-  //     );
-
-  // Widget _iconLabelSuccess(String text, int status) => Wrap(
-  //       crossAxisAlignment: WrapCrossAlignment.end,
-  //       spacing: 5,
-  //       children: <Widget>[
-  //         Icon(
-  //           Icons.favorite,
-  //           color: getColor(status),
-  //         ),
-  //         Text(text),
-  //         SizedBox(
-  //           width: 10,
-  //         )
-  //       ],
-  //     );
-
   Widget _iconLabelButtonEdit(Notice notice) => InkWell(
         child: _iconLabelEdit("Detay"),
         onTap: () {
           gotoEditNotice(notice);
         },
       );
-
-  // Widget _iconLabelButtonDelete(Notice notice) => Visibility(
-  //       child: InkWell(
-  //         child: _iconLabelDelete("Sil"),
-  //         onTap: () {
-  //           gotoDelete(notice);
-  //         },
-  //       ),
-  //       visible: (notice.noticeStatus & (64) != 64) &&
-  //           (notice.noticeStatus & (128) != 128),
-  //     );
-
-  // Widget _iconLabelButtonSuccess(Notice notice) => InkWell(
-  //       child: _iconLabelSuccess("", notice.noticeStatus),
-  //       onTap: () {
-  //         gotoSucces(notice);
-  //       },
-  //     );
 
   String getStatus(int status) {
     if (status & 8 == 8)
@@ -329,7 +279,6 @@ class AllNoticeState extends State<AllNoticeView> {
     else if (status & 1 == 1) return "İşlem Bekliyor";
   }
 
-  // ignore: missing_return
   Color getColor(status) {
     if ((status & (64) == 64) || (status & (128) == 128))
       return Colors.red;
@@ -340,18 +289,6 @@ class AllNoticeState extends State<AllNoticeView> {
   void gotoEditNotice(Notice notice) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeDetail(notice)));
   }
-
-  // void gotoDelete(Notice notice) async {
-  //   NoticeApiServices.updateNoticeDelete(notice).then((response) {
-  //     setState(() {
-  //       if (response.statusCode == 204) {
-  //         notices = (json.decode(response.body) as List)
-  //             .map((i) => Notice.fromJson(i))
-  //             .toList();
-  //       }
-  //     });
-  //   });
-  // }
 }
 
 String parseDateData(String dateData) {

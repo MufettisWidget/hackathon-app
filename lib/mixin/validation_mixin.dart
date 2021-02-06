@@ -47,18 +47,4 @@ class ValidationMixin {
     }
     return null;
   }
-
-  // String validatePasswordAgain(String value) {
-  //   if (value.length != 10) {
-  //     return "Numara 10 hane olmalı";
-  //   }
-  //   return null;
-  // }
-
-  // String validePassword(String value) {
-  // if (value.length < 6) {
-  //   return "Şifre en az 6 hane olmalı";
-  // }
-  // return null;
-  // }
 }

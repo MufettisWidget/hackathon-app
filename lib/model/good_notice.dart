@@ -17,17 +17,9 @@ class GoodNotice {
   String _twetterAddress;
   String _noticeDate;
 
-  GoodNotice(this._city, this._district, this._neighborhood, this._street,
-      this._streetNo);
-  // Notice.withId(this._id, this._city);
-  GoodNotice.withId(this._id);
-  // factory Notice.fromJson(Map<String, dynamic> parsedJson) {
+  GoodNotice(this._city, this._district, this._neighborhood, this._street, this._streetNo);
 
-  // return new Notice(
-  //     _id: parsedJson['city'],
-  //     city: parsedJson['streets'],
-  // );
-//}
+  GoodNotice.withId(this._id);
 
   String get id => _id;
   String get city => _city;
@@ -184,7 +176,6 @@ class GoodNotice {
 
   Map toJson(GoodNotice notice) {
     return {
-      // "id": user.id,
       "city": notice.city,
       "district": notice.district,
       "neighborhood": notice.neighborhood,

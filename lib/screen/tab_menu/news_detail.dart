@@ -13,9 +13,6 @@ import '../../model/news.dart';
 import '../../model/notice.dart';
 import '../../shared/style/ui_helper.dart';
 
-//String get baseUrl => "http://api.bildireyimbunu.com/";
-//String get baseUrl => "http://192.168.1.60/BilireyimBunu.WebApi/";
-
 class NewsDetail extends StatefulWidget {
   final News news;
 
@@ -77,33 +74,21 @@ class NewsDetailState extends State with ValidationMixin {
               ),
               SizedBox(height: 20.0),
               Row(children: <Widget>[
-                // Text("Hello"),
                 Flexible(
                   child: new Container(
                     padding: new EdgeInsets.only(right: 13.0),
                     child: new Text(
                       news.detail,
-                      // overflow: TextOverflow.ellipsis,
                       style: new TextStyle(
                         fontSize: 13.0,
                         fontFamily: 'Roboto',
                         color: new Color(0xFF212121),
-                        // fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
               ]),
               SizedBox(height: 40.0),
-
-              // Row(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: <Widget>[
-              //     Expanded(
-              //         flex: 9, // takes 30% of available width
-              //         child: _footerButtonRow(notice))
-              //   ],
-              // ),
             ],
           ),
         ),
@@ -141,23 +126,10 @@ class NewsDetailState extends State with ValidationMixin {
         ],
       );
 
-  // Widget _footerButtonRow(Notice notice) => Row(
-  //       mainAxisAlignment: MainAxisAlignment.end,
-  //       children: <Widget>[
-  //         // _iconLabelButtonEdit(notice),
-  //         _iconLabelButtonDelete(notice),
-  //         _iconLabelButtonSuccess(notice)
-  //         // _iconLabelButton,
-  //         // _iconLabelButton,
-  //       ],
-  //     );
-
   Widget _iconLabelButtonDelete(Notice notice) => Visibility(
       child: InkWell(
         child: _iconLabelDelete("Sil"),
-        onTap: () {
-          // gotoDelete(notice);
-        },
+        onTap: () {},
       ),
       maintainSize: true,
       maintainAnimation: true,
@@ -192,13 +164,11 @@ class NewsDetailState extends State with ValidationMixin {
     );
   }
 
-  // ignore: missing_return
   Color getColor(status) {
-    if (status & (8) == 8) return Colors.red; // kullanıcı düzeltti
+    if (status & (8) == 8) return Colors.red;
     if (status & (8) != 8) return CupertinoColors.inactiveGray;
   }
 
-  // ignore: missing_return
   String getStatus(int status) {
     if (status & 1 == 1) return "İşlem Bekliyor";
     if (status & 8 == 8) return "İl Belediyesine Atandı.";
@@ -225,11 +195,7 @@ class NewsDetailState extends State with ValidationMixin {
     if (x) {
       NoticeApiServices.instance.updateNoticeSuccess(notice).then((response) {
         setState(() {
-          if (response.statusCode == 204) {
-            // notices = (json.decode(response.body) as List)
-            //     .map((i) => Notice.fromJson(i))
-            //     .toList();
-          }
+          if (response.statusCode == 204) {}
         });
       });
     }
@@ -244,7 +210,6 @@ class NewsDetailState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(txt),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Onayla"),
               onPressed: () {

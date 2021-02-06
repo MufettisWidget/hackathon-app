@@ -15,7 +15,6 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   MainViewModel _mainViewModel;
 
-  //2.faz
   @override
   Widget build(BuildContext context) {
     return BaseView<MainViewModel>(
@@ -98,7 +97,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
   }

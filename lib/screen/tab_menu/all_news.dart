@@ -17,7 +17,7 @@ int count = 0;
 
 class AllNewsState extends State {
   NewsViewModel _newsViewModel;
-  // List<News> news;
+
   @override
   Widget build(BuildContext context) {
     return BaseView<NewsViewModel>(
@@ -81,7 +81,6 @@ class AllNewsState extends State {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(_newsViewModel.news[index].newsMunicipality),
-                                            //   _footerButtonRow(news[index]),
                                           ],
                                         )
                                       ],
@@ -106,8 +105,6 @@ class AllNewsState extends State {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           _iconLabelButtonEdit(notice),
-          // _iconLabelButtonDelete(notice),
-          // _iconLabelButtonSuccess(notice)
         ],
       );
 
@@ -133,36 +130,6 @@ class AllNewsState extends State {
         },
       );
 
-  // Widget _iconLabelButtonDelete(Notice notice) => Visibility(
-  //       child: InkWell(
-  //         child: _iconLabelDelete("Sil"),
-  //         onTap: () {
-  //           gotoDelete(notice);
-  //         },
-  //       ),
-  //       visible: (notice.noticeStatus & (64) != 64) &&
-  //           (notice.noticeStatus & (128) != 128),
-  //     );
-
-  // Widget _iconLabelButtonSuccess(Notice notice) => InkWell(
-  //       child: _iconLabelSuccess("", notice.noticeStatus),
-  //       onTap: () {
-  //         gotoSucces(notice);
-  //       },
-  //     );
-
-  // String getStatus(int status) {
-  //   if (status & 1 == 1) return "İşlem Bekliyor";
-  //   if (status & 8 == 8) return "İl Belediyesine Atandı.";
-  //   if (status & 16 == 16) return "İlçe Belediyesine Atandı.";
-  //   if (status & 64 == 64)
-  //     return "Belediye tarafından bildirim düzeltildi. Kontrol bekliyor.";
-  //   if (status & 128 == 128) return "Kullanıcı tarafından onaylandı";
-  //   if (status & 256 == 256)
-  //     return "Belediye tarafından Sorun giderildi. Editör Onayladı.";
-  // }
-
-  // ignore: missing_return
   Color getColor(status) {
     if ((status & (64) == 64) || (status & (128) == 128))
       return Colors.red;
