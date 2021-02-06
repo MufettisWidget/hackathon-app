@@ -164,8 +164,6 @@ class RenewPasswordState extends State with ValidationMixin {
       AccountApiServices.renewPassword(user.id, user.password).then((response) {
         setState(() {
           if (response.statusCode == 200) {
-            // Map userMap = jsonDecode(response.body);
-            // var userLogin = User.fromJson(userMap);
             _showDialog("Şifreniz Değişmiştir. Giriş yapabilirsiniz.", true);
           } else {
             _showDialog("E-posta adresine ait kullanıcı bulunamadı.", false);
@@ -185,7 +183,6 @@ class RenewPasswordState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {

@@ -112,7 +112,6 @@ class ChangeMailAddressState extends State with ValidationMixin {
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.left,
           keyboardType: TextInputType.emailAddress,
-          // obscureText: obscure,
           autocorrect: false,
           readOnly: false,
           validator: validateEmail,
@@ -225,7 +224,6 @@ class ChangeMailAddressState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {
@@ -238,6 +236,4 @@ class ChangeMailAddressState extends State with ValidationMixin {
       },
     );
   }
-
-  // await(Future<ConnectivityResult> checkConnectivity) {}
 }

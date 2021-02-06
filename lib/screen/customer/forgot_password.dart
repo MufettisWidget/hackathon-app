@@ -66,7 +66,6 @@ class ForgotPasswordState extends State with ValidationMixin {
                   UIHelper.email,
                   false,
                 ),
-                // _textFieldPassword(UIHelper.password, true),
               ],
             ),
           ),
@@ -134,18 +133,6 @@ class ForgotPasswordState extends State with ValidationMixin {
 
   Widget get _helloText => Text(UIHelper.hello, style: _helloTextStyle(70));
 
-  // Widget emailNameField() {
-  //   return TextFormField(
-  //     keyboardType: TextInputType.emailAddress,
-  //     decoration:
-  //         InputDecoration(labelText: "E-Mail", hintText: "mail@mail.com"),
-  //     validator: validateEmail,
-  //     onSaved: (String value) {
-  //       mailAddres = value;
-  //     },
-  //   );
-  // }
-
   TextStyle _helloTextStyle(double fontSize) => TextStyle(
         color: Colors.white,
         fontSize: UIHelper.dynamicSp(fontSize),
@@ -193,13 +180,9 @@ class ForgotPasswordState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
-              onPressed: () {
-                // Navigator.of(context).pop();
-                // Navigator.of(context).pushNamed("/myProfil");
-              },
+              onPressed: () {},
             ),
           ],
         );

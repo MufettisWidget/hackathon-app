@@ -19,7 +19,6 @@ void main() async {
   CameraDescription firstCamera;
   final cameras = await availableCameras();
 
-  // Get a specific camera from the list of available cameras.
   firstCamera = cameras.first;
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -49,7 +48,6 @@ class BildireyimBunu extends StatelessWidget {
     );
   }
 }
-
 
 Future _applicationConfigure() async {
   initLocator();

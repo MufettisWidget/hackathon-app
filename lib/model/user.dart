@@ -13,7 +13,7 @@ class User {
   String nameSurname;
   String password;
   String phone;
-  // String avatarUrl;
+
   bool isKvkk;
   String userToken;
 

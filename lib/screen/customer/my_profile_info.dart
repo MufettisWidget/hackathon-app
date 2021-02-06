@@ -31,7 +31,6 @@ class MyProfileInfoState extends State with ValidationMixin {
     ScreenUtil.instance.init(context);
     return Scaffold(
       appBar: AppBar(
-        // title: Text("Second Route"),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
@@ -94,11 +93,6 @@ class MyProfileInfoState extends State with ValidationMixin {
           autocorrect: false,
           validator: validateFirtsName,
           autofocus: false,
-          // onChanged: (text) => {userName.text},
-
-          // onSaved: (String value) {
-          //   //  customer.nameSurname = value;
-          // },
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
@@ -124,13 +118,10 @@ class MyProfileInfoState extends State with ValidationMixin {
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.left,
           keyboardType: TextInputType.emailAddress,
-          // obscureText: obscure,
           autocorrect: false,
           readOnly: true,
           validator: validateEmail,
-          onSaved: (String value) {
-            //    customer.mailAddress = value;
-          },
+          onSaved: (String value) {},
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
@@ -157,13 +148,10 @@ class MyProfileInfoState extends State with ValidationMixin {
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.left,
           readOnly: true,
-          // obscureText: obscure,
           autocorrect: false,
           maxLength: 10,
           validator: validatePhone,
-          onSaved: (String value) {
-            //  customer.phone = value;
-          },
+          onSaved: (String value) {},
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
@@ -283,7 +271,6 @@ class MyProfileInfoState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {

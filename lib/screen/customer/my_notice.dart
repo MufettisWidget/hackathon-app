@@ -29,11 +29,6 @@ class MyNoticeState extends State<MyNoticeView> {
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverAppBar(
-                    // leading: BadgeMenuView(
-                    //   onPress: () {
-                    //     _myNoticeViewModel.openLeftDrawer();
-                    //   },
-                    // ),
                     expandedHeight: UIHelper.dynamicHeight(100),
                     floating: true,
                     pinned: true,
@@ -203,8 +198,6 @@ class MyNoticeState extends State<MyNoticeView> {
                                   ),
                                 ),
                               ],
-                              //     ),
-                              //],
                             ),
                             _footerButtonRow(_myNoticeViewModel.noticies[index])
                           ],
@@ -305,7 +298,6 @@ class MyNoticeState extends State<MyNoticeView> {
     else if (status & 1 == 1) return "İşlem Bekliyor";
   }
 
-  // ignore: missing_return
   Color getColor(status) {
     if ((status & (64) == 64) || (status & (128) == 128))
       return Colors.red;

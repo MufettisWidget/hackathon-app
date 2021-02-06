@@ -131,8 +131,6 @@ class NoticeExplationState extends State with ValidationMixin {
                     );
                   });
               saveNotice(notice);
-
-              // saveNotice(notice);
             }
           },
           child: Container(
@@ -216,9 +214,7 @@ class NoticeExplationState extends State with ValidationMixin {
   }
 
   Future<String> _createDynamicLink(bool short, String longUri, Notice notice) async {
-    setState(() {
-      //  _isCreatingLink = true;
-    });
+    setState(() {});
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       // uriPrefix: 'https://application.bildireyimbunu.com',
@@ -245,35 +241,12 @@ class NoticeExplationState extends State with ValidationMixin {
     } else {
       url = await parameters.buildUrl();
     }
-    // return url.origin.toString() + '/' + url.path.toString();
+
     setState(() {
       _linkMessage = url.toString();
       _isCreatingLink = false;
     });
   }
-
-  // void _showDialog() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: new Text("Teşekkürler :)"),
-  //         content: new Text(
-  //             "Bildiriniz kayıt edilmiştir. Kontrol edildikten sonra yayınlanacaktır."),
-  //         actions: <Widget>[
-  //           // usually buttons at the bottom of the dialog
-  //           new FlatButton(
-  //             child: new Text("Kapat"),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //               Navigator.of(context).pushNamed("/home");
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
 }
 
-// }
 enum SingingCharacter { districtNotice, cityNotice }

@@ -70,11 +70,11 @@ class MyNoticeDetailState extends State with ValidationMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                      flex: 6, // takes 30% of available width
+                      flex: 6,
                       child: detail(),
                     ),
                     Expanded(
-                      flex: 4, // takes 70% of available width
+                      flex: 4,
                       child: image(),
                     ),
                   ],
@@ -82,30 +82,13 @@ class MyNoticeDetailState extends State with ValidationMixin {
                 SizedBox(height: 10.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 9, // takes 30% of available width
-                        child: noticeexplatipn())
-                  ],
+                  children: <Widget>[Expanded(flex: 9, child: noticeexplatipn())],
                 ),
                 SizedBox(height: 40.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 9, // takes 30% of available width
-                        child: mapStreet())
-                  ],
+                  children: <Widget>[Expanded(flex: 9, child: mapStreet())],
                 ),
-                // SizedBox(height: 40.0),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: <Widget>[
-                //     Expanded(
-                //         flex: 9, // takes 30% of available width
-                //         child: _footerButtonRow(notice))
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -128,41 +111,6 @@ class MyNoticeDetailState extends State with ValidationMixin {
           )
         ],
       );
-
-  // Widget _iconLabelSuccess(String text, int status) => Wrap(
-  //       crossAxisAlignment: WrapCrossAlignment.end,
-  //       spacing: 5,
-  //       children: <Widget>[
-  //         Icon(
-  //           Icons.favorite,
-  //           color: getColor(status),
-  //         ),
-  //         Text(text),
-  //         SizedBox(
-  //           width: 10,
-  //         )
-  //       ],
-  //     );
-
-  // Widget _iconLabelButtonDelete(Notice notice) => Visibility(
-  //       child: InkWell(
-  //         child: _iconLabelDelete("Sil"),
-  //         onTap: () {
-  //           gotoDelete(notice);
-  //         },
-  //       ),
-  //       visible: (notice.noticeStatus & (64) != 64) &&
-  //           (notice.noticeStatus & (128) != 128),
-  //     );
-
-  // Widget _iconLabelButtonSuccess(Notice notice) => InkWell(
-  //       child: _iconLabelSuccess("", notice.noticeStatus),
-  //       onTap: () {
-  //         if (notice.noticeStatus & (8) != 8) {
-  //           gotoSucces(notice);
-  //         }
-  //       },
-  //     );
 
   Widget detail() {
     return Column(
@@ -334,7 +282,6 @@ class MyNoticeDetailState extends State with ValidationMixin {
     );
   }
 
-  // ignore: missing_return
   Color getColor(status) {
     if ((status & (64) == 64) || (status & (128) == 128))
       return Colors.red;
@@ -342,7 +289,6 @@ class MyNoticeDetailState extends State with ValidationMixin {
       return CupertinoColors.systemGrey;
   }
 
-  // ignore: missing_return
   String getStatus(int status) {
     if (status & 8 == 8)
       return "İl Belediyesine Atandı.";
@@ -381,11 +327,10 @@ class MyNoticeDetailState extends State with ValidationMixin {
   Widget mapStreet() {
     return Column(children: [
       SizedBox(
-        width: MediaQuery.of(context).size.width, // or use fixed size like 120
+        width: MediaQuery.of(context).size.width,
         height: 250,
         child: GoogleMap(
           mapType: MapType.normal,
-          // myLocationEnabled: true,
           markers: _markers,
           initialCameraPosition: _currentPosition,
           onMapCreated: (GoogleMapController controller) {
@@ -399,18 +344,6 @@ class MyNoticeDetailState extends State with ValidationMixin {
     ]);
   }
 
-  // Widget submitButton() {
-  //   return RaisedButton(
-  //     child: Text("Bildirimi Kaydet"),
-  //     onPressed: () {
-  //       if (formKey.currentState.validate()) {
-  //         formKey.currentState.save();
-  //         saveNotice(notice);
-  //       }
-  //     },
-  //   );
-  // }
-
   void _showDialog(String txt, Notice notice, bool isDeleted) {
     showDialog(
       context: context,
@@ -419,7 +352,6 @@ class MyNoticeDetailState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(txt),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Onayla"),
               onPressed: () {
@@ -428,42 +360,13 @@ class MyNoticeDetailState extends State with ValidationMixin {
                     setState(() {
                       if (response.statusCode == 204) {
                         NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
-                          // setState(() {
                           if (response.statusCode == 200) {
                             Map<String, dynamic> map = jsonDecode(response.body);
                             var responseNotice = ResponseNotice.fromJson(map);
 
                             SharedManager().loginRequest.noticies = responseNotice.notices;
-
-                            // Navigator.pop(context);
-                            // Navigator.of(context).pushNamedAndRemoveUntil(
-                            //     MyNoticeView.routeName,
-                            //     (Route<dynamic> route) => false);
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //
-
-                            //SharedManager().loginRequest = userLogin;
-                            //  setState(ViewState.Idle);
-                            // navigator.navigateToRemove(Pages.Home);
-                          } else {
-                            //  setState(ViewState.Idle);
-
-                            // SharedManager().loginRequest = userLogin;
-                          }
-                          //  });
+                          } else {}
                         });
-
-//can
-                        // Navigator.pop(context);
-                        // Navigator.of(context).pushNamedAndRemoveUntil(
-                        //     MyNoticeView.routeName,
-                        //     (Route<dynamic> route) => false);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => MyNoticeView()));
                       }
                     });
                   });

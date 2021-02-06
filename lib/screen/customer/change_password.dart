@@ -28,7 +28,6 @@ class ChangePasswordState extends State with ValidationMixin {
     ScreenUtil.instance.init(context);
     return Scaffold(
       appBar: AppBar(
-        // title: Text("Second Route"),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
@@ -112,7 +111,7 @@ class ChangePasswordState extends State with ValidationMixin {
           autocorrect: false,
           validator: (val) {
             if (val.isEmpty) return 'Empty';
-            // if (val != newPassword) return 'Not Match';
+
             return null;
           },
           onSaved: (String value) {
@@ -254,7 +253,6 @@ class ChangePasswordState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {

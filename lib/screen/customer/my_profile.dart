@@ -19,17 +19,10 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  // ProfileViewModel _profileViewModel;
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance.init(context);
-    // return BaseView<ProfileViewModel>(
-    //   onModelReady: (model) {
-    //     model.setContext(context);
-    //     _profileViewModel = model;
-    //   },
-    //   builder: (context, model, child) {
+
     return Scaffold(
       backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
       body: Stack(
@@ -100,21 +93,9 @@ class _ProfileViewState extends State<ProfileView> {
                               padding: EdgeInsets.all(UIHelper.dynamicHeight(24)),
                               child: Text(
                                 SharedManager().loginRequest.nameSurname,
-                                // SharedManager().loginRequest.nameSurname,
                                 style: TextStyle(color: UIHelper.WHITE, fontSize: UIHelper.dynamicScaleSp(54), fontWeight: FontWeight.bold),
                               ),
                             ),
-                            // InkWell(
-                            //   onTap: () {
-                            //     showModalBottom();
-                            //   },
-                            //   child: Text(
-                            //     " Değiştir",
-                            //     style: TextStyle(
-                            //       color: UIHelper.WHITE,
-                            //     ),
-                            //   ),
-                            // ),
                             SizedBox(
                               height: UIHelper.dynamicHeight(20),
                             )
@@ -175,18 +156,12 @@ class _ProfileViewState extends State<ProfileView> {
               ],
             ),
           ),
-          // Visibility(
-          //     visible: _profileViewModel.state == ViewState.Busy ? true : false,
-          //     child: Center(child: CircularProgressIndicator()))
         ],
       ),
     );
-    //   },
-    // );
   }
 
   Future showModalBottom() async {
-    // _profileViewModel.menuItemsFilled();
     await showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -210,7 +185,6 @@ class _ProfileViewState extends State<ProfileView> {
                   children: <Widget>[
                     UIHelper.verticalSpaceSmall(),
                     NothcWidget(),
-                    // _listMenuItems,
                   ],
                 )),
           ),

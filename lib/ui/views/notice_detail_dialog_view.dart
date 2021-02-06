@@ -20,14 +20,13 @@ class NoticeDetailDialogView extends StatefulWidget {
       : super(key: key);
 
   final String distanceMinute;
-  // final List<Prices> dailyPrices;
+
   int currentPointPosition;
   int currentDistancePosition;
   final Notice noticeDetail;
   final VoidCallback closeDialog;
   final VoidCallback mapsRouteCallback;
   final VoidCallback mapsCallCallback;
-  // final bool pointVisibility;
 }
 
 class _StationDialogViewState extends State<NoticeDetailDialogView> {
@@ -47,7 +46,6 @@ class _StationDialogViewState extends State<NoticeDetailDialogView> {
           child: InkWell(
             onTap: () {
               widget.closeDialog();
-              //_closeModal();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -78,7 +76,6 @@ class _StationDialogViewState extends State<NoticeDetailDialogView> {
                     notice: widget.noticeDetail,
                     onRoutePress: () {
                       widget.mapsRouteCallback();
-                      // launchMaps();
                     },
                     onCallPress: () {
                       widget.mapsCallCallback();

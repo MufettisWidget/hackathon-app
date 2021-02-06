@@ -30,7 +30,6 @@ class CustomerLoginState extends State with ValidationMixin {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
-            // title: Text("Second Route"),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
           ),

@@ -41,7 +41,6 @@ class CustomerAddState extends State with ValidationMixin {
                 _helloText,
                 _description,
                 _formField,
-                //   ,
                 _signup,
                 _getkvkk(),
                 link(),
@@ -103,7 +102,6 @@ class CustomerAddState extends State with ValidationMixin {
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.left,
           keyboardType: TextInputType.text,
-          // obscureText: obscure,
           autocorrect: false,
           validator: validateFirtsName,
           onSaved: (String value) {
@@ -133,7 +131,6 @@ class CustomerAddState extends State with ValidationMixin {
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.left,
           keyboardType: TextInputType.emailAddress,
-          // obscureText: obscure,
           autocorrect: false,
           validator: validateEmail,
           onSaved: (String value) {
@@ -163,7 +160,6 @@ class CustomerAddState extends State with ValidationMixin {
           keyboardType: TextInputType.phone,
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.left,
-          // obscureText: obscure,
           autocorrect: false,
           maxLength: 10,
           validator: validatePhone,
@@ -279,11 +275,7 @@ class CustomerAddState extends State with ValidationMixin {
         checkColor: Colors.red,
         title: Text(
           "Bildireyim Bunu tarafından kişişel verilerimin işlenmesini ve ticari elektronik ileti almayı kabul ederek açık rıza veriyorum.",
-          style: TextStyle(
-              //  fontWeight: FontWeight.bold,
-              color: Colors.white,
-              //decoration: TextDecoration.underline,
-              fontSize: 12.0),
+          style: TextStyle(color: Colors.white, fontSize: 12.0),
         ),
       ),
     );
@@ -295,18 +287,13 @@ class CustomerAddState extends State with ValidationMixin {
         child: InkWell(
           onTap: () {
             _showDialogKvkk();
-            //  Navigator.pushNamed(context, MyNotice.routeName);
           },
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
               "Aydınlatma metni için tıklayınız.",
               textAlign: TextAlign.right,
-              style: TextStyle(
-                  //  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                  decoration: TextDecoration.underline,
-                  fontSize: 15.0),
+              style: TextStyle(color: Colors.red, decoration: TextDecoration.underline, fontSize: 15.0),
             ),
           ),
         ));
@@ -344,11 +331,6 @@ class CustomerAddState extends State with ValidationMixin {
       AccountApiServices.createUser(user).then((response) {
         setState(() {
           if (response.statusCode == 201) {
-            // AccountApiServices.sendMail(user).then((response) {
-
-            // });
-
-            // String body = json.decode(response.body).toString();
             _showDialog("Kayıdınız alındı. Lütfen mail adresinize gelen e-postayı onaylayınız.", true);
           } else {
             _showDialog("Aynı mail adresi veya telefon numarasına ait kayıt vardır.", true);
@@ -392,21 +374,15 @@ class CustomerAddState extends State with ValidationMixin {
                     "\n\nBİLDİRİREYİM BUNU; bu Gizlilik Politikası ve Kullanım Koşulları metninde değişiklik yapabilir. Yapılan değişiklikler anında yürürlüğe girecektir. Değişiklik yaptığımız tarihi, 'son güncelleme tarihi' olarak en alt kısımda belirtiriz." +
                     "\n\nSon güncelleme tarihi:" +
                     "\n\18.11.2020",
-                style: TextStyle(
-                    //fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 10.0),
+                style: TextStyle(color: Colors.black, fontSize: 10.0),
               ),
             ),
           ),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Tamam"),
               onPressed: () {
                 Navigator.pop(context);
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => CustomerLogin()));
               },
             ),
           ],
@@ -423,7 +399,6 @@ class CustomerAddState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {
@@ -447,13 +422,11 @@ class CustomerAddState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(contextText),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {
                 if (isuscces) {
                   Navigator.of(context).pop();
-                  // Navigator.of(context).pushNamed("/customerLogin");
                 }
               },
             ),

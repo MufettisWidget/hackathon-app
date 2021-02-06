@@ -16,7 +16,6 @@ import '../../ui/views/baseview.dart';
 import 'camera_notice.dart';
 
 class DoNoticeView extends StatefulWidget {
-  // DoNoticeView({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => DoNoticeState();
 }
@@ -65,8 +64,6 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
 
   @override
   Widget build(BuildContext context) {
-    //_isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-
     return BaseView<DoNoticeViewModel>(
       onModelReady: (model) {
         model.setContext(context);
@@ -76,7 +73,6 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            //can
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => _doNoticeViewModel.goHome(),
@@ -123,10 +119,9 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
   }
 
   Widget mapStreet() {
-    // if (latitude != null) {
     return Column(children: [
       SizedBox(
-        width: MediaQuery.of(context).size.width, // or use fixed size like 200
+        width: MediaQuery.of(context).size.width,
         height: 250,
         child: GoogleMap(
           mapType: MapType.normal,
@@ -180,42 +175,6 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
         readOnly: false);
   }
 
-//   Future<String> get _getCurrentLocation async {
-//     //  if (_sharedManager.homeLocation != null) {
-//     //   currentUserLocation = new LatLng(_sharedManager.homeLocation.lat, _sharedManager.homeLocation.lng);
-//     // }
-
-//     latitude = _sharedManager.homeLocation.lat;
-//     longitude = _sharedManager.homeLocation.lng;
-
-//     // _locationService = new LocationService(
-//     //     isLocationTrack: true,
-//     //     onChangeLocation: () {
-//     //       // currentUserLocation = _locationService.currentLocation;
-//     //       // addMarkerUser();
-//     //       // print(_locationService.currentLocation.latitude);
-//     //     },
-//     //     onRejectPermission: () {
-//     //       // addMarkerUser();
-//     //       // snackBarWarningMessage(translate(context, LanguageConstants.of(context).warningLocationPermission));
-//     //     },
-//     //     onCloseGPSListener: () {
-//     //       // addMarkerUser();
-//     //       // snackBarWarningMessage(translate(context, LanguageConstants.of(context).warningOpenGps));
-//     //     });
-// //  Future<List<Placemark>> placemark =  Geolocator()
-// //         .placemarkFromCoordinates(_sharedManager.homeLocation.lat, _sharedManager.homeLocation.lng);
-//     // Placemark place = placemark.t[0];
-//     controllerCity.text = _sharedManager.homeLocation.city;
-//     // controllerDisctirct.text = place.subAdministrativeArea.toString();
-//     // controllerNeighborhood.text = place.subLocality.toString();
-//     // controllerStreet.text = place.thoroughfare.toString();
-//     // controllerStreetNo.text = place.subThoroughfare.toString();
-
-//     // controllerSubStreet.text = place.thoroughfare.toString();
-//   }
-
-  // ignore: missing_return
   Future<String> get _getCurrentLocation async {
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     List<Placemark> placemark = await Geolocator()
@@ -246,17 +205,13 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
   void gotoCameraPage() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    // Obtain a list of the available cameras on the device.
     final cameras = await availableCameras();
 
-    // Get a specific camera from the list of available cameras.
     final firstCamera = cameras.first;
     Notice notice =
         new Notice(controllerCity.text, controllerDisctirct.text, controllerNeighborhood.text, controllerStreet.text, controllerStreetNo.text);
     notice.latitude = latitude;
     notice.longitude = longitude;
     Navigator.push(context, MaterialPageRoute(builder: (_context) => TakePictureScreen(camera: firstCamera, notice: notice)));
-    // await Navigator.push(context,
-    //     MaterialPageRoute(builder: (_context) => CameraExampleHome(notice)));
   }
 }

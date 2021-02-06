@@ -33,7 +33,6 @@ class ListGroupItemView extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      //dropDownChild != null ? dropDownChild : Container(),
                       Text(
                         rightText != null ? rightText : "",
                         style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: UIHelper.dynamicScaleSp(38)),
