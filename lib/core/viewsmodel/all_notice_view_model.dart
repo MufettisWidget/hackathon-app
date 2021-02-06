@@ -32,7 +32,6 @@ class AllNoticeViewModel extends BaseModel {
       noticies = SharedManager().openNotice;
     } else {
       NoticeApiServices.instance.getAllNoticeNoPage().then((response) {
-        //    setState(() {
         if (response.statusCode == 200) {
           Map<String, dynamic> map = jsonDecode(response.body);
           var responseNotice = ResponseNotice.fromJson(map);

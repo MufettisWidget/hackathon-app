@@ -12,7 +12,6 @@ class DistrictApiServices {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
     final response = await http.get(
       baseUrl + 'district/GetDistrict/$city/$district',
-      // final response = await http.get ( url,
       headers: headers,
     );
     return response;
@@ -22,7 +21,6 @@ class DistrictApiServices {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
     final response = await http.get(
       baseUrl + 'district',
-      // final response = await http.get ( url,
       headers: headers,
     );
     return response;
@@ -30,10 +28,6 @@ class DistrictApiServices {
 
   Future<http.Response> ggetMostDistrict() {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
-    // final response = http.get(
-    //     baseUrl + 'district/GetMostCity',
-    //     headers: headers,
-    //   );
 
     final response = http.get(
       baseUrl + 'district/GetMostCity',

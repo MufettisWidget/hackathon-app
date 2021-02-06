@@ -13,7 +13,6 @@ class BadgeMenuViewModel extends BaseModel {
 
   BadgeMenuViewModel() {}
 
-  @override
   void setContext(BuildContext context) {
     this._context = context;
   }

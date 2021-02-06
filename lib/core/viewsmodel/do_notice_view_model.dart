@@ -14,7 +14,6 @@ class DoNoticeViewModel extends BaseModel {
     navigator.navigateToRemove(Pages.Home);
   }
 
-  @override
   void setContext(BuildContext context) {
     this._context = context;
   }
