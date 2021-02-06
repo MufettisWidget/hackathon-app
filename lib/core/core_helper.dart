@@ -11,7 +11,6 @@ class CoreHelper {
   static final validCharacters = RegExp(r'^[a-zA-Z]+$');
 
   static const String kGoogleApiKey = "AIzaSyALnT7pxhQRDuQ3X5RdHEFfUbGtr4w7VL8";
-  //static const String kGoogleApiKey = "AIzaSyDS2f8wvdKE1V2f3PLzxtnnG40HNGJp004";
 
   int getAmountMoney(String currentMoney) {
     return int.parse(currentMoney.replaceAll("₺", "").split(",")[0]);
@@ -20,10 +19,6 @@ class CoreHelper {
   int getAmountDoubleToInt(String currentMoney) {
     return double.parse(currentMoney).toInt();
   }
-
-  // double getAmountDoubleMoney(String currentMoney) {
-  //   return double.parse(currentMoney.replaceAll("${Constants.TL_SYMBOL}", "").replaceAll(",", "."));
-  // }
 
   static String dateTimeParser(DateTime date) {
     return "${date.day}/${date.month}/${date.year}";
@@ -38,14 +33,11 @@ class CoreHelper {
     bool isOk = true;
 
     if (selectedFuelTypes.contains("2") && selectedFuelTypes.contains("3")) {
-      // Benzin kontrolü
       isOk = false;
     } else if (selectedFuelTypes.contains("3") && selectedFuelTypes.length > 1) {
-      // Motorin kontrolü
       isOk = false;
     } else if ((selectedFuelTypes.contains("4") && selectedFuelTypes.contains("3")) ||
         (selectedFuelTypes.contains("4") && selectedFuelTypes.contains("1"))) {
-      // Elektrik kontrolü
       isOk = false;
     } else if (selectedFuelTypes.contains("1") && selectedFuelTypes.length == 1) {
       isOk = false;

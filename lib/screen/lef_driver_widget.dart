@@ -48,58 +48,22 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
                       _buildListTile(
                           "Bildirimlerim", Icons.notification_important, context, SharedManager().loginRequest == null ? Pages.Login : Pages.MyNotice,
                           isBagde: true),
-                      // _buildListTile(
-                      //     "Mutlu Haber Vereyim",
-                      //     Icons.add_comment,
-                      //     context,
-                      //     SharedManager().token == null
-                      //         ? Pages.Login
-                      //         : Pages.AddHapptNews,
-                      //     isBagde: _leftDrawerViewModel
-                      //                 .sharedManager.notificationCount ==
-                      //             0
-                      //         ? false
-                      //         : true),
-                      // _buildListTile(
-                      //     "Mutlu Haberlerim",
-                      //     Icons.comment_outlined,
-                      //     context,
-                      //     SharedManager().token == null
-                      //         ? Pages.Login
-                      //         : Pages.Home,
-                      //     isBagde: _leftDrawerViewModel
-                      //                 .sharedManager.notificationCount ==
-                      //             0
-                      //         ? false
-                      //         : true),
-
-                      // _buildListTile(
-                      //     _leftDrawerViewModel.translate(
-                      //         context, LanguageConstants().news),
-                      //     Icons.receipt,
-                      //     context,
-                      //     Pages.News),
-
                       Visibility(
                         visible: SharedManager().loginRequest != null,
                         child: _buildListTile('Hesabım', Icons.account_circle, context, Pages.MyAccount),
                       ),
-
                       Visibility(
                         visible: SharedManager().loginRequest == null,
                         child: _buildListTile("Giriş Yap", Icons.login, context, Pages.Login),
                       ),
-
                       Visibility(
                         visible: SharedManager().loginRequest == null,
                         child: _buildListTile('Kayit Ol', Icons.account_box, context, Pages.Signin),
                       ),
-
                       Visibility(
                         visible: SharedManager().loginRequest != null,
                         child: _buildListTile('Çıkış Yap', Icons.logout, context, null),
                       ),
-
                       Padding(
                         padding: EdgeInsets.all(UIHelper.dynamicHeight(48)),
                         child: Divider(
@@ -107,25 +71,6 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
                           color: Colors.grey,
                         ),
                       ),
-                      // _buildListTile(
-                      //     _leftDrawerViewModel.translate(
-                      //         context, LanguageConstants().faq),
-                      //     Icons.question_answer,
-                      //     context,
-                      //     Pages.Home),
-                      // _buildListTile(
-                      //     _leftDrawerViewModel.translate(context,
-                      //         LanguageConstants().suggestionAndComplaint),
-                      //     Icons.support_agent,
-                      //     context,
-                      //     Pages.Home),
-
-                      // _buildListTile(
-                      //     _leftDrawerViewModel.translate(
-                      //         context, LanguageConstants().contact),
-                      //     Icons.comment_sharp,
-                      //     context,
-                      //     Pages.Home),
                     ],
                   ),
                 ),
@@ -141,27 +86,6 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
                           "assets/icons/appicon.png",
                           scale: 6,
                         ),
-                        // Row(
-                        //   children: <Widget>[
-                        //     Padding(
-                        //       padding: EdgeInsets.all(UIHelper.dynamicHeight(24)),
-                        //       child: Icon(
-                        //         Icons.phone,
-                        //         size: 16,
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //     InkWell(
-                        //       onTap: () {
-                        //         CoreHelper.launchCaller(Constants.PHONE_NUMBER);
-                        //       },
-                        //       child: Text(
-                        //         Constants.PHONE_NUMBER,
-                        //         style: TextStyle(color: Colors.white),
-                        //       ),
-                        //     )
-                        //   ],
-                        // )
                       ],
                     ),
                   ),
@@ -231,7 +155,6 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
 
   ListTile _buildListTile(String _title, IconData _icon, BuildContext context, Pages _page, {bool isBagde = false}) {
     return ListTile(
-      // trailing: Text("left_dirver_buildListTile"),
       leading: Icon(
         _icon,
         color: Colors.grey,
@@ -247,7 +170,6 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
       dense: true,
       onTap: () {
         if (_page == null) {
-          // widget.onChangeTokenStatus();
           _leftDrawerViewModel.logout();
           Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(builder: (context) => SplashView()));

@@ -9,7 +9,6 @@ import '../model/user.dart';
 import 'enum/shared_data.dart';
 
 class SharedManager {
-  /// [factory] init.
   SharedManager._privateConstructor() {
     SharedPreferences.getInstance().then((prefs) {
       this.prefs = prefs;
@@ -59,7 +58,6 @@ class SharedManager {
     saveStringToDisk(ClientSharedEnum.loginRequestBb.toString(), json.encode(loginRequest.toJson(loginRequest)));
   }
 
-//-----mostCityCount
   String get mostCityCount => prefs.get(ClientSharedEnum.mostCityCount.toString()) ?? '0';
 
   set mostCityCount(String mostCityCount) {
@@ -72,7 +70,6 @@ class SharedManager {
     prefs.setString(ClientSharedEnum.mostCityName.toString(), mostCityName);
   }
 
-//----mostCitySolitionCount
   String get mostCitySolitionCount => prefs.get(ClientSharedEnum.mostCitySolitionCount.toString()) ?? '0';
 
   set mostCitySolitionCount(String mostCitySolitionCount) {
@@ -85,7 +82,6 @@ class SharedManager {
     prefs.setString(ClientSharedEnum.mostCitySolitionName.toString(), mostCitySolitionName);
   }
 
-//----mostDistrictCount
   String get mostDistrictCount => prefs.get(ClientSharedEnum.mostDistrictCount.toString()) ?? '0';
 
   set mostDistrictCount(String mostDistrictCount) {
@@ -98,7 +94,6 @@ class SharedManager {
     prefs.setString(ClientSharedEnum.mostDistrictName.toString(), mostDistrictName);
   }
 
-//----mostDistrictSolitionCount
   String get mostDistrictSolitionCount => prefs.get(ClientSharedEnum.mostDistrictSolitionCount.toString()) ?? '0';
 
   set mostDistrictSolitionCount(String mostDistrictSolitionCount) {
@@ -110,7 +105,6 @@ class SharedManager {
   set mostDistrictSolitionName(String mostDistrictSolitionName) {
     prefs.setString(ClientSharedEnum.mostDistrictSolitionName.toString(), mostDistrictSolitionName);
   }
-//------------
 
   List<Notice> get openNotice {
     var openNoticeJson = _getFromDisk(ClientSharedEnum.allNoticeBb.toString());

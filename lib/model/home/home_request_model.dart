@@ -18,9 +18,4 @@ class HomeRequestModel {
     data['Longitude'] = this.longitude;
     return data;
   }
-
-  // @override
-  // HomeRequestModel fromJson(Map<String, dynamic> json) {
-  //   return HomeRequestModel.fromJson(json);
-  // }
 }

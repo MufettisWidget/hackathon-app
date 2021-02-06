@@ -27,33 +27,19 @@ class SuccessShareState extends State<SuccessShare> {
   SuccessShareState(this.notice);
   String _platformVersion = 'Unknown';
   bool _isCreatingLink = false;
-  String _linkMessage;
+  String _linkMessage = "https://google.com";
   String _testString = "Arkaşlarına paylaşıp daha çok insana ulaşmasını sağlayabilirsiniz";
-  // String url =
-  //     'http://doktoraktuel.com/ilan-detay/satilik-rontgen-cihazi/${notice.id}';
 
   @override
   void initState() {
     super.initState();
-    _createDynamicLink(true, '', notice);
-    // Future.delayed(Duration(seconds: 2));
+
     initPlatformState();
-    _createDynamicLink(true, '', notice);
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // try {
-    //   platformVersion = await SocialSharePlugin.platformVersion;
-    // } on PlatformException {
-    //   platformVersion = 'Failed to get platform version.';
-    // }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -64,8 +50,6 @@ class SuccessShareState extends State<SuccessShare> {
   ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
-    //_isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-
     return BaseView<SuccesShareViewModel>(
       onModelReady: (model) {
         model.setContext(context);
@@ -73,11 +57,6 @@ class SuccessShareState extends State<SuccessShare> {
       },
       builder: (context, model, child) {
         return Scaffold(
-          // appBar: AppBar(
-          //   backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-          //   title: Text("Bildirimi Paylaş"),
-          //   actions: <Widget>[],
-          // ),
           body: Screenshot(
             controller: screenshotController,
             child: Container(
@@ -87,68 +66,6 @@ class SuccessShareState extends State<SuccessShare> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // Text(
-                  //   'Running on: $_platformVersion\n',
-                  //   textAlign: TextAlign.center,
-                  // ),
-                  // RaisedButton(
-                  //   onPressed: () async {
-                  //     // ignore: deprecated_member_use
-                  //     File file = await ImagePicker.pickImage(
-                  //         source: ImageSource.gallery);
-                  //     SocialShare.shareInstagramStory(
-                  //             file.path,
-                  //             "#ffffff",
-                  //             "#000000",
-                  //             'http://bildireiyimbunu.com/notice/${notice.id}')
-                  //         .then((data) {
-                  //       print(data);
-                  //     });
-                  //   },
-                  //   child: Text("Share On Instagram Story"),
-                  // ),
-                  // RaisedButton(
-                  //   onPressed: () async {
-                  //     await screenshotController.capture().then((image) async {
-                  //       SocialShare.shareInstagramStorywithBackground(
-                  //               image.path,
-                  //               "#ffffff",
-                  //               "#000000",
-                  //               'http://bildireiyimbunu.com/notice/${notice.id}',
-                  //               backgroundImagePath: image.path)
-                  //           .then((data) {
-                  //         print(data);
-                  //       });
-                  //     });
-                  //   },
-                  //   child: Text("Share On Instagram Story with background"),
-                  // ),
-                  // RaisedButton(
-                  //   onPressed: () async {
-                  //     await screenshotController.capture().then((image) async {
-                  //       //facebook appId is mandatory for andorid or else share won't work
-                  //       Platform.isAndroid
-                  //           ? SocialShare.shareFacebookStory(
-                  //                   image.path,
-                  //                   "#ffffff",
-                  //                   "#000000",
-                  //                   'http://bildireiyimbunu.com/notice/${notice.id}',
-                  //                   appId: "702032617044309")
-                  //               .then((data) {
-                  //               print(data);
-                  //             })
-                  //           : SocialShare.shareFacebookStory(
-                  //                   image.path,
-                  //                   "#ffffff",
-                  //                   "#000000",
-                  //                   'http://bildireiyimbunu.com/notice/${notice.id}')
-                  //               .then((data) {
-                  //               print(data);
-                  //             });
-                  //     });
-                  //   },
-                  //   child: Text("Share On Facebook Story"),
-                  // ),
                   RaisedButton(
                     onPressed: () async {
                       SocialShare.copyToClipboard(
@@ -162,14 +79,7 @@ class SuccessShareState extends State<SuccessShare> {
                   RaisedButton(
                     onPressed: () async {
                       SocialShare.shareTwitter("BildireyimBunu uygulamasindan bildirim paylaştım " + notice.twetterAddress,
-                              url: _linkMessage,
-                              hashtags: [
-                                "bildireyimbunu",
-                                // notice.city,
-                                // notice.district,
-                                notice.reportedMunicipality
-                              ],
-                              trailingText: "\n" + notice.explation)
+                              url: _linkMessage, hashtags: ["bildireyimbunu", notice.reportedMunicipality], trailingText: "\n" + notice.explation)
                           .then((data) {
                         print(data);
                       });
@@ -287,43 +197,6 @@ class SuccessShareState extends State<SuccessShare> {
           ),
         ),
       );
-
-  Future<String> _createDynamicLink(bool short, String longUri, Notice notice) async {
-    setState(() {
-      //  _isCreatingLink = true;
-    });
-
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      // uriPrefix: 'https://application.bildireyimbunu.com',
-      uriPrefix: 'https://app.bildireyimbunu.com',
-      link: Uri.parse('http://bildireyim.com/notice/' + notice.id),
-      androidParameters: AndroidParameters(
-        packageName: 'com.canozturk.bildireyim_bunu',
-        minimumVersion: 0,
-      ),
-      dynamicLinkParametersOptions: DynamicLinkParametersOptions(
-        shortDynamicLinkPathLength: ShortDynamicLinkPathLength.short,
-      ),
-      iosParameters: IosParameters(
-        bundleId: 'com.ozturkcan.bildireyimBunu',
-        minimumVersion: '1.0.0',
-        appStoreId: '1526849365',
-      ),
-    );
-
-    Uri url;
-    if (short) {
-      final ShortDynamicLink shortLink = await parameters.buildShortLink();
-      url = shortLink.shortUrl;
-    } else {
-      url = await parameters.buildUrl();
-    }
-    // return url.origin.toString() + '/' + url.path.toString();
-    setState(() {
-      _linkMessage = url.toString();
-      _isCreatingLink = false;
-    });
-  }
 
   @override
   void dispose() {

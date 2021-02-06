@@ -67,15 +67,6 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
             _customerNoticeMapViewModel.displayPrediction(p);
           },
         ),
-        // Padding(
-        //   padding: EdgeInsets.only(right: ScreenUtil.instance.setHeight(20)),
-        //   child: IconButton(
-        //     icon: Icon(Icons.filter),
-        //     onPressed: () {
-        //       _showModalSheet();
-        //     },
-        //   ),
-        // ),
       ],
       leading: BadgeMenuView(
         onPress: () {
@@ -114,22 +105,6 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
         polylines: _customerNoticeMapViewModel.polyline,
         onMapCreated: _customerNoticeMapViewModel.onMapCreated);
   }
-
-  // void _showModalSheet() {
-  //   showModalBottomSheet(
-  //       backgroundColor: Colors.transparent,
-  //       context: context,
-  //       isScrollControlled: true,
-  //       builder: (BuildContext _context) {
-  //         return FilterModal(
-  //           cities: _stationViewModel.cities,
-  //           onValues: (values) {
-  //             _stationViewModel.filterModel = values;
-  //             _stationViewModel.getAllStationFilter();
-  //           },
-  //         );
-  //       });
-  // }
 
   void stationListModalSheet() {
     showModalBottomSheet(

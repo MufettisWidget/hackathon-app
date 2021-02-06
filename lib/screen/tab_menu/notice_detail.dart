@@ -14,9 +14,6 @@ import '../../model/notice.dart';
 import '../../shared/style/ui_helper.dart';
 import '../notice/success_share.dart';
 
-//String get baseUrl => "http://api.bildireyimbunu.com/";
-//String get baseUrl => "http://192.168.1.60/BilireyimBunu.WebApi/";
-
 class NoticeDetail extends StatefulWidget {
   final Notice notice;
 
@@ -39,7 +36,7 @@ class NoticeDetailState extends State with ValidationMixin {
   @override
   void initState() {
     super.initState();
-    // getNoticeData(notice.id);
+
     if (notice.latitude != null) {
       controllerExplation = TextEditingController(text: "");
       _currentPosition = new CameraPosition(
@@ -76,11 +73,11 @@ class NoticeDetailState extends State with ValidationMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                      flex: 6, // takes 30% of available width
+                      flex: 6,
                       child: detail(),
                     ),
                     Expanded(
-                      flex: 4, // takes 70% of available width
+                      flex: 4,
                       child: image(),
                     ),
                   ],
@@ -88,29 +85,17 @@ class NoticeDetailState extends State with ValidationMixin {
                 SizedBox(height: 10.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 9, // takes 30% of available width
-                        child: noticeexplatipn())
-                  ],
+                  children: <Widget>[Expanded(flex: 9, child: noticeexplatipn())],
                 ),
                 SizedBox(height: 40.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 9, // takes 30% of available width
-                        child: mapStreet())
-                  ],
+                  children: <Widget>[Expanded(flex: 9, child: mapStreet())],
                 ),
                 SizedBox(height: 40.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 9, // takes 30% of available width
-                        child: _footerButtonRow(notice))
-                  ],
+                  children: <Widget>[Expanded(flex: 9, child: _footerButtonRow(notice))],
                 ),
               ],
             ),
@@ -120,52 +105,10 @@ class NoticeDetailState extends State with ValidationMixin {
     );
   }
 
-  // void getNoticeData(String id) {
-  //   NoticeApiServices.instance.getNoticeDetail(id).then((response) {
-  //     setState(() {
-  //       if (response.statusCode == 200) {
-  //         Map<String, dynamic> map = jsonDecode(response.body);
-  //         notice = Notice.fromJson(map);
-
-  //         // Map<String, dynamic> map = jsonDecode(response.body);
-  //         // var responseNotice = ResponseNotice.fromJson(map);
-
-  //       }
-  //     });
-  //   });
-  // }
-
   Widget _footerButtonRow(Notice notice) => Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          // _iconLabelButtonEdit(notice),
-          //  _iconLabelButtonDelete(notice),
-          //_iconLabelButtonSuccess(notice)
-          // _iconLabelButton,
-          // _iconLabelButton,
-        ],
+        children: <Widget>[],
       );
-
-  // Widget _iconLabelButtonDelete(Notice notice) => Visibility(
-  //     child: InkWell(
-  //       child: _iconLabelDelete("Sil"),
-  //       onTap: () {
-  //         gotoDelete(notice);
-  //       },
-  //     ),
-  //     maintainSize: true,
-  //     maintainAnimation: true,
-  //     maintainState: true,
-  //     visible: notice.noticeStatus & 1 == 1);
-
-  // Widget _iconLabelButtonSuccess(Notice notice) => InkWell(
-  //       child: _iconLabelSuccess("", notice.noticeStatus),
-  //       onTap: () {
-  //         if (notice.noticeStatus & (8) != 8) {
-  //           gotoSucces(notice);
-  //         }
-  //       },
-  //     );
 
   Widget detail() {
     return Column(
@@ -337,13 +280,11 @@ class NoticeDetailState extends State with ValidationMixin {
     );
   }
 
-  // ignore: missing_return
   Color getColor(status) {
-    if (status & (8) == 8) return Colors.red; // kullanıcı düzeltti
+    if (status & (8) == 8) return Colors.red;
     if (status & (8) != 8) return CupertinoColors.inactiveGray;
   }
 
-  // ignore: missing_return
   String getStatus(int status) {
     if (status & 8 == 8)
       return "İl Belediyesine Atandı.";
@@ -375,38 +316,19 @@ class NoticeDetailState extends State with ValidationMixin {
     if (x) {
       NoticeApiServices.instance.updateNoticeSuccess(notice).then((response) {
         setState(() {
-          if (response.statusCode == 204) {
-            // notices = (json.decode(response.body) as List)
-            //     .map((i) => Notice.fromJson(i))
-            //     .toList();
-          }
+          if (response.statusCode == 204) {}
         });
       });
     }
   }
 
-  // void gotoDelete(Notice notice) {
-  //   if (_showDialog("Bildirim Silinecek Onaylıyormusunuz ?")) {
-  //     NoticeApiServices.updateNoticeDelete(notice).then((response) {
-  //       setState(() {
-  //         if (response.statusCode == 204) {
-  //           // notices = (json.decode(response.body) as List)
-  //           //     .map((i) => Notice.fromJson(i))
-  //           //     .toList();
-  //         }
-  //       });
-  //     });
-  //   }
-  // }
-
   Widget mapStreet() {
     return Column(children: [
       SizedBox(
-        width: MediaQuery.of(context).size.width, // or use fixed size like 120
+        width: MediaQuery.of(context).size.width,
         height: 250,
         child: GoogleMap(
           mapType: MapType.normal,
-          // myLocationEnabled: true,
           markers: _markers,
           initialCameraPosition: _currentPosition,
           onMapCreated: (GoogleMapController controller) {
@@ -441,7 +363,6 @@ class NoticeDetailState extends State with ValidationMixin {
           title: new Text("Bildiri"),
           content: new Text(txt),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Onayla"),
               onPressed: () {

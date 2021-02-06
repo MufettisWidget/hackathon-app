@@ -50,7 +50,7 @@ class LeftDrawerViewModel extends BaseModel with WidgetsBindingObserver {
 
   logout() {
     onChangeTokenStatusModel();
-    // sharedManager.removeNotifications();
+
     customerDetail = null;
     setState(ViewState.Busy);
     sharedManager.logOut();
