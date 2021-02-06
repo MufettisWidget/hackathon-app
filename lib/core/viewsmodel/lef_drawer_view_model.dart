@@ -24,7 +24,6 @@ class LeftDrawerViewModel extends BaseModel with WidgetsBindingObserver {
     getCustomer();
   }
 
-  @override
   void setContext(BuildContext context) {
     this._context = context;
   }

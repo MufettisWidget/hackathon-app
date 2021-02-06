@@ -5,8 +5,6 @@ import '../enum/viewstate.dart';
 import '../services/navigation_service.dart';
 
 class BaseModel extends ChangeNotifier {
-  //ApiManager apiManager = locator<ApiManager>();
-
   ViewState _state = ViewState.Idle;
 
   ViewState get state => _state;

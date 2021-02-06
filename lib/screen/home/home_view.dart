@@ -90,9 +90,6 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                   ),
                 ),
               ),
-              // flexibleSpace: FlexibleSpaceBar(
-              //     collapseMode: CollapseMode.parallax,
-              //     background: _buildBannerContent),
             ),
           ];
         },
@@ -189,41 +186,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     HomeLocationModel aa = new HomeLocationModel();
     aa.lat = position.latitude;
     aa.lng = position.longitude;
-
-    // _sharedManager.homeLocation = HomeLocationModel(
-    //     lat: position.latitude, lng: position.longitude, city: "");
-    // setData(
-    //     lat: position.latitude,
-    //     lng: position.longitude);
-
-    // Placemark place = placemark[0];
-    // controllerCity.text = place.administrativeArea.toString();
-    // controllerDisctirct.text = place.subAdministrativeArea.toString();
-    // controllerNeighborhood.text = place.subLocality.toString();
-    // controllerStreet.text = place.thoroughfare.toString();
-    // controllerStreetNo.text = place.subThoroughfare.toString();
-
-    // if (controllerCity.text != "") {
-    //   setState(() {
-    //     isVisible = true;
-    //   });
-    // }
-    // controllerSubStreet.text = place.thoroughfare.toString();
   }
-}
-
-getItem(img) {
-  return InkWell(
-      child: Container(
-    margin: EdgeInsets.all(2.0),
-    width: 150.0,
-    decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(baseUrl + 'UploadFile/' + img + '.jpg'),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(10.0)),
-  ));
 }
 
 getSmallItem(count, name, flavor) {
@@ -258,13 +221,6 @@ getSmallItem(count, name, flavor) {
                 Icons.upgrade_sharp,
                 color: Colors.grey,
               ),
-              // Text(
-              //   "$time min",
-              //   style: TextStyle(
-              //       fontSize: 14.0,
-              //       color: Colors.grey,
-              //       fontWeight: FontWeight.bold),
-              // )
             ],
           ),
           SizedBox(width: 20.0),

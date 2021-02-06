@@ -30,26 +30,10 @@ class SplashViewModel extends BaseModel {
 
   SplashViewModel() {
     noticeList = new List<Notice>();
-    // _apiService = new ApiServices();
-    // tokenRequestModel = new TokenRequestModel();
-    // _homeRequestModel = new HomeRequestModel();
-    // campaignRequestModel = new CampaignRequestModel();
-
-    //  _sharedManager.isFirstOpenHomePage = true;
-    // _sharedManager.removeNews();
-    // _sharedManager.removeCities();
   }
 
   Future login() async {
     if (_sharedManager.loginRequest != null) {
-      // AccountApiServices.loginUser(_sharedManager.loginRequest.mailAddress,
-      //         _sharedManager.loginRequest.password)
-      //     .then((response) {
-      //   if (response.statusCode == 200) {
-      //     Map userMap = jsonDecode(response.body);
-      //     var userLogin = User.fromJson(userMap);
-      //     SharedManager().jwtToken = userLogin.userToken;
-
       var userLogin = SharedManager().loginRequest;
 
       NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
@@ -59,16 +43,8 @@ class SplashViewModel extends BaseModel {
           userLogin.noticies = new List<Notice>();
           userLogin.noticies = responseNotice.notices;
           SharedManager().loginRequest = userLogin;
-          // setState(ViewState.Idle);
-          // navigator.navigateToRemove(Pages.Home);
-        } else {
-          // setState(ViewState.Idle);
-
-          //SharedManager().loginRequest = userLogin;
-        }
+        } else {}
       });
-      // }
-      // });
     } else {
       SharedManager().logOut();
     }
@@ -77,18 +53,18 @@ class SplashViewModel extends BaseModel {
       var deviceInfo = DeviceInfoPlugin();
       if (Platform.isIOS) {
         var iosDeviceInfo = await deviceInfo.iosInfo;
-        return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+        return iosDeviceInfo.identifierForVendor;
       } else {
         var androidDeviceInfo = await deviceInfo.androidInfo;
-        return androidDeviceInfo.androidId; // unique ID on Android
+        return androidDeviceInfo.androidId;
       }
     }
 
     String generateSignature(String dataIn, signature) {
-      var encodedKey = utf8.encode(signature); // signature=encryption key
-      var hmacSha256 = new Hmac(sha256, encodedKey); // HMAC-SHA256 with key
-      var bytesDataIn = utf8.encode(dataIn); // encode the data to Unicode.
-      var digest = hmacSha256.convert(bytesDataIn); // encrypt target data
+      var encodedKey = utf8.encode(signature);
+      var hmacSha256 = new Hmac(sha256, encodedKey);
+      var bytesDataIn = utf8.encode(dataIn);
+      var digest = hmacSha256.convert(bytesDataIn);
       String singedValue = digest.toString();
       return singedValue;
     }
@@ -103,7 +79,6 @@ class SplashViewModel extends BaseModel {
 
         SharedManager().tokenNotUser = returnToken.token;
 
-//----ggetMostCity
         CityApiService.instance.ggetMostCity().then((response) {
           if (response.statusCode == 200) {
             Map<String, dynamic> map = jsonDecode(response.body);
@@ -143,8 +118,6 @@ class SplashViewModel extends BaseModel {
           }
         });
 
-//---allnotice
-
         NoticeApiServices.instance.getAllNoticeNoPage().then((response) {
           if (response.statusCode == 200) {
             Map<String, dynamic> map = jsonDecode(response.body);
@@ -161,15 +134,11 @@ class SplashViewModel extends BaseModel {
         });
       }
     });
-
-    // }
   }
 
   @override
   void setContext(BuildContext context) {
     this._context = context;
-
-    // _sharedManager.notificationCount = 11;
 
     login().whenComplete(() {
       Future.delayed(Duration(milliseconds: 3000), () {

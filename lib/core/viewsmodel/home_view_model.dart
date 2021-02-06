@@ -1,4 +1,6 @@
+import 'package:MufettisWidgetApp/main.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_manager/location_manager.dart';
 
@@ -95,4 +97,18 @@ class HomeViewModel extends BaseModel {
   void dispose() {
     super.dispose();
   }
+}
+
+getItem(img) {
+  return InkWell(
+      child: Container(
+    margin: EdgeInsets.all(2.0),
+    width: 150.0,
+    decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(baseUrl + 'UploadFile/' + img + '.jpg'),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.circular(10.0)),
+  ));
 }

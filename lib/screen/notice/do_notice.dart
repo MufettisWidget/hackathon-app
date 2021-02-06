@@ -236,9 +236,10 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
     controllerStreetNo.text = place.subThoroughfare.toString();
 
     if (controllerCity.text != "") {
-      setState(() {
-        isVisible = true;
-      });
+      if (mounted)
+        setState(() {
+          isVisible = true;
+        });
     }
   }
 

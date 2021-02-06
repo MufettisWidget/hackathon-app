@@ -10,7 +10,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart' as places;
 import 'package:location/location.dart';
 import 'package:location_manager/location_manager.dart';
-import 'package:map_launcher/map_launcher.dart' as mapLauncher;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../apis/notice/notice_api.dart';
@@ -36,7 +35,7 @@ class CustomerNoticeMapViewModel extends BaseModel {
   Completer<GoogleMapController> controller = Completer();
   GoogleMapController mapController;
 
-  Notice currentSelectStation;
+  Notice currentSelectNotice;
   List<PolyList> polyList;
   List<Notice> noticeList = new List();
 
@@ -51,8 +50,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
 
   Set<Marker> markerSet = Set();
   Set<Marker> selectedMarker = new Set();
-
-  //Map<MarkerId, Marker> markerList =<MarkerId, Marker>{}; // CLASS MEMBER, MAP OF MARKS
 
   String mapStyle;
   bool isBottomModalOpen = false;
@@ -70,7 +67,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
   final String SEARCHED_MARKER_ID = "SEARCHED_MARKER_ID";
 
   bool pointVisibility = false;
-  //List<BottomMenuItem> mapLauncherMenuItems;
 
   places.GoogleMapsPlaces _places = places.GoogleMapsPlaces(apiKey: CoreHelper.kGoogleApiKey);
 
@@ -97,15 +93,13 @@ class CustomerNoticeMapViewModel extends BaseModel {
       onRejectPermission: () {
         addMarkerUser();
 
-        snackBarWarningMessage('translate(context, LanguageConstants.of(context).warningLocationPermission)');
+        snackBarWarningMessage("Lütfen Lokasyon izni verin.");
       },
     );
 
     getAllNoticies(isFilter: true);
-    //getLocation();
   }
 
-  @override
   void setContext(BuildContext context) {
     this._context = context;
   }
@@ -119,14 +113,14 @@ class CustomerNoticeMapViewModel extends BaseModel {
     setState(ViewState.Busy);
     if (SharedManager().openNotice != null) {
       noticeList = SharedManager().openNotice;
-      addStationMarkers(true);
+      addNoticeMarkers(true);
     } else {
       NoticeApiServices.instance.getAllNoticeNoPage().then((response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> map = jsonDecode(response.body);
           var responseNotice = ResponseNotice.fromJson(map);
           noticeList = responseNotice.notices;
-          addStationMarkers(isFilter);
+          addNoticeMarkers(isFilter);
         }
       });
     }
@@ -153,7 +147,7 @@ class CustomerNoticeMapViewModel extends BaseModel {
     notifyListeners();
   }
 
-  addStationMarkers(bool isFiltered) async {
+  addNoticeMarkers(bool isFiltered) async {
     List<LatLng> filteredList = [];
 
     setState(ViewState.Busy);
@@ -197,9 +191,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
       }
     }
 
-    /* if(stationList != null && stationList.length == 0){
-      addMarkerUser();
-    }*/
     setState(ViewState.Idle);
     notifyListeners();
   }
@@ -209,20 +200,14 @@ class CustomerNoticeMapViewModel extends BaseModel {
   }
 
   void drawPolyLine() async {
-    //  var polyList = PolyHelper.convertToLatLng(PolyHelper.decodePoly(points));
-
     List<PointLatLng> result = await polylinePoints.getRouteBetweenCoordinates("AIzaSyALnT7pxhQRDuQ3X5RdHEFfUbGtr4w7VL8",
-        currentUserLocation.latitude, currentUserLocation.longitude, currentSelectStation.latitude, currentSelectStation.longitude);
+        currentUserLocation.latitude, currentUserLocation.longitude, currentSelectNotice.latitude, currentSelectNotice.longitude);
 
     if (result.isNotEmpty) {
       result.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
-      _polylines.add(Polyline(
-          width: 2, // set the width of the polylines
-          polylineId: PolylineId("poly"),
-          color: Color.fromARGB(255, 40, 122, 198),
-          points: polylineCoordinates));
+      _polylines.add(Polyline(width: 2, polylineId: PolylineId("poly"), color: Color.fromARGB(255, 40, 122, 198), points: polylineCoordinates));
     }
 
     polyline.add(Polyline(
@@ -232,7 +217,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
       endCap: Cap.roundCap,
       startCap: Cap.roundCap,
       points: polylineCoordinates,
-      //polyLineList,
       color: Colors.grey,
     ));
   }
@@ -277,17 +261,9 @@ class CustomerNoticeMapViewModel extends BaseModel {
   showModal(int index) async {
     setState(ViewState.Busy);
 
-    currentSelectStation = noticeList[index];
+    currentSelectNotice = noticeList[index];
 
-    // double distanceInMeters = await Geolocator().distanceBetween(
-    //     currentUserLocation.latitude,
-    //     currentUserLocation.longitude,
-    //     currentSelectStation.latitude,
-    //     currentSelectStation.longitude);
-
-    //String aa = (distanceInMeters / 1000).toStringAsFixed(2);
-
-    LatLng latLng_1 = LatLng(currentSelectStation.latitude, currentSelectStation.longitude);
+    LatLng latLng_1 = LatLng(currentSelectNotice.latitude, currentSelectNotice.longitude);
     LatLng latLng_2 = LatLng(currentUserLocation.latitude, currentUserLocation.longitude);
     List<LatLng> list = [];
     list.add(latLng_1);
@@ -307,10 +283,10 @@ class CustomerNoticeMapViewModel extends BaseModel {
           transitionDuration: Duration(milliseconds: 100),
           pageBuilder: (_, __, ___) {
             return NoticeDetailDialogView(
-              distanceMinute: currentSelectStation.city ?? "",
+              distanceMinute: currentSelectNotice.city ?? "",
               currentPointPosition: currentPointPosition,
               currentDistancePosition: currentDistancePosition,
-              noticeDetail: currentSelectStation,
+              noticeDetail: currentSelectNotice,
               mapsRouteCallback: () {
                 showModalBottom();
               },
@@ -328,10 +304,10 @@ class CustomerNoticeMapViewModel extends BaseModel {
                 devicePixelRatio: 4,
               ),
               'assets/images/destination_map_marker.png'),
-          infoWindow: InfoWindow(title: currentSelectStation.street),
-          markerId: MarkerId(currentSelectStation.id),
+          infoWindow: InfoWindow(title: currentSelectNotice.street),
+          markerId: MarkerId(currentSelectNotice.id),
           onTap: () {},
-          position: LatLng(currentSelectStation.latitude, currentSelectStation.longitude),
+          position: LatLng(currentSelectNotice.latitude, currentSelectNotice.longitude),
         );
 
         selectedMarker.add(resultMarker);
@@ -339,7 +315,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
 
         newLocationManager.stopService();
 
-        //drawPolyLine();
         Future.delayed(Duration(milliseconds: 10), () {
           if (mapController != null) {
             mapController.showMarkerInfoWindow(resultMarker.markerId);
@@ -379,9 +354,9 @@ class CustomerNoticeMapViewModel extends BaseModel {
     focusMyLocation();
     navigator.pop();
     if (mapController != null) {
-      mapController.hideMarkerInfoWindow(MarkerId(currentSelectStation.id));
+      mapController.hideMarkerInfoWindow(MarkerId(currentSelectNotice.id));
     }
-    currentSelectStation = null;
+    currentSelectNotice = null;
     polyline.clear();
     selectedMarker.clear();
     newLocationManager.resumeService();
@@ -393,33 +368,7 @@ class CustomerNoticeMapViewModel extends BaseModel {
     notifyListeners();
   }
 
-  void menuItemsFilled() async {
-    // mapLauncherMenuItems.clear();
-    // mapLauncherMenuItems.add(google);
-    // mapLauncherMenuItems.add(yandex);
-    // if (await mapLauncher.MapLauncher.isMapAvailable(
-    //     mapLauncher.MapType.apple)) {
-    //   mapLauncherMenuItems.add(apple);
-    // }
-
-    // mapLauncherMenuItems.add(_cancel);
-  }
-
-  // BottomMenuItem get google => BottomMenuItem(
-  //     title: translate(context, LanguageConstants.of(context).openMapGoogle),
-  //     iconColor: Colors.white);
-
-  // BottomMenuItem get yandex => BottomMenuItem(
-  //     title: translate(context, LanguageConstants.of(context).openMapYandex),
-  //     iconColor: Colors.white);
-
-  // BottomMenuItem get apple => BottomMenuItem(
-  //     title: translate(context, LanguageConstants.of(context).openMapApple),
-  //     iconColor: Colors.white);
-
-  // BottomMenuItem get _cancel => BottomMenuItem(
-  //     title: translate(context, LanguageConstants.of(context).cancel),
-  //     iconColor: Colors.white);
+  void menuItemsFilled() async {}
 
   Future showModalBottom() async {
     menuItemsFilled();
@@ -444,80 +393,12 @@ class CustomerNoticeMapViewModel extends BaseModel {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     UIHelper.verticalSpaceSmall(),
-                    //  NothcWidget(),
-                    //_listMenuItems,
                   ],
                 )),
           ),
         );
       },
     );
-  }
-
-  // Widget get _listMenuItems => ListView.builder(
-  //       shrinkWrap: true,
-  //       itemCount: mapLauncherMenuItems.length,
-  //       itemBuilder: (context, index) => ListTile(
-  //         subtitle: Divider(),
-  //         title: Row(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           children: <Widget>[
-  //             mapLauncherMenuItems[index].image != null
-  //                 ? Image.asset(
-  //                     mapLauncherMenuItems[index].image,
-  //                     height: UIHelper.dynamicHeight(96),
-  //                   )
-  //                 : Container(
-  //                     width: UIHelper.dynamicHeight(96),
-  //                   ),
-  //             SizedBox(
-  //               width: UIHelper.dynamicWidth(50),
-  //             ),
-  //             Text(
-  //               mapLauncherMenuItems[index].title,
-  //               textAlign: TextAlign.center,
-  //               style: TextStyle(
-  //                 fontSize: UIHelper.Space20,
-  //                 fontWeight: FontWeight.w600,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         onTap: () async => await selectMapLaunch(index),
-  //       ),
-  //     );
-
-  selectMapLaunch(int index) async {
-    if (index == 0) {
-      // Google Maps
-      if (await mapLauncher.MapLauncher.isMapAvailable(mapLauncher.MapType.google)) {
-        await launchMap(mapType: mapLauncher.MapType.google);
-      } else {
-        launchMaps('https://www.google.com/maps/@${currentSelectStation.latitude},${currentSelectStation.longitude},12z');
-      }
-    } else if (index == 1) {
-      // Yandex
-      if (await mapLauncher.MapLauncher.isMapAvailable(mapLauncher.MapType.yandexNavi)) {
-        await launchMap(mapType: mapLauncher.MapType.yandexNavi);
-      } else {
-        launchMaps(
-            'https://maps.yandex.com.tr/?mode=routes&rtext=${currentSelectStation.latitude},${currentSelectStation.longitude}~${currentUserLocation.latitude},${currentUserLocation.longitude}&z=12');
-      }
-    } else if (index == 2) {
-      //Apple
-      if (await mapLauncher.MapLauncher.isMapAvailable(mapLauncher.MapType.apple)) {
-        await launchMap(mapType: mapLauncher.MapType.apple);
-      } else {
-        navigator.pop();
-      }
-    } else {
-      navigator.pop();
-    }
-  }
-
-  Future launchMap({mapLauncher.MapType mapType}) {
-    return mapLauncher.MapLauncher.launchMap(
-        mapType: mapType, coords: mapLauncher.Coords(currentSelectStation.latitude, currentSelectStation.longitude), title: "", description: "");
   }
 
   Future<Null> displayPrediction(places.Prediction p) async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/enum/paged_name.dart';
 import '../core/shared_prefernces_api.dart';
-import '../core/viewsmodel/lef_drawe_view_model.dart';
+import '../core/viewsmodel/lef_drawer_view_model.dart';
 import '../shared/style/ui_helper.dart';
 import '../ui/views/baseview.dart';
 import 'splash_view.dart';

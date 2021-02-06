@@ -10,6 +10,7 @@ import 'screen/router.dart' as rt;
 import 'shared/style/ui_helper.dart';
 
 String get baseUrl => "https://apis.bildireyimbunu.com/";
+//String get baseUrl => "http://localhost:5010/";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

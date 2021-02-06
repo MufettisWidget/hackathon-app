@@ -72,7 +72,7 @@ class NoticeApiServices {
   Future<http.Response> createNotice(Notice notice) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
-    final response = await http.post(baseUrl + 'notice', headers: headers, body: postToJsonNotice(notice));
+    final response = await http.post(baseUrl + 'notice/CreateNotice', headers: headers, body: postToJsonNotice(notice));
 
     return response;
   }

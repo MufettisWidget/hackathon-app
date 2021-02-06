@@ -8,8 +8,6 @@ import '../../screen/notice/do_notice.dart';
 import '../../screen/tab_menu/all_news.dart';
 import '../../screen/tab_menu/all_notice_view.dart';
 import '../../screen/tab_menu/customer_map.dart';
-import '../core_helper.dart';
-import '../enum/analitic_constants.dart';
 import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 
@@ -99,20 +97,6 @@ class MainViewModel extends BaseModel {
   }
 
   void onTabTapped(int index) async {
-    if (index == 0) {
-      await CoreHelper.analyticsScreenLog(screen: AnalyticsConstants.ANALYTICS_HOME_VIEW);
-    } else if (index == 1) {
-      await CoreHelper.analyticsScreenLog(screen: AnalyticsConstants.ANALYTICS_STATION_VIEW);
-    } else if (index == 2) {
-      await CoreHelper.analyticsScreenLog(screen: AnalyticsConstants.ANALYTICS_ANNOUNCEMENT_VIEW);
-    } else if (index == 3) {
-      await CoreHelper.analyticsScreenLog(screen: AnalyticsConstants.ANALYTICS_PAYMENT_SELECTION_VIEW);
-    } else if (index == 4) {
-      await CoreHelper.analyticsScreenLog(screen: AnalyticsConstants.ANALYTICS_PAYMENT_SELECTION_VIEW);
-    } else if (index == 4) {
-      await CoreHelper.analyticsScreenLog(screen: AnalyticsConstants.ANALYTICS_PAYMENT_SELECTION_VIEW);
-    }
-
     currentIndex = index;
     notifyListeners();
   }
