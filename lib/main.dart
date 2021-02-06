@@ -49,6 +49,7 @@ class BildireyimBunu extends StatelessWidget {
     );
   }
 }
+//
 
 Future _applicationConfigure() async {
   initLocator();
