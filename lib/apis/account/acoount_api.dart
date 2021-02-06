@@ -8,7 +8,7 @@ class AccountApiServices {
   static Future<http.Response> createUser(User user) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
 
-    final response = await http.post(baseUrl + 'user', headers: headers, body: postToJsonUser(user));
+    final response = await http.post(baseUrl + 'user/CreateUser', headers: headers, body: postToJsonUser(user));
     return response;
   }
 
