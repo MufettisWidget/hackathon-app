@@ -331,7 +331,7 @@ class CustomerAddState extends State with ValidationMixin {
       AccountApiServices.createUser(user).then((response) {
         setState(() {
           if (response.statusCode == 201) {
-            _showDialog("Kayıdınız alındı. Lütfen mail adresinize gelen e-postayı onaylayınız.", true);
+            _showDialog("Kayıdınız alındı. Devamke!", true);
           } else {
             _showDialog("Aynı mail adresi veya telefon numarasına ait kayıt vardır.", true);
           }
@@ -404,7 +404,7 @@ class CustomerAddState extends State with ValidationMixin {
               onPressed: () {
                 if (isuscces) {
                   Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed("/customerLogin");
+                  Navigator.of(context).pushNamed("/login");
                 }
               },
             ),
