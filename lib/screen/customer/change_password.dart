@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:MufettisWidgetApp/core/viewsmodel/change_password_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ class ChangePassword extends StatefulWidget {
 }
 
 class ChangePasswordState extends State with ValidationMixin {
+  ChangePasswordViewModel _changePasswordViewModel;
   final formKey = GlobalKey<FormState>();
 
   String oldPasswordChange = "";
@@ -27,31 +30,36 @@ class ChangePasswordState extends State with ValidationMixin {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _helloText,
-                _description,
-                _formField,
-                _loginButton,
-              ],
+    return BaseView<ChangePasswordViewModel>(onModelReady: (model) {
+      model.setContext(context);
+      _changePasswordViewModel = model;
+    }, builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _helloText,
+                  _description,
+                  _formField,
+                  _loginButton,
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget get _formField => Padding(
@@ -88,7 +96,8 @@ class ChangePasswordState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -121,7 +130,8 @@ class ChangePasswordState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -149,7 +159,8 @@ class ChangePasswordState extends State with ValidationMixin {
             oldPasswordChange = value;
           },
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -164,7 +175,8 @@ class ChangePasswordState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description => Text(UIHelper.changPasswprdExplanation, style: _helloTextStyle(30));
+  Widget get _description =>
+      Text(UIHelper.changPasswprdExplanation, style: _helloTextStyle(30));
 
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -173,11 +185,12 @@ class ChangePasswordState extends State with ValidationMixin {
           onTap: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
-              saveNewPassword(oldPasswordChange, newPassword);
+              _changePasswordViewModel.saveNewPassword(oldPasswordChange, newPassword);
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -194,7 +207,8 @@ class ChangePasswordState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _helloText => Text(UIHelper.changePassword, style: _helloTextStyle(70));
+  Widget get _helloText =>
+      Text(UIHelper.changePassword, style: _helloTextStyle(70));
 
   Widget passwordNameField() {
     return TextFormField(
@@ -209,55 +223,4 @@ class ChangePasswordState extends State with ValidationMixin {
         fontWeight: FontWeight.bold,
       );
 
-  Future<void> saveNewPassword(String oldPassword, String newPassword) async {
-    bool isConncet = false;
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      isConncet = true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      isConncet = true;
-    }
-    if (isConncet) {
-      AccountApiServices.changePassword(SharedManager().loginRequest.id, oldPassword, newPassword).then((response) {
-        setState(() {
-          if (response.statusCode == 200) {
-            Map userMap = jsonDecode(response.body);
-            var userLogin = User.fromJson(userMap);
-            userLogin.userToken = SharedManager().jwtToken;
-            userLogin.noticies = SharedManager().loginRequest.noticies;
-
-            SharedManager().loginRequest = userLogin;
-
-            _showDialog("Şifre Değiştirilmiştir.");
-          } else {
-            _showDialog("Mevcut şifre yanlıştır.");
-          }
-        });
-      });
-    } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
-    }
-  }
-
-  void _showDialog(String contextText) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/myAccount");
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
