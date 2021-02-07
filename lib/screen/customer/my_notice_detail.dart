@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:MufettisWidgetApp/core/core_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -255,7 +256,7 @@ class MyNoticeDetailState extends State with ValidationMixin {
           child: RichText(
             text: TextSpan(
                 style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold),
-                children: [TextSpan(text: ": " + getStatus(notice.noticeStatus))]),
+                children: [TextSpan(text: ": " + CoreHelper.getStatus(notice.noticeStatus))]),
           ),
         ),
       ],
@@ -275,37 +276,11 @@ class MyNoticeDetailState extends State with ValidationMixin {
           flex: 7,
           child: RichText(
             text:
-                TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + parseDateData(notice.noticeDate))]),
+                TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + CoreHelper.parseDateData(notice.noticeDate))]),
           ),
         ),
       ],
     );
-  }
-
-  Color getColor(status) {
-    if ((status & (64) == 64) || (status & (128) == 128))
-      return Colors.red;
-    else
-      return CupertinoColors.systemGrey;
-  }
-
-  String getStatus(int status) {
-    if (status & 8 == 8)
-      return "İl Belediyesine Atandı.";
-    else if (status & 16 == 16)
-      return "İlçe Belediyesine Atandı.";
-    else if (status & 64 == 64)
-      return "Belediye tarafından bildirim düzeltildi. Kontrol bekliyor.";
-    else if (status & 128 == 128)
-      return "Kullanıcı onayladı";
-    else if (status & 256 == 256)
-      return "Belediye tarafından Sorun giderildi. Editör Onayladı.";
-    else if (status & 1 == 1) return "İşlem Bekliyor";
-  }
-
-  String parseDateData(String dateData) {
-    DateFormat formater = new DateFormat('yyy-MM-dd hh:mm');
-    return formater.format(DateTime.parse(dateData));
   }
 
   Widget image() {

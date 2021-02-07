@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:MufettisWidgetApp/core/core_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -27,11 +28,6 @@ class NewsDetailState extends State with ValidationMixin {
   String imagePath;
   NewsDetailState(this.news);
   TextEditingController controllerExplation;
-  SingingCharacter _character = SingingCharacter.districtNotice;
-  CameraPosition _currentPosition;
-  Set<Marker> _markers = {};
-  Completer<GoogleMapController> _controller = Completer();
-  BitmapDescriptor pinLocationIcon;
   @override
   void initState() {
     super.initState();
@@ -65,7 +61,7 @@ class NewsDetailState extends State with ValidationMixin {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(parseDateData(news.newsDate),
+                  Text(CoreHelper.parseDateData(news.newsDate),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12.0,
@@ -96,54 +92,6 @@ class NewsDetailState extends State with ValidationMixin {
     );
   }
 
-  Widget _iconLabelDelete(String text) => Wrap(
-        crossAxisAlignment: WrapCrossAlignment.end,
-        spacing: 5,
-        children: <Widget>[
-          Icon(
-            Icons.delete,
-            color: CupertinoColors.inactiveGray,
-          ),
-          Text(text),
-          SizedBox(
-            width: 10,
-          )
-        ],
-      );
-
-  Widget _iconLabelSuccess(String text, int status) => Wrap(
-        crossAxisAlignment: WrapCrossAlignment.end,
-        spacing: 5,
-        children: <Widget>[
-          Icon(
-            Icons.favorite,
-            color: getColor(status),
-          ),
-          Text(text),
-          SizedBox(
-            width: 10,
-          )
-        ],
-      );
-
-  Widget _iconLabelButtonDelete(Notice notice) => Visibility(
-      child: InkWell(
-        child: _iconLabelDelete("Sil"),
-        onTap: () {},
-      ),
-      maintainSize: true,
-      maintainAnimation: true,
-      maintainState: true,
-      visible: notice.noticeStatus & 1 == 1);
-
-  Widget _iconLabelButtonSuccess(Notice notice) => InkWell(
-        child: _iconLabelSuccess("", notice.noticeStatus),
-        onTap: () {
-          if (notice.noticeStatus & (8) != 8) {
-            gotoSucces(notice);
-          }
-        },
-      );
 
   Widget createDate() {
     return Row(
@@ -157,31 +105,13 @@ class NewsDetailState extends State with ValidationMixin {
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + parseDateData(news.newsDate))]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + CoreHelper.parseDateData(news.newsDate))]),
           ),
         ),
       ],
     );
   }
 
-  Color getColor(status) {
-    if (status & (8) == 8) return Colors.red;
-    if (status & (8) != 8) return CupertinoColors.inactiveGray;
-  }
-
-  String getStatus(int status) {
-    if (status & 1 == 1) return "İşlem Bekliyor";
-    if (status & 8 == 8) return "İl Belediyesine Atandı.";
-    if (status & 16 == 16) return "İlçe Belediyesine Atandı.";
-    if (status & 64 == 64) return "Belediye tarafından bildirim düzeltildi. Kontrol bekliyor.";
-    if (status & 128 == 128) return "Kullanıcı tarafından onaylandı";
-    if (status & 256 == 256) return "Belediye tarafından Sorun giderildi. Editör Onayladı.";
-  }
-
-  String parseDateData(String dateData) {
-    DateFormat formater = new DateFormat('yyy-MM-dd hh:mm');
-    return formater.format(DateTime.parse(dateData));
-  }
 
   Widget image() {
     return Image(
@@ -189,48 +119,7 @@ class NewsDetailState extends State with ValidationMixin {
     );
   }
 
-  void gotoSucces(Notice notice) {
-    bool x = _showDialog("Bildirimi durumu 'DÜZELDİ' olarak güncellenecektir.Tekrar güncellenemez.");
 
-    if (x) {
-      NoticeApiServices.instance.updateNoticeSuccess(notice).then((response) {
-        setState(() {
-          if (response.statusCode == 204) {}
-        });
-      });
-    }
-  }
 
-  bool _showDialog(String txt) {
-    bool returnValue = false;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(txt),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Onayla"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                returnValue = true;
-              },
-            ),
-            new FlatButton(
-              child: new Text("İptal"),
-              onPressed: () {
-                returnValue = false;
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-
-    return returnValue;
-  }
 }
 
-enum SingingCharacter { districtNotice, cityNotice }

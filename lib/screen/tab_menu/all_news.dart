@@ -130,22 +130,13 @@ class AllNewsState extends State {
         },
       );
 
-  Color getColor(status) {
-    if ((status & (64) == 64) || (status & (128) == 128))
-      return Colors.red;
-    else
-      return CupertinoColors.systemGrey;
-  }
 
   void gotoEditNotice(News news) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(news)));
   }
 }
 
-String parseDateData(String dateData) {
-  DateFormat formater = new DateFormat('yyy-MM-dd hh:mm');
-  return formater.format(DateTime.parse(dateData));
-}
+
 
 class Paint {
   final int id;
