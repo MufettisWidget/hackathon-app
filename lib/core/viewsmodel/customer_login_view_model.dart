@@ -53,8 +53,9 @@ class CustomerLoginViewModel extends BaseModel {
                 userLogin.noticies = new List<Notice>();
                 userLogin.noticies = responseNotice.notices;
                 SharedManager().loginRequest = userLogin;
-                setState(ViewState.Idle);
+
                 navigator.navigateToRemove(Pages.Home);
+                setState(ViewState.Idle);
               } else {
                 setState(ViewState.Idle);
 
@@ -62,8 +63,8 @@ class CustomerLoginViewModel extends BaseModel {
               }
             });
           } else {
-            setState(ViewState.Idle);
             _showDialog("Yanlış E-posta yada Şifre");
+            setState(ViewState.Idle);
           }
         });
       } else {

@@ -57,83 +57,86 @@ class SuccessShareState extends State<SuccessShare> {
         _doNoticeViewModel = model;
       },
       builder: (context, model, child) {
-        return Scaffold(
-          body: Screenshot(
-            controller: screenshotController,
-            child: Container(
-              color: UIHelper.PEAR_PRIMARY_COLOR,
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: () async {
-                      SocialShare.copyToClipboard(
-                        _linkMessage,
-                      ).then((data) {
-                        print(data);
-                      });
-                    },
-                    child: Text("Linki Kopyala"),
-                  ),
-                  RaisedButton(
-                    onPressed: () async {
-                      SocialShare.shareTwitter("BildireyimBunu uygulamasindan bildirim paylaştım " + notice.twetterAddress,
-                              url: _linkMessage, hashtags: ["bildireyimbunu", notice.reportedMunicipality], trailingText: "\n" + notice.explation)
-                          .then((data) {
-                        print(data);
-                      });
-                    },
-                    child: Text("Twitter'da Paylaş"),
-                  ),
-                  RaisedButton(
-                    onPressed: () async {
-                      SocialShare.shareSms("Bildireyim Bunu uygulamasindan bildirim paylaştım\n",
-                              url: _linkMessage, trailingText: "\n" + notice.explation)
-                          .then((data) {
-                        print(data);
-                      });
-                    },
-                    child: Text("Sms Gönder"),
-                  ),
-                  RaisedButton(
-                    onPressed: () async {
-                      await screenshotController.capture().then((image) async {
-                        SocialShare.shareOptions(_linkMessage).then((data) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+            body: Screenshot(
+              controller: screenshotController,
+              child: Container(
+                color: UIHelper.PEAR_PRIMARY_COLOR,
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () async {
+                        SocialShare.copyToClipboard(
+                          _linkMessage,
+                        ).then((data) {
                           print(data);
                         });
-                      });
-                    },
-                    child: Text("Paylaşım Ayarları"),
-                  ),
-                  RaisedButton(
-                    onPressed: () async {
-                      SocialShare.shareWhatsapp(_linkMessage).then((data) {
-                        print(data);
-                      });
-                    },
-                    child: Text("Whatsapp'ta Paylaş"),
-                  ),
-                  RaisedButton(
-                    onPressed: () async {
-                      SocialShare.shareTelegram(_linkMessage).then((data) {
-                        print(data);
-                      });
-                    },
-                    child: Text("Telegram'dan Paylaş"),
-                  ),
-                  RaisedButton(
-                    onPressed: () async {
-                      SocialShare.checkInstalledAppsForShare().then((data) {
-                        print(data.toString());
-                      });
-                    },
-                    child: Text("Bütün Uygulamalarım"),
-                  ),
-                  _anasayfa,
-                  _newNotice,
-                ],
+                      },
+                      child: Text("Linki Kopyala"),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        SocialShare.shareTwitter("BildireyimBunu uygulamasindan bildirim paylaştım " + notice.twetterAddress,
+                                url: _linkMessage, hashtags: ["bildireyimbunu", notice.reportedMunicipality], trailingText: "\n" + notice.explation)
+                            .then((data) {
+                          print(data);
+                        });
+                      },
+                      child: Text("Twitter'da Paylaş"),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        SocialShare.shareSms("Bildireyim Bunu uygulamasindan bildirim paylaştım\n",
+                                url: _linkMessage, trailingText: "\n" + notice.explation)
+                            .then((data) {
+                          print(data);
+                        });
+                      },
+                      child: Text("Sms Gönder"),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        await screenshotController.capture().then((image) async {
+                          SocialShare.shareOptions(_linkMessage).then((data) {
+                            print(data);
+                          });
+                        });
+                      },
+                      child: Text("Paylaşım Ayarları"),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        SocialShare.shareWhatsapp(_linkMessage).then((data) {
+                          print(data);
+                        });
+                      },
+                      child: Text("Whatsapp'ta Paylaş"),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        SocialShare.shareTelegram(_linkMessage).then((data) {
+                          print(data);
+                        });
+                      },
+                      child: Text("Telegram'dan Paylaş"),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        SocialShare.checkInstalledAppsForShare().then((data) {
+                          print(data.toString());
+                        });
+                      },
+                      child: Text("Bütün Uygulamalarım"),
+                    ),
+                    _anasayfa,
+                    _newNotice,
+                  ],
+                ),
               ),
             ),
           ),
