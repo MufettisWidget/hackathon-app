@@ -1,5 +1,3 @@
-import 'package:MufettisWidgetApp/core/viewsmodel/change_mail_address_view_model.dart';
-import 'package:MufettisWidgetApp/core/viewsmodel/customer_add_view_model.dart';
 import 'package:get_it/get_it.dart';
 
 import 'core/services/navigation_service.dart';
@@ -19,6 +17,8 @@ import 'core/viewsmodel/news_view_model.dart';
 import 'core/viewsmodel/notice_detail_view_model.dart';
 import 'core/viewsmodel/splash_view_model.dart';
 import 'core/viewsmodel/succes_share_view_model.dart';
+import 'core/viewsmodel/change_mail_address_view_model.dart';
+import 'core/viewsmodel/customer_add_view_model.dart';
 
 GetIt locator = GetIt.instance;
 
