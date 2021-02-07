@@ -54,7 +54,7 @@ class AccountApiServices {
   }
 
   static Future<http.Response> renewPassword(String userId, String newPassword) async {
-    Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
+    Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
     final response = await http.get(
       baseUrl + 'user/renewPassword/$userId/$newPassword',
       headers: headers,
@@ -63,7 +63,7 @@ class AccountApiServices {
   }
 
   static Future<http.Response> forgotPassword(String email) async {
-    Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
+    Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
     final response = await http.get(
       baseUrl + 'user/forgotPassword/$email',
       headers: headers,

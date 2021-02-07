@@ -19,6 +19,7 @@ class ForgotPasswordViewModel extends BaseModel {
   BuildContext get context => _context;
 
   CustomerAddViewModel() {}
+  
   @override
   void setContext(BuildContext context) {
     this._context = context;
