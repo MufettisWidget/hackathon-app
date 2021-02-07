@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:MufettisWidgetApp/core/viewsmodel/forgot_password_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -19,37 +21,43 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class ForgotPasswordState extends State with ValidationMixin {
+  ForgotPasswordViewModel _forgotPasswordViewModel;
   final formKey = GlobalKey<FormState>();
   String mailAddres = "";
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _helloText,
-                _description,
-                _formField,
-                _loginButton,
-              ],
+    return BaseView<ForgotPasswordViewModel>(onModelReady: (model) {
+      model.setContext(context);
+      _forgotPasswordViewModel = model;
+    }, builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _helloText,
+                  _description,
+                  _formField,
+                  _loginButton,
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget get _formField => Padding(
@@ -87,7 +95,8 @@ class ForgotPasswordState extends State with ValidationMixin {
             mailAddres = value;
           },
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -102,7 +111,8 @@ class ForgotPasswordState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description => Text(UIHelper.forgatPasswordAccount, style: _helloTextStyle(30));
+  Widget get _description =>
+      Text(UIHelper.forgatPasswordAccount, style: _helloTextStyle(30));
 
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -111,11 +121,12 @@ class ForgotPasswordState extends State with ValidationMixin {
           onTap: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
-              goToRenewPassword(mailAddres);
+              _forgotPasswordViewModel.goToRenewPassword(mailAddres);
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -139,49 +150,4 @@ class ForgotPasswordState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-
-  Future<void> goToRenewPassword(String mailAddres) async {
-    bool isConncet = false;
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      isConncet = true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      isConncet = true;
-    }
-    if (isConncet) {
-      AccountApiServices.forgotPassword(mailAddres).then((response) {
-        setState(() {
-          if (response.statusCode == 200) {
-            Map userMap = jsonDecode(response.body);
-            var userLogin = User.fromJson(userMap);
-
-            Navigator.push(context, MaterialPageRoute(builder: (_context) => RenewPassword(userLogin)));
-          } else {
-            _showDialog("E-posta adresine ait kullanıcı bulunamadı.");
-          }
-        });
-      });
-    } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
-    }
-  }
-
-  void _showDialog(String contextText) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
-              onPressed: () {},
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
