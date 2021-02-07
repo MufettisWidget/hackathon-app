@@ -8,7 +8,6 @@ import '../../model/home/home_request_model.dart';
 import '../../model/lat_long.dart';
 import '../../model/notice.dart';
 import '../enum/paged_name.dart';
-import '../services/location_services.dart';
 import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 import 'main_view_model.dart';
@@ -26,8 +25,6 @@ class HomeViewModel extends BaseModel {
   LocationManager newLocationManager;
 
   List<Notice> customerNotice = null;
-
-  LocationService _locationService;
 
   SharedManager _sharedManager = new SharedManager();
   LatLng currentUserLocation;

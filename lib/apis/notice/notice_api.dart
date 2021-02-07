@@ -9,8 +9,8 @@ class NoticeApiServices {
   static NoticeApiServices _instance = NoticeApiServices._init();
   NoticeApiServices._init();
   static NoticeApiServices instance = _instance;
-  
 
+//Kullanıncın bildirilerini çeken api servisi
   Future<http.Response> getmyNotice(String userId) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -21,6 +21,7 @@ class NoticeApiServices {
     return response;
   }
 
+//Tüm bildirileri çeken api servisi
   Future<http.Response> getAllNoticeNoPage() async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
 
@@ -31,16 +32,7 @@ class NoticeApiServices {
     return response;
   }
 
-  Future<http.Response> getMyCorporationNotice(String userId, int pageNumber) async {
-    Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
-
-    final response = http.get(
-      baseUrl + 'notice/GetMyCorporationNotice/$userId?PageNumber=$pageNumber&PageSize=3',
-      headers: headers,
-    );
-    return response;
-  }
-
+//Kullanıncın son 5 bildirilerini çeken api servisi
   Future<http.Response> getmyLastNotice(String userId) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -51,6 +43,7 @@ class NoticeApiServices {
     return response;
   }
 
+// Bildirilerin detayını çeken api servisi
   Future<http.Response> getNoticeDetail(String id) {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -61,6 +54,7 @@ class NoticeApiServices {
     return response;
   }
 
+//Tüm bildirileri sayfalayarak çeken api servisi
   static Future<http.Response> getAllNotice(int pageNumber) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -71,6 +65,7 @@ class NoticeApiServices {
     return response;
   }
 
+//Kullanıcının bildirim oluşturmasını sağlayan api servisi
   Future<http.Response> createNotice(Notice notice) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -79,6 +74,7 @@ class NoticeApiServices {
     return response;
   }
 
+//Kullanıcının bildirim güncellemesini sağlayan api servisi
   Future<http.Response> updateNoticeSuccess(Notice noticeIn) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -87,6 +83,7 @@ class NoticeApiServices {
     return response;
   }
 
+//Kullanıcının bildirim silmesini sağlayan api servisi
   Future<http.Response> updateNoticeDelete(Notice noticeIn) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
 
@@ -95,6 +92,7 @@ class NoticeApiServices {
     return response;
   }
 
+//Kullanıcının bildirim eklerken resim yüklemesini sağlayan api servisi
   Future<http.StreamedResponse> createNoticePhoto(String imagePath, String fileName) async {
     var request = http.MultipartRequest("POST", Uri.parse(baseUrl + "Notice/UploadNewsBannerFile?fileName=$fileName"));
     request.headers['Authorization'] = 'Bearer  ' + SharedManager().jwtToken;

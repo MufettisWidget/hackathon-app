@@ -164,8 +164,18 @@ class DisplayPictureScreenState extends State {
             ),
           ],
         ),
-        body: Image.file(File(imagePath)),
+        body: buildImageBody(),
       );
     });
+  }
+
+  Widget buildImageBody() {
+    return Image.file(
+      File(imagePath),
+      fit: BoxFit.cover,
+      height: double.infinity,
+      width: double.infinity,
+      alignment: Alignment.center,
+    );
   }
 }

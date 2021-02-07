@@ -1,3 +1,4 @@
+//Shared Managerdaki anahtar keyler
 enum ClientSharedEnum {
   notUserTokenBb,
   jwtToken,

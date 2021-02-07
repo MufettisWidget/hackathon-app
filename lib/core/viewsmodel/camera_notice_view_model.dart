@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 
+// Kameradan alınan resim için kullanılan model
 class CameraNoticeViewModel extends BaseModel {
   final changeMailAddressScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_cameraNoticeScaffoldKey");
 

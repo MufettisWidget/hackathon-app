@@ -6,7 +6,7 @@ class TokenApiServices {
   static TokenApiServices _instance = TokenApiServices._init();
   TokenApiServices._init();
   static TokenApiServices instance = _instance;
-
+//Kullanıcının uygulamaya giriş yaparken jwt token oluşturmasını sağlayan api servisi
   Future<http.Response> getToken(String deviceId, String cryptoDevice) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
 

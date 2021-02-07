@@ -4,6 +4,7 @@ import '../../locator.dart';
 import '../enum/viewstate.dart';
 import '../services/navigation_service.dart';
 
+//Sayfaların inherit(miras almak) edildiği model
 class BaseModel extends ChangeNotifier {
   ViewState _state = ViewState.Idle;
 

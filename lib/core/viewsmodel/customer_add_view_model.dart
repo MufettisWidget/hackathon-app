@@ -7,9 +7,9 @@ import '../../apis/account/acoount_api.dart';
 import '../../model/user.dart';
 import 'base_model.dart';
 
+// Kullanıcının kayıt olması için kullanılan model
 class CustomerAddViewModel extends BaseModel {
-  final customerAddScaffoldKey =
-      GlobalKey<ScaffoldState>(debugLabel: "_customerAddScaffoldKey");
+  final customerAddScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_customerAddScaffoldKey");
 
   BuildContext _context;
 
@@ -37,9 +37,7 @@ class CustomerAddViewModel extends BaseModel {
           _showDialog("Kayıdınız alındı. Devamke!", true);
           setState(ViewState.Idle);
         } else {
-          _showDialog(
-              "Aynı mail adresi veya telefon numarasına ait kayıt vardır.",
-              false);
+          _showDialog("Aynı mail adresi veya telefon numarasına ait kayıt vardır.", false);
           setState(ViewState.Idle);
         }
       });
@@ -71,7 +69,6 @@ class CustomerAddViewModel extends BaseModel {
     );
   }
 
-  
   void showDialogkVkk(String contextText, bool isuscces) {
     showDialog(
       context: context,
@@ -94,8 +91,7 @@ class CustomerAddViewModel extends BaseModel {
     );
   }
 
-
-   void showDialogKvkk() {
+  void showDialogKvkk() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -143,6 +139,4 @@ class CustomerAddViewModel extends BaseModel {
       },
     );
   }
-
-
 }

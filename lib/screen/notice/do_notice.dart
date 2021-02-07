@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../core/services/location_services.dart';
 import '../../core/shared_prefernces_api.dart';
 import '../../core/viewsmodel/do_notice_view_model.dart';
 import '../../mixin/validation_mixin.dart';
@@ -33,7 +32,6 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
   double latitude;
   double longitude;
   SharedManager _sharedManager = new SharedManager();
-  LocationService _locationService;
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
   BitmapDescriptor pinLocationIcon;

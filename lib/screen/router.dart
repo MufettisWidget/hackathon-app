@@ -7,7 +7,6 @@ import 'customer/my_profile.dart';
 import 'main_view.dart';
 import 'notice/do_notice.dart';
 import 'splash_view.dart';
-import 'tab_menu/all_news.dart';
 
 class Router {
   static const String splashRoute = '/';
@@ -33,8 +32,6 @@ class Router {
         return MaterialPageRoute(builder: (_) => CustomerLogin());
       case myNotice:
         return MaterialPageRoute(builder: (_) => MyNoticeView());
-      case newsRoute:
-        return MaterialPageRoute(builder: (_) => AllNewsView());
       case signIn:
         return MaterialPageRoute(builder: (_) => CustomerAddView());
 

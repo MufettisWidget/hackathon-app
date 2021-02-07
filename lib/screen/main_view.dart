@@ -47,7 +47,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
               _buildBottomNavigationBarItem(Icons.map, "Harita", 28, 1),
               _buildBottomNavigationBarItem(Icons.add_alert, "Yeni Bildirim", 28, 2),
               _buildBottomNavigationBarItem(Icons.notification_important, "Bildirimler", 28, 3),
-              _buildBottomNavigationBarItem(Icons.receipt, "Haberler", 28, 4),
             ],
           ),
         );

@@ -4,6 +4,7 @@ import '../../core/shared_prefernces_api.dart';
 import '../../main.dart';
 import '../../model/user.dart';
 
+//Kullanıcın sisteme üye olması için çalışan api servisi
 class AccountApiServices {
   static Future<http.Response> createUser(User user) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
@@ -12,13 +13,7 @@ class AccountApiServices {
     return response;
   }
 
-  static Future<http.Response> sendMail(User user) async {
-    Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
-
-    final response = await http.post(baseUrl + 'user', headers: headers, body: postToJsonUser(user));
-    return response;
-  }
-
+//Kullanıcın sisteme giriş yapabilmesi için çalışan api servisi
   static Future<http.Response> loginUser(String email, String password) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
     final response = await http.get(

@@ -79,7 +79,7 @@ class SplashViewModel extends BaseModel {
 
         SharedManager().tokenNotUser = returnToken.token;
 
-        CityApiService.instance.ggetMostCity().then((response) {
+        CityApiService.instance.getMostCity().then((response) {
           if (response.statusCode == 200) {
             Map<String, dynamic> map = jsonDecode(response.body);
             var mostDistrict = District.fromJson(map);
@@ -98,7 +98,7 @@ class SplashViewModel extends BaseModel {
           }
         });
 
-        DistrictApiServices.instance.ggetMostDistrict().then((response) {
+        DistrictApiServices.instance.getMostDistrict().then((response) {
           if (response.statusCode == 200) {
             Map<String, dynamic> map = jsonDecode(response.body);
             var mostDistrict = District.fromJson(map);
@@ -124,12 +124,6 @@ class SplashViewModel extends BaseModel {
             var responseNotice = ResponseNotice.fromJson(map);
             SharedManager().openNotice = responseNotice.notices;
             noticeList = responseNotice.notices;
-          }
-        });
-        NewsApiServices.getAllNews().then((response) {
-          if (response.statusCode == 200) {
-            var news = (json.decode(response.body) as List).map((i) => News.fromJson(i)).toList();
-            SharedManager().news = news;
           }
         });
       }

@@ -9,6 +9,7 @@ import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 import 'main_view_model.dart';
 
+//Tab menüdeki Tüm bildirimleri görmek için kullanılan model
 class AllNoticeViewModel extends BaseModel {
   final noticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_allnoticeScaffoldKey");
 

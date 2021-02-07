@@ -8,6 +8,7 @@ class DistrictApiServices {
   DistrictApiServices._init();
   static DistrictApiServices instance = _instance;
 
+//İlçe bilgisi için çalışan api servisi
   Future<http.Response> getDistrict(String city, String district) async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
     final response = await http.get(
@@ -17,6 +18,7 @@ class DistrictApiServices {
     return response;
   }
 
+// Bütün ilçe bilgisi için çalışan api servisi
   Future<http.Response> getAllDistrict() async {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().jwtToken};
     final response = await http.get(
@@ -26,7 +28,8 @@ class DistrictApiServices {
     return response;
   }
 
-  Future<http.Response> ggetMostDistrict() {
+//En çok bildirim alan ilçe bilgileri için çalışan api servisi
+  Future<http.Response> getMostDistrict() {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
 
     final response = http.get(
@@ -36,6 +39,7 @@ class DistrictApiServices {
     return response;
   }
 
+//En çok çözüm üreten ilçe bilgileri için çalışan api servisi
   Future<http.Response> getMostDistrictSolutionRate() {
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer  ' + SharedManager().tokenNotUser};
     final response = http.get(

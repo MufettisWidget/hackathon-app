@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../shared_prefernces_api.dart';
-import '../base_model.dart';
+import '../shared_prefernces_api.dart';
+import 'base_model.dart';
 
+//
 class BadgeMenuViewModel extends BaseModel {
   BuildContext _context;
 

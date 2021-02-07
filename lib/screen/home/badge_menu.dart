@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/viewsmodel/badge_menu/badge_menu_view_model.dart';
+import '../../core/viewsmodel/badge_menu_view_model.dart';
 import '../../ui/views/baseview.dart';
 
 import '../../shared/style/ui_padding_helper.dart';

@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 
+// E-posta adresini değiştirmek için kullan model
 class ChangeMailAddressViewModel extends BaseModel {
   final changeMailAddressScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_changeMailAddressScaffoldKey");
 
@@ -19,13 +20,12 @@ class ChangeMailAddressViewModel extends BaseModel {
 
   ChangeMailAddressViewModel() {}
 
-
   @override
   void setContext(BuildContext context) {
     this._context = context;
   }
 
-    Future<void> saveNewEmail(String password, String email) async {
+  Future<void> saveNewEmail(String password, String email) async {
     bool isConncet = false;
 
     var connectivityResult = await (Connectivity().checkConnectivity());
@@ -36,29 +36,28 @@ class ChangeMailAddressViewModel extends BaseModel {
     }
     if (isConncet) {
       AccountApiServices.changeMailAddress(SharedManager().loginRequest.id, password, email).then((response) {
-          setState(ViewState.Busy);
-          if (response.statusCode == 200) {
-            Map userMap = jsonDecode(response.body);
-            var userLogin = User.fromJson(userMap);
-            userLogin.userToken = SharedManager().jwtToken;
-            userLogin.noticies = SharedManager().loginRequest.noticies;
+        setState(ViewState.Busy);
+        if (response.statusCode == 200) {
+          Map userMap = jsonDecode(response.body);
+          var userLogin = User.fromJson(userMap);
+          userLogin.userToken = SharedManager().jwtToken;
+          userLogin.noticies = SharedManager().loginRequest.noticies;
 
-            SharedManager().loginRequest = userLogin;
+          SharedManager().loginRequest = userLogin;
 
-            _showDialog("E-Posta Adreso Değiştirilmiştir.");
-            setState(ViewState.Idle);
-          } else {
-            _showDialog("Mevcut şifre yanlıştır.");
-            setState(ViewState.Idle);
-          }
-      
+          _showDialog("E-Posta Adreso Değiştirilmiştir.");
+          setState(ViewState.Idle);
+        } else {
+          _showDialog("Mevcut şifre yanlıştır.");
+          setState(ViewState.Idle);
+        }
       });
     } else {
       _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
     }
   }
 
-    void _showDialog(String contextText) {
+  void _showDialog(String contextText) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -78,5 +77,4 @@ class ChangeMailAddressViewModel extends BaseModel {
       },
     );
   }
-
 }

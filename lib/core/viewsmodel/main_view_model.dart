@@ -5,7 +5,6 @@ import '../../screen/customer/customer_login.dart';
 import '../../screen/home/home_view.dart';
 import '../../screen/lef_driver_widget.dart';
 import '../../screen/notice/do_notice.dart';
-import '../../screen/tab_menu/all_news.dart';
 import '../../screen/tab_menu/all_notice_view.dart';
 import '../../screen/tab_menu/customer_map.dart';
 import '../shared_prefernces_api.dart';
@@ -19,7 +18,6 @@ class MainViewModel extends BaseModel {
   static GlobalKey<ScaffoldState> mainScaffoldKey = GlobalKey();
 
   HomeView homeView;
-  AllNewsView allNews;
   CustomerLogin customerLogin;
   DoNoticeView doNoticeView;
   int currentIndex = 0;
@@ -47,7 +45,6 @@ class MainViewModel extends BaseModel {
       goToMapNoticeView: goToMapNoticeView,
     );
 
-    allNews = AllNewsView();
     doNoticeView = DoNoticeView();
     customerLogin = CustomerLogin();
     bottomBarChildren.insert(0, homeView);
@@ -55,8 +52,6 @@ class MainViewModel extends BaseModel {
       bottomBarChildren.insert(2, doNoticeView);
     else
       bottomBarChildren.insert(2, customerLogin);
-
-    bottomBarChildren.insert(4, allNews);
 
     leftDrawerWidget = LeftDrawerWidget(
       onChangeTokenStatus: () {

@@ -10,9 +10,9 @@ import 'package:flutter/widgets.dart';
 import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 
+//Kullanıcının şifresini değiştirmesi için kullanılan model
 class ChangePasswordViewModel extends BaseModel {
-  final changePasswordScaffoldKey =
-      GlobalKey<ScaffoldState>(debugLabel: "_changePasswordScaffoldKey");
+  final changePasswordScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_changePasswordScaffoldKey");
 
   BuildContext _context;
 
@@ -35,9 +35,7 @@ class ChangePasswordViewModel extends BaseModel {
       isConncet = true;
     }
     if (isConncet) {
-      AccountApiServices.changePassword(
-              SharedManager().loginRequest.id, oldPassword, newPassword)
-          .then((response) {
+      AccountApiServices.changePassword(SharedManager().loginRequest.id, oldPassword, newPassword).then((response) {
         setState(ViewState.Busy);
         if (response.statusCode == 200) {
           Map userMap = jsonDecode(response.body);

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../enum/paged_name.dart';
 
+//sayfa routerları için
 class NavigationService {
   final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 

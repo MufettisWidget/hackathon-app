@@ -21,7 +21,6 @@ import '../../ui/views/notice_detail_dialog_view.dart';
 import '../core_helper.dart';
 import '../enum/viewstate.dart';
 import '../shared_prefernces_api.dart';
-import '../utils/poly_list.dart';
 import 'base_model.dart';
 import 'main_view_model.dart';
 
@@ -36,7 +35,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
   GoogleMapController mapController;
 
   Notice currentSelectNotice;
-  List<PolyList> polyList;
   List<Notice> noticeList = new List();
 
   List<LatLng> polyLineList = new List();
@@ -327,16 +325,6 @@ class CustomerNoticeMapViewModel extends BaseModel {
     } else {
       snackBarWarningMessage('Bilgiler getirilemedi.');
     }
-  }
-
-  List<LatLng> getLatLng(List<PolyList> polyList) {
-    polyLineList = new List();
-
-    for (int i = 0; i < polyList.length; i++) {
-      polyLineList.add(new LatLng(polyList[i].latitude, polyList[i].longitude));
-    }
-
-    return polyLineList;
   }
 
   launchMaps(String _url) async {
