@@ -13,6 +13,8 @@ import 'core/viewsmodel/home_view_model.dart';
 import 'core/viewsmodel/lef_drawer_view_model.dart';
 import 'core/viewsmodel/main_view_model.dart';
 import 'core/viewsmodel/my_notice_view_model.dart';
+import 'core/viewsmodel/my_profile_info_view_model.dart';
+import 'core/viewsmodel/my_profile_view_model.dart';
 import 'core/viewsmodel/new_detail_view_model.dart';
 import 'core/viewsmodel/notice_detail_view_model.dart';
 import 'core/viewsmodel/notice_explanation_view_model.dart';
@@ -21,6 +23,7 @@ import 'core/viewsmodel/succes_share_view_model.dart';
 import 'core/viewsmodel/change_mail_address_view_model.dart';
 import 'core/viewsmodel/customer_add_view_model.dart';
 import 'core/viewsmodel/renew_password_view_model.dart';
+import 'core/viewsmodel/my_notice_detail_view_model.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -46,5 +49,7 @@ void initLocator() {
   locator.registerFactory(() => RenewPasswordViewModel());
   locator.registerFactory(() => NoticeExplanationdViewModel());
   locator.registerFactory(() => ForgotPasswordViewModel());
-
+  locator.registerFactory(() => MyNoticeDetailViewModel());
+  locator.registerFactory(() => MyProfileInfoViewModel());
+  locator.registerFactory(() => MyProfileViewModel());
 }

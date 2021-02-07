@@ -1,6 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'package:rxdart/rxdart.dart';
-
 import '../../core/shared_prefernces_api.dart';
 import '../../main.dart';
 import '../../model/notice.dart';

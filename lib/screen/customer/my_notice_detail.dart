@@ -1,18 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:MufettisWidgetApp/core/core_helper.dart';
+import 'package:MufettisWidgetApp/core/viewsmodel/my_notice_detail_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../apis/notice/notice_api.dart';
-import '../../core/shared_prefernces_api.dart';
 import '../../main.dart';
 import '../../mixin/validation_mixin.dart';
 import '../../model/notice.dart';
-import '../../model/reponseModel/reponseNotice.dart';
 import '../../shared/style/ui_helper.dart';
 
 class MyNoticeDetail extends StatefulWidget {
@@ -24,12 +22,12 @@ class MyNoticeDetail extends StatefulWidget {
 }
 
 class MyNoticeDetailState extends State with ValidationMixin {
+  MyNoticeDetailViewModel _myNoticeDetailViewModel;
   final formKey = GlobalKey<FormState>();
   Notice notice;
   String imagePath;
   MyNoticeDetailState(this.notice);
   TextEditingController controllerExplation;
-  SingingCharacter _character = SingingCharacter.districtNotice;
   CameraPosition _currentPosition;
   Set<Marker> _markers = {};
   Completer<GoogleMapController> _controller = Completer();
@@ -54,51 +52,56 @@ class MyNoticeDetailState extends State with ValidationMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-        title: Text("Bildirim Detayı"),
-        actions: <Widget>[],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.all(25.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 6,
-                      child: detail(),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: image(),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(flex: 9, child: noticeexplatipn())
-                  ],
-                ),
-                SizedBox(height: 40.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[Expanded(flex: 9, child: mapStreet())],
-                ),
-              ],
+    return BaseView<MyNoticeDetailViewModel>(onModelReady: (model) {
+      model.setContext(context);
+      _myNoticeDetailViewModel = model;
+    }, builder: (context, model, child) {
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+          title: Text("Bildirim Detayı"),
+          actions: <Widget>[],
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.all(25.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 6,
+                        child: detail(),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: image(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.0),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(flex: 9, child: noticeexplatipn())
+                    ],
+                  ),
+                  SizedBox(height: 40.0),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[Expanded(flex: 9, child: mapStreet())],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget createRow(String header, String detail) {
@@ -196,19 +199,6 @@ class MyNoticeDetailState extends State with ValidationMixin {
     );
   }
 
-  void gotoSucces(Notice notice) async {
-    if (notice.noticeStatus & 128 != 128) {
-      _showDialog(
-          "Bildirimi durumu 'DÜZELDİ' olarak güncellenecektir.Tekrar güncellenemez.",
-          notice,
-          false);
-    }
-  }
-
-  void gotoDelete(Notice notice) {
-    _showDialog("Bildirim Silinecek Onaylıyormusunuz ?", notice, true);
-  }
-
   Widget mapStreet() {
     return Column(children: [
       SizedBox(
@@ -231,67 +221,4 @@ class MyNoticeDetailState extends State with ValidationMixin {
       ),
     ]);
   }
-
-  void _showDialog(String txt, Notice notice, bool isDeleted) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(txt),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Onayla"),
-              onPressed: () {
-                if (isDeleted) {
-                  NoticeApiServices.instance
-                      .updateNoticeDelete(notice)
-                      .then((response) {
-                    setState(() {
-                      if (response.statusCode == 204) {
-                        NoticeApiServices.instance
-                            .getmyNotice(SharedManager().loginRequest.id)
-                            .then((response) {
-                          if (response.statusCode == 200) {
-                            Map<String, dynamic> map =
-                                jsonDecode(response.body);
-                            var responseNotice = ResponseNotice.fromJson(map);
-
-                            SharedManager().loginRequest.noticies =
-                                responseNotice.notices;
-                          } else {}
-                        });
-                      }
-                    });
-                  });
-                } else {
-                  NoticeApiServices.instance
-                      .updateNoticeSuccess(notice)
-                      .then((response) {
-                    setState(() {
-                      if (response.statusCode == 204) {
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyNoticeDetail(notice)));
-                      }
-                    });
-                  });
-                }
-              },
-            ),
-            new FlatButton(
-              child: new Text("İptal"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
-
-enum SingingCharacter { districtNotice, cityNotice }

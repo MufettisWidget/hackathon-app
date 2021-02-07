@@ -1,3 +1,5 @@
+import 'package:MufettisWidgetApp/core/viewsmodel/my_profile_info_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class MyProfileInfo extends StatefulWidget {
 }
 
 class MyProfileInfoState extends State with ValidationMixin {
+  MyProfileInfoViewModel _myProfileInfoViewModel;
   final formKey = GlobalKey<FormState>();
 
   TextEditingController userName = new TextEditingController();
@@ -30,30 +33,38 @@ class MyProfileInfoState extends State with ValidationMixin {
   Widget build(BuildContext context) {
     getCustomerDetail();
     ScreenUtil.instance.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _helloText,
-                _description,
-                _formField,
-                _loginButton,
-              ],
+    return BaseView<MyProfileInfoViewModel>(
+      onModelReady: (model) {
+        model.setContext(context);
+        _myProfileInfoViewModel = model;
+      },
+      builder: (context, model, child) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+          ),
+          backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _helloText,
+                    _description,
+                    _formField,
+                    _loginButton,
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -97,7 +108,8 @@ class MyProfileInfoState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -126,7 +138,8 @@ class MyProfileInfoState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -156,7 +169,8 @@ class MyProfileInfoState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -171,7 +185,8 @@ class MyProfileInfoState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description => Text(UIHelper.changeInfoStatus, style: _helloTextStyle(30));
+  Widget get _description =>
+      Text(UIHelper.changeInfoStatus, style: _helloTextStyle(30));
 
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -180,11 +195,12 @@ class MyProfileInfoState extends State with ValidationMixin {
           onTap: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
-              saveNewPassword(userName.text);
+              _myProfileInfoViewModel.saveNewPassword(userName.text);
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -201,7 +217,8 @@ class MyProfileInfoState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _helloText => Text(UIHelper.customInfo, style: _helloTextStyle(70));
+  Widget get _helloText =>
+      Text(UIHelper.customInfo, style: _helloTextStyle(70));
 
   Widget passwordNameField() {
     return TextFormField(
@@ -216,35 +233,6 @@ class MyProfileInfoState extends State with ValidationMixin {
         fontWeight: FontWeight.bold,
       );
 
-  Future<void> saveNewPassword(String nameSurname) async {
-    bool isConncet = false;
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      isConncet = true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      isConncet = true;
-    }
-    if (isConncet) {
-      var updateuser = SharedManager().loginRequest;
-      updateuser.nameSurname = nameSurname;
-
-      AccountApiServices.updateUser(updateuser).then((response) {
-        setState(() {
-          if (response.statusCode == 204) {
-            SharedManager().loginRequest = updateuser;
-
-            _showDialog("Bilgileriniz Güncellenmiştir.");
-          } else {
-            _showDialog("Hata");
-          }
-        });
-      });
-    } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
-    }
-  }
-
   getCustomerDetail() async {
     if (SharedManager().loginRequest != null) {
       user = SharedManager().loginRequest;
@@ -256,26 +244,5 @@ class MyProfileInfoState extends State with ValidationMixin {
       String _token = SharedManager().jwtToken;
       if (_token != null) {}
     }
-  }
-
-  void _showDialog(String contextText) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/myProfil");
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }
