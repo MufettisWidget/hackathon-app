@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:MufettisWidgetApp/model/reponseModel/reponseNotice.dart';
 import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +24,8 @@ class NoticeExplation extends StatefulWidget {
 
   NoticeExplation(this.notice, this.imagePath);
 
-  State<StatefulWidget> createState() => NoticeExplationState(notice, imagePath);
+  State<StatefulWidget> createState() =>
+      NoticeExplationState(notice, imagePath);
 }
 
 class NoticeExplationState extends State with ValidationMixin {
@@ -128,7 +130,9 @@ class NoticeExplationState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: UIHelper.PEAR_PRIMARY_COLOR, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(
+                color: UIHelper.PEAR_PRIMARY_COLOR,
+                borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -158,15 +162,22 @@ class NoticeExplationState extends State with ValidationMixin {
           if (responseCity.statusCode == 200) {
             Map cityMap = jsonDecode(responseCity.body);
             notice.twetterAddress = "@" + City.fromJson(cityMap).twitterAddress;
-            NoticeApiServices.instance.createNotice(notice).then((responseNotice) {
+            NoticeApiServices.instance
+                .createNotice(notice)
+                .then((responseNotice) {
               setState(() {
                 if (responseNotice.statusCode == 201) {
                   Map noticeMap = jsonDecode(responseNotice.body);
                   notice.id = Notice.fromJson(noticeMap).id;
-                  NoticeApiServices.instance.createNoticePhoto(imagePath, notice.photoName).then((response) {
+                  NoticeApiServices.instance
+                      .createNoticePhoto(imagePath, notice.photoName)
+                      .then((response) {
                     setState(() async {
                       if (response.statusCode == 200) {
-                        await Navigator.push(context, MaterialPageRoute(builder: (_context) => SuccessShare(notice)));
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_context) => SuccessShare(notice)));
                         return true;
                       }
                     });
@@ -181,19 +192,46 @@ class NoticeExplationState extends State with ValidationMixin {
         notice.reportedMunicipality = notice.district;
         notice.noticeStatus = 5;
 
-        DistrictApiServices.instance.getDistrict(notice.city, notice.district).then((responseDistrict) {
+        DistrictApiServices.instance
+            .getDistrict(notice.city, notice.district)
+            .then((responseDistrict) {
           if (responseDistrict.statusCode == 200) {
             Map districtMap = jsonDecode(responseDistrict.body);
-            notice.twetterAddress = "@" + District.fromJson(districtMap).twitterAddress;
-            NoticeApiServices.instance.createNotice(notice).then((responseNotice) {
+            notice.twetterAddress =
+                "@" + District.fromJson(districtMap).twitterAddress;
+            NoticeApiServices.instance
+                .createNotice(notice)
+                .then((responseNotice) {
               Map noticeMap = jsonDecode(responseNotice.body);
               setState(() {
                 notice.id = Notice.fromJson(noticeMap).id;
                 if (responseNotice.statusCode == 201) {
-                  NoticeApiServices.instance.createNoticePhoto(imagePath, notice.photoName).then((responseImage) {
+                  NoticeApiServices.instance
+                      .createNoticePhoto(imagePath, notice.photoName)
+                      .then((responseImage) {
                     setState(() async {
                       if (responseImage.statusCode == 200) {
-                        await Navigator.push(context, MaterialPageRoute(builder: (_context) => SuccessShare(notice)));
+                        var userLogin = SharedManager().loginRequest;
+
+                        NoticeApiServices.instance
+                            .getmyNotice(userLogin.id)
+                            .then((response) {
+                          if (response.statusCode == 200) {
+                            Map<String, dynamic> map =
+                                jsonDecode(response.body);
+                            var responseNotice = ResponseNotice.fromJson(map);
+                            userLogin.noticies = new List<Notice>();
+                            userLogin.noticies = responseNotice.notices;
+                            SharedManager().loginRequest = userLogin;
+                          } else {
+                            SharedManager().loginRequest = userLogin;
+                          }
+                        });
+
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_context) => SuccessShare(notice)));
                         return true;
                       }
                     });
@@ -207,7 +245,8 @@ class NoticeExplationState extends State with ValidationMixin {
     });
   }
 
-  Future<String> _createDynamicLink(bool short, String longUri, Notice notice) async {
+  Future<String> _createDynamicLink(
+      bool short, String longUri, Notice notice) async {
     setState(() {});
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(

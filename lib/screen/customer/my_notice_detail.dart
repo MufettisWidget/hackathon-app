@@ -6,7 +6,6 @@ import 'package:MufettisWidgetApp/core/core_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 
 import '../../apis/notice/notice_api.dart';
 import '../../core/shared_prefernces_api.dart';
@@ -48,7 +47,9 @@ class MyNoticeDetailState extends State with ValidationMixin {
   }
 
   void setCustomMapPin() async {
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 5.5), 'assets/images/destination_map_marker.png');
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 5.5),
+        'assets/images/destination_map_marker.png');
   }
 
   @override
@@ -83,7 +84,9 @@ class MyNoticeDetailState extends State with ValidationMixin {
                 SizedBox(height: 10.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[Expanded(flex: 9, child: noticeexplatipn())],
+                  children: <Widget>[
+                    Expanded(flex: 9, child: noticeexplatipn())
+                  ],
                 ),
                 SizedBox(height: 40.0),
                 Row(
@@ -98,20 +101,31 @@ class MyNoticeDetailState extends State with ValidationMixin {
     );
   }
 
-  Widget _iconLabelDelete(String text) => Wrap(
-        crossAxisAlignment: WrapCrossAlignment.end,
-        spacing: 5,
-        children: <Widget>[
-          Icon(
-            Icons.delete,
-            color: CupertinoColors.inactiveGray,
+  Widget createRow(String header, String detail) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: RichText(
+            text: TextSpan(
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold),
+                children: [TextSpan(text: header)]),
           ),
-          Text(text),
-          SizedBox(
-            width: 10,
-          )
-        ],
-      );
+        ),
+        Expanded(
+          flex: 7,
+          child: RichText(
+            text: TextSpan(
+                style: TextStyle(color: Colors.black, fontSize: 12.0),
+                children: [TextSpan(text: ": " + detail)]),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget detail() {
     return Column(
@@ -139,7 +153,9 @@ class MyNoticeDetailState extends State with ValidationMixin {
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: notice.explation)]),
+            text: TextSpan(
+                style: TextStyle(color: Colors.black, fontSize: 12.0),
+                children: [TextSpan(text: notice.explation)]),
           ),
         ),
       ],
@@ -147,140 +163,31 @@ class MyNoticeDetailState extends State with ValidationMixin {
   }
 
   Widget reportedMunicipality() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text:
-                TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "Belediye")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + notice.reportedMunicipality)]),
-          ),
-        ),
-      ],
-    );
+    return createRow("Belediye", notice.reportedMunicipality);
   }
 
   Widget city() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "Şehir")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + notice.city)]),
-          ),
-        ),
-      ],
-    );
+    return createRow("Şehir", notice.city);
   }
 
   Widget district() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "İlçe")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + notice.district)]),
-          ),
-        ),
-      ],
-    );
+    return createRow("İlçe", notice.district);
   }
 
   Widget street() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "Sokak")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + notice.street)]),
-          ),
-        ),
-      ],
-    );
+    return createRow("Sokak", notice.street);
   }
 
   Widget streetNo() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "No")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + notice.streetNo)]),
-          ),
-        ),
-      ],
-    );
+    return createRow("No", notice.streetNo);
   }
 
   Widget status() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "Durumu")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold),
-                children: [TextSpan(text: ": " + CoreHelper.getStatus(notice.noticeStatus))]),
-          ),
-        ),
-      ],
-    );
+    return createRow("Durumu", CoreHelper.getStatus(notice.noticeStatus));
   }
 
   Widget createDate() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "Tarih")]),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: RichText(
-            text:
-                TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + CoreHelper.parseDateData(notice.noticeDate))]),
-          ),
-        ),
-      ],
-    );
+    return createRow("Tarih", CoreHelper.parseDateData(notice.noticeDate));
   }
 
   Widget image() {
@@ -291,7 +198,10 @@ class MyNoticeDetailState extends State with ValidationMixin {
 
   void gotoSucces(Notice notice) async {
     if (notice.noticeStatus & 128 != 128) {
-      _showDialog("Bildirimi durumu 'DÜZELDİ' olarak güncellenecektir.Tekrar güncellenemez.", notice, false);
+      _showDialog(
+          "Bildirimi durumu 'DÜZELDİ' olarak güncellenecektir.Tekrar güncellenemez.",
+          notice,
+          false);
     }
   }
 
@@ -311,7 +221,10 @@ class MyNoticeDetailState extends State with ValidationMixin {
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
             setState(() {
-              _markers.add(Marker(markerId: MarkerId('USER_MARKER'), position: LatLng(notice.latitude, notice.longitude), icon: pinLocationIcon));
+              _markers.add(Marker(
+                  markerId: MarkerId('USER_MARKER'),
+                  position: LatLng(notice.latitude, notice.longitude),
+                  icon: pinLocationIcon));
             });
           },
         ),
@@ -331,26 +244,37 @@ class MyNoticeDetailState extends State with ValidationMixin {
               child: new Text("Onayla"),
               onPressed: () {
                 if (isDeleted) {
-                  NoticeApiServices.instance.updateNoticeDelete(notice).then((response) {
+                  NoticeApiServices.instance
+                      .updateNoticeDelete(notice)
+                      .then((response) {
                     setState(() {
                       if (response.statusCode == 204) {
-                        NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
+                        NoticeApiServices.instance
+                            .getmyNotice(SharedManager().loginRequest.id)
+                            .then((response) {
                           if (response.statusCode == 200) {
-                            Map<String, dynamic> map = jsonDecode(response.body);
+                            Map<String, dynamic> map =
+                                jsonDecode(response.body);
                             var responseNotice = ResponseNotice.fromJson(map);
 
-                            SharedManager().loginRequest.noticies = responseNotice.notices;
+                            SharedManager().loginRequest.noticies =
+                                responseNotice.notices;
                           } else {}
                         });
                       }
                     });
                   });
                 } else {
-                  NoticeApiServices.instance.updateNoticeSuccess(notice).then((response) {
+                  NoticeApiServices.instance
+                      .updateNoticeSuccess(notice)
+                      .then((response) {
                     setState(() {
                       if (response.statusCode == 204) {
                         Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyNoticeDetail(notice)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyNoticeDetail(notice)));
                       }
                     });
                   });

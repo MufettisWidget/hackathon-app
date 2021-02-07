@@ -42,6 +42,4 @@ void initLocator() {
   locator.registerFactory(() => CameraNoticeViewModel());
   locator.registerFactory(() => ChangeMailAddressViewModel());
   locator.registerFactory(() => NoticeDetailViewModel());
-  locator.registerFactory(() => CustomerLoginViewModel());
-  
 }
