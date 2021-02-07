@@ -3,14 +3,11 @@ import 'dart:convert';
 import 'package:MufettisWidgetApp/core/viewsmodel/change_password_view_model.dart';
 import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
-import 'package:connectivity/connectivity.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../apis/account/acoount_api.dart';
-import '../../core/shared_prefernces_api.dart';
 import '../../mixin/validation_mixin.dart';
-import '../../model/user.dart';
 import '../../shared/style/ui_helper.dart';
 
 class ChangePassword extends StatefulWidget {
