@@ -1,4 +1,5 @@
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
+import 'package:MufettisWidgetApp/core/viewsmodel/renew_password_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,7 @@ class RenewPassword extends StatefulWidget {
 }
 
 class RenewPasswordState extends State with ValidationMixin {
+  RenewPasswordViewModel _renewPasswordViewModel;
   User user;
   RenewPasswordState(this.user);
   final formKey = GlobalKey<FormState>();
@@ -27,31 +29,36 @@ class RenewPasswordState extends State with ValidationMixin {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _helloText,
-                _description,
-                _formField,
-                _loginButton,
-              ],
+    return BaseView<RenewPasswordViewModel>(onModelReady: (model) {
+      model.setContext(context);
+      _renewPasswordViewModel = model;
+    }, builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _helloText,
+                  _description,
+                  _formField,
+                  _loginButton,
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget get _formField => Padding(
@@ -106,15 +113,15 @@ class RenewPasswordState extends State with ValidationMixin {
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: InkWell(
-          borderRadius: loginButtonBorderStyle,
+          borderRadius: _loginButtonBorderStyle,
           onTap: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
-              saveNewPassword(user);
+              _renewPasswordViewModel.saveNewPassword(user);
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: _loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -145,50 +152,10 @@ class RenewPasswordState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-
-  Future<void> saveNewPassword(User user) async {
-    bool isConncet = false;
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      isConncet = true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      isConncet = true;
-    }
-    if (isConncet) {
-      AccountApiServices.renewPassword(user.id, user.password).then((response) {
-        setState(() {
-          if (response.statusCode == 200) {
-            _showDialog("Şifreniz Değişmiştir. Giriş yapabilirsiniz.", true);
-          } else {
-            _showDialog("E-posta adresine ait kullanıcı bulunamadı.", false);
-          }
-        });
-      });
-    } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.", false);
-    }
-  }
-
-  void _showDialog(String contextText, bool ischange) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
-              onPressed: () {
-                if (ischange) {
-                  Navigator.push(context, MaterialPageRoute(builder: (_context) => CustomerLogin()));
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  BorderRadius get _loginButtonBorderStyle => BorderRadius.only(
+        bottomRight: Radius.circular(20),
+        topRight: Radius.circular(20),
+        bottomLeft: Radius.circular(20),
+        topLeft: Radius.circular(20),
+      );
 }
