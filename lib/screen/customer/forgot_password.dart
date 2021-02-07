@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -137,12 +138,6 @@ class ForgotPasswordState extends State with ValidationMixin {
         color: Colors.white,
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
-      );
-  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
-        bottomRight: Radius.circular(80),
-        topRight: Radius.circular(80),
-        bottomLeft: Radius.circular(80),
-        topLeft: Radius.circular(80),
       );
 
   Future<void> goToRenewPassword(String mailAddres) async {

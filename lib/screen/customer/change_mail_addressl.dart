@@ -1,10 +1,9 @@
-
 import 'package:MufettisWidgetApp/core/viewsmodel/change_mail_address_view_model.dart';
 import 'package:MufettisWidgetApp/ui/views/baseview.dart';
+import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 import '../../mixin/validation_mixin.dart';
 
@@ -97,8 +96,7 @@ class ChangeMailAddressState extends State with ValidationMixin {
             password = value;
           },
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -113,8 +111,7 @@ class ChangeMailAddressState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description =>
-      Text(UIHelper.changPasswprdExplanation, style: _helloTextStyle(30));
+  Widget get _description => Text(UIHelper.changPasswprdExplanation, style: _helloTextStyle(30));
 
   Widget _textFieldEmail(String text, bool obscure) => Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -132,8 +129,7 @@ class ChangeMailAddressState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -159,8 +155,7 @@ class ChangeMailAddressState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -177,8 +172,7 @@ class ChangeMailAddressState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _helloText =>
-      Text('E-Posta Adresi Değiştir', style: _helloTextStyle(70));
+  Widget get _helloText => Text('E-Posta Adresi Değiştir', style: _helloTextStyle(70));
 
   Widget passwordNameField() {
     return TextFormField(
@@ -192,13 +186,4 @@ class ChangeMailAddressState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-
-  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
-        bottomLeft: Radius.circular(20),
-        topLeft: Radius.circular(20),
-        bottomRight: Radius.circular(20),
-        topRight: Radius.circular(20),
-      );
-
-
 }

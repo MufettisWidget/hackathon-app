@@ -1,3 +1,4 @@
+import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/viewsmodel/customer_login_view_model.dart';
@@ -216,11 +217,5 @@ class CustomerLoginState extends State with ValidationMixin {
         color: Colors.white,
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
-      );
-  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
-        bottomRight: Radius.circular(20),
-        topRight: Radius.circular(20),
-        bottomLeft: Radius.circular(20),
-        topLeft: Radius.circular(20),
       );
 }

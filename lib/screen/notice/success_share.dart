@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
@@ -140,13 +141,6 @@ class SuccessShareState extends State<SuccessShare> {
       },
     );
   }
-
-  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
-        bottomRight: Radius.circular(20),
-        topRight: Radius.circular(20),
-        bottomLeft: Radius.circular(20),
-        topLeft: Radius.circular(20),
-      );
 
   Widget get _anasayfa => Padding(
         padding: const EdgeInsets.only(top: 20.0),

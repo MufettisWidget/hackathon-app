@@ -1,3 +1,4 @@
+import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -143,12 +144,6 @@ class RenewPasswordState extends State with ValidationMixin {
         color: Colors.white,
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
-      );
-  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
-        bottomRight: Radius.circular(20),
-        topRight: Radius.circular(20),
-        bottomLeft: Radius.circular(20),
-        topLeft: Radius.circular(20),
       );
 
   Future<void> saveNewPassword(User user) async {
