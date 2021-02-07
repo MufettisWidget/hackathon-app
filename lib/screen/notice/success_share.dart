@@ -78,8 +78,8 @@ class SuccessShareState extends State<SuccessShare> {
                     SizedBox(
                       height: 10,
                     ),
-                    customButton(UIHelper.mainPage, goToMainPage),
-                    customButton(UIHelper.newNotice, _doNoticeViewModel.goNewNotice()),
+                    _anasayfa,
+                    _newNotice,
                   ],
                 ),
               ),
@@ -88,10 +88,6 @@ class SuccessShareState extends State<SuccessShare> {
         );
       },
     );
-  }
-
-  void goToMainPage() {
-    _doNoticeViewModel.goHome();
   }
 
   void onpShareTelegram() {
@@ -169,30 +165,55 @@ class SuccessShareState extends State<SuccessShare> {
     );
   }
 
-  Widget customButton(String text, onPressed) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: InkWell(
-        borderRadius: loginButtonBorderStyle,
-        onTap: onPressed,
-        child: Container(
-          decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
-          height: UIHelper.dynamicHeight(200),
-          width: UIHelper.dynamicWidth(1000),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: UIHelper.PEAR_PRIMARY_COLOR,
-                fontSize: UIHelper.dynamicSp(40),
-                fontWeight: FontWeight.w700,
+  Widget get _anasayfa => Padding(
+        padding: const EdgeInsets.only(top: 20.0),
+        child: InkWell(
+          borderRadius: loginButtonBorderStyle,
+          onTap: () {
+            _doNoticeViewModel.goHome();
+          },
+          child: Container(
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+            height: UIHelper.dynamicHeight(200),
+            width: UIHelper.dynamicWidth(1000),
+            child: Center(
+              child: Text(
+                UIHelper.mainPage,
+                style: TextStyle(
+                  color: UIHelper.PEAR_PRIMARY_COLOR,
+                  fontSize: UIHelper.dynamicSp(40),
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
+
+  Widget get _newNotice => Padding(
+        padding: const EdgeInsets.only(top: 20.0),
+        child: InkWell(
+          borderRadius: loginButtonBorderStyle,
+          onTap: () {
+            _doNoticeViewModel.goNewNotice();
+          },
+          child: Container(
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+            height: UIHelper.dynamicHeight(200),
+            width: UIHelper.dynamicWidth(1000),
+            child: Center(
+              child: Text(
+                UIHelper.newNotice,
+                style: TextStyle(
+                  color: UIHelper.PEAR_PRIMARY_COLOR,
+                  fontSize: UIHelper.dynamicSp(40),
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
 
   @override
   void dispose() {

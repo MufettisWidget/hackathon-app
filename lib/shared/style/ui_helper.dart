@@ -45,7 +45,7 @@ class UIHelper {
 
   static final String changeInfoStatus = "Üyelik bilgilerinizi güncelleyebilirsiniz.";
 
-  static const Color PEAR_PRIMARY_COLOR = Color(0xFF4873FF);
+  static const Color PEAR_PRIMARY_COLOR = Color(0xff276678);
 
   static const Color WHITE = Colors.white;
 

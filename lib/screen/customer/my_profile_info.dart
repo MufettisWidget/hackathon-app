@@ -12,7 +12,7 @@ import '../../model/user.dart';
 import '../../shared/style/ui_helper.dart';
 
 class MyProfileInfo extends StatefulWidget {
-  static const String routeName = "/myprofileInfo";
+  static const String routeName = "/myAccount";
 
   @override
   State<StatefulWidget> createState() => MyProfileInfoState();
@@ -108,8 +108,7 @@ class MyProfileInfoState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -138,8 +137,7 @@ class MyProfileInfoState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -169,8 +167,7 @@ class MyProfileInfoState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -185,8 +182,7 @@ class MyProfileInfoState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description =>
-      Text(UIHelper.changeInfoStatus, style: _helloTextStyle(30));
+  Widget get _description => Text(UIHelper.changeInfoStatus, style: _helloTextStyle(30));
 
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -199,8 +195,7 @@ class MyProfileInfoState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -217,8 +212,7 @@ class MyProfileInfoState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _helloText =>
-      Text(UIHelper.customInfo, style: _helloTextStyle(70));
+  Widget get _helloText => Text(UIHelper.customInfo, style: _helloTextStyle(70));
 
   Widget passwordNameField() {
     return TextFormField(

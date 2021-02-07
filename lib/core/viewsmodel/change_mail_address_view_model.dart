@@ -45,7 +45,7 @@ class ChangeMailAddressViewModel extends BaseModel {
 
           SharedManager().loginRequest = userLogin;
 
-          _showDialog("E-Posta Adreso Değiştirilmiştir.");
+          _showDialog("E-Posta Adresi Değiştirilmiştir.");
           setState(ViewState.Idle);
         } else {
           _showDialog("Mevcut şifre yanlıştır.");

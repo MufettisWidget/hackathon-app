@@ -9,8 +9,7 @@ import 'package:flutter/widgets.dart';
 import '../shared_prefernces_api.dart';
 
 class MyProfileInfoViewModel extends BaseModel {
-  final myProfileInfoViewModel =
-      GlobalKey<ScaffoldState>(debugLabel: "_myProfileInfoViewModel");
+  final myProfileInfoViewModel = GlobalKey<ScaffoldState>(debugLabel: "_myProfileInfoViewModel");
 
   BuildContext _context;
 
@@ -39,19 +38,19 @@ class MyProfileInfoViewModel extends BaseModel {
       AccountApiServices.updateUser(updateuser).then((response) {
         if (response.statusCode == 204) {
           SharedManager().loginRequest = updateuser;
-          _showDialog("Bilgileriniz Güncellenmiştir.");
+          _showDialog("Bilgileriniz Güncellenmiştir.", true);
           setState(ViewState.Busy);
         } else {
-          _showDialog("Hata");
+          _showDialog("Hata", false);
           setState(ViewState.Busy);
         }
       });
     } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
+      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.", false);
     }
   }
 
-  void _showDialog(String contextText) {
+  void _showDialog(String contextText, bool status) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -62,8 +61,8 @@ class MyProfileInfoViewModel extends BaseModel {
             new FlatButton(
               child: new Text("Kapat"),
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/myProfil");
+                if (status) Navigator.of(context).pop();
+                Navigator.of(context).pushNamed("/myAccount");
               },
             ),
           ],

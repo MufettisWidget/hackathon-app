@@ -1,6 +1,7 @@
 import 'package:MufettisWidgetApp/core/core_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/viewsmodel/my_notice_view_model.dart';
@@ -48,162 +49,169 @@ class MyNoticeState extends State<MyNoticeView> {
               body: ListView.builder(
                   itemCount: _myNoticeViewModel.noticies.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      color: UIHelper.WHITE,
-                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                      child: Card(
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: 15.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "Bildirilen Birim")]),
+                    return Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: Card(
+                            elevation: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0, top: 8, bottom: 10),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: 15.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "Bildirilen Birim")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: 15.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].reportedMunicipality)]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: 15.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].reportedMunicipality)]),
+                                  SizedBox(height: 20),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "Şehir")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 12.0),
+                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].city)]),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "İlce")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 12.0),
+                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].district)]),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "Sokak-Cadde ")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 12.0),
+                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].street)]),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "No ")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 12.0),
+                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].streetNo)]),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "Tarih ")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [
+                                            TextSpan(text: ": " + CoreHelper.parseDateData(_myNoticeViewModel.noticies[index].noticeDate))
+                                          ]),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: RichText(
+                                          text: TextSpan(
+                                              style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
+                                              children: [TextSpan(text: "Durumu")]),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: RichText(
+                                          text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [
+                                            TextSpan(text: ": " + CoreHelper.getStatus(_myNoticeViewModel.noticies[index].noticeStatus))
+                                          ]),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  _footerButtonRow(_myNoticeViewModel.noticies[index])
+                                ],
+                              ),
                             ),
-                            SizedBox(height: 20),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "Şehir")]),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                        children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].city)]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "İlce")]),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                        children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].district)]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "Sokak-Cadde ")]),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                        children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].street)]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "No ")]),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                        children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].streetNo)]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "Tarih ")]),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                        children: [TextSpan(text: ": " + CoreHelper.parseDateData(_myNoticeViewModel.noticies[index].noticeDate))]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                        children: [TextSpan(text: "Durumu")]),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                        children: [TextSpan(text: ": " + CoreHelper.getStatus(_myNoticeViewModel.noticies[index].noticeStatus))]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            _footerButtonRow(_myNoticeViewModel.noticies[index])
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   })),
         );
@@ -217,11 +225,11 @@ class MyNoticeState extends State<MyNoticeView> {
       );
 
   Widget _iconLabelEdit(String text) => Wrap(
-        crossAxisAlignment: WrapCrossAlignment.end,
+        crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 5,
         children: <Widget>[
           Icon(
-            Icons.edit,
+            Feather.info,
             color: CupertinoColors.inactiveGray,
           ),
           Text(text),
@@ -232,11 +240,11 @@ class MyNoticeState extends State<MyNoticeView> {
       );
 
   Widget _iconLabelDelete(String text) => Wrap(
-        crossAxisAlignment: WrapCrossAlignment.end,
+        crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 5,
         children: <Widget>[
           Icon(
-            Icons.delete,
+            Feather.trash,
             color: CupertinoColors.inactiveGray,
           ),
           Text(text),
@@ -251,7 +259,7 @@ class MyNoticeState extends State<MyNoticeView> {
         spacing: 5,
         children: <Widget>[
           Icon(
-            Icons.favorite,
+            Feather.check,
             color: CoreHelper.getColor(status),
           ),
           Text(text),
@@ -285,13 +293,10 @@ class MyNoticeState extends State<MyNoticeView> {
         },
       );
 
-
-
   void gotoEditNotice(Notice notice) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) => MyNoticeDetail(notice)));
   }
 }
-
 
 class Paint {
   final int id;

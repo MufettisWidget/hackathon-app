@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import '../core/enum/viewstate.dart';
 import '../core/viewsmodel/main_view_model.dart';
@@ -34,6 +35,16 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
             ],
           ),
           drawer: _mainViewModel.leftDrawerWidget,
+          floatingActionButton: FloatingActionButton(
+              backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+              child: Icon(
+                Feather.plus,
+                color: UIHelper.WHITE,
+                size: 40.0,
+              ),
+              onPressed: () {
+                _mainViewModel.onTabTapped(2);
+              }),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showSelectedLabels: false,
@@ -43,10 +54,10 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
             onTap: _mainViewModel.onTabTapped,
             fixedColor: Colors.white,
             items: <BottomNavigationBarItem>[
-              _buildBottomNavigationBarItem(Icons.home, "Anasayfa", 28, 0),
-              _buildBottomNavigationBarItem(Icons.map, "Harita", 28, 1),
-              _buildBottomNavigationBarItem(Icons.add_alert, "Yeni Bildirim", 28, 2),
-              _buildBottomNavigationBarItem(Icons.notification_important, "Bildirimler", 28, 3),
+              _buildBottomNavigationBarItem(Feather.home, "Anasayfa", 28, 0),
+              _buildBottomNavigationBarItem(Feather.map_pin, "Harita", 28, 1),
+              _buildBottomNavigationBarItem(Feather.plus, "Harita", 28, 2),
+              _buildBottomNavigationBarItem(Feather.bell, "Bildirimler", 28, 3),
             ],
           ),
         );

@@ -18,6 +18,7 @@ class SuccesShareViewModel extends BaseModel {
     navigator.navigateToRemove(Pages.DoNotice);
   }
 
+  @override
   void setContext(BuildContext context) {
     this._context = context;
   }
