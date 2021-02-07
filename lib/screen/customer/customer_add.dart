@@ -231,7 +231,7 @@ class CustomerAddState extends State with ValidationMixin {
               if (isKvkk) {
                 formKey.currentState.save();
                 customer.isKvkk = true;
-                _loginAddViewModel.saveCustomer(customer);
+                _customerAddViewModel.saveCustomer(customer);
               } else {
                 _showDialogkVkk("Kvkk Onaylamaniz Gerekmektedir", true);
               }

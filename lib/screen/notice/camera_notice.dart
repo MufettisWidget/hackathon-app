@@ -145,26 +145,27 @@ class DisplayPictureScreenState extends State {
       _customerAddViewModel = model;
     }, builder: (context, model, child) {
       return Scaffold(
-      appBar: AppBar(
-        backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-        title: Text('Doğru fotoğraf mı ?'),
-        actions: <Widget>[
-          Visibility(
-            child: IconButton(
-              icon: const Icon(Icons.navigate_next),
-              tooltip: 'Kaydet',
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_context) => NoticeExplation(notice, imagePath)));
-              },
+        appBar: AppBar(
+          backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+          title: Text('Doğru fotoğraf mı ?'),
+          actions: <Widget>[
+            Visibility(
+              child: IconButton(
+                icon: const Icon(Icons.navigate_next),
+                tooltip: 'Kaydet',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_context) => NoticeExplation(notice, imagePath)));
+                },
+              ),
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: true,
             ),
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: true,
-          ),
-        ],
-      ),
-      body: Image.file(File(imagePath)),
-    );
+          ],
+        ),
+        body: Image.file(File(imagePath)),
+      );
+    });
   }
 }
