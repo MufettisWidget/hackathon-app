@@ -1,0 +1,1 @@
+enum SingingCharacter { districtNotice, cityNotice }
