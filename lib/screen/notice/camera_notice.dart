@@ -140,7 +140,7 @@ class DisplayPictureScreenState extends State {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-        title: Text('Foto NET ise Devam '),
+        title: Text('Doğru fotoğraf mı ?'),
         actions: <Widget>[
           Visibility(
             child: IconButton(
