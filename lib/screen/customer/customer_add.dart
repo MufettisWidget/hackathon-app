@@ -1,8 +1,9 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:MufettisWidgetApp/core/viewsmodel/customer_add_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
+import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../apis/account/acoount_api.dart';
 import '../../mixin/validation_mixin.dart';
 import '../../model/user.dart';
 import '../../shared/style/ui_helper.dart';
@@ -16,6 +17,7 @@ class CustomerAddView extends StatefulWidget {
 }
 
 class CustomerAddState extends State with ValidationMixin {
+  CustomerAddViewModel _loginAddViewModel;
   final formKey = GlobalKey<FormState>();
   final customer = new User("", "", "", "");
   bool isKvkk = false;
@@ -23,34 +25,39 @@ class CustomerAddState extends State with ValidationMixin {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _helloText,
-                _description,
-                _formField,
-                _signup,
-                _getkvkk(),
-                link(),
-                _loginButton,
-              ],
+    return BaseView<CustomerAddViewModel>(onModelReady: (model) {
+      model.setContext(context);
+      _loginAddViewModel = model;
+    }, builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _helloText,
+                  _description,
+                  _formField,
+                  _signup,
+                  _getkvkk(),
+                  link(),
+                  _loginButton,
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget get _signup => Align(
@@ -218,20 +225,20 @@ class CustomerAddState extends State with ValidationMixin {
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: InkWell(
-          borderRadius: _loginButtonBorderStyle,
+          borderRadius: loginButtonBorderStyle,
           onTap: () {
             if (formKey.currentState.validate()) {
               if (isKvkk) {
                 formKey.currentState.save();
                 customer.isKvkk = true;
-                saveCustomer(customer);
+                _loginAddViewModel.saveCustomer(customer);
               } else {
                 _showDialogkVkk("Kvkk Onaylamaniz Gerekmektedir", true);
               }
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: _loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -311,36 +318,6 @@ class CustomerAddState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-  BorderRadius get _loginButtonBorderStyle => BorderRadius.only(
-        bottomRight: Radius.circular(20),
-        topRight: Radius.circular(20),
-        bottomLeft: Radius.circular(20),
-        topLeft: Radius.circular(20),
-      );
-
-  Future<void> saveCustomer(User user) async {
-    bool isConncet = false;
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      isConncet = true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      isConncet = true;
-    }
-    if (isConncet) {
-      AccountApiServices.createUser(user).then((response) {
-        setState(() {
-          if (response.statusCode == 201) {
-            _showDialog("Kayıdınız alındı. Devamke!", true);
-          } else {
-            _showDialog("Aynı mail adresi veya telefon numarasına ait kayıt vardır.", true);
-          }
-        });
-      });
-    } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.", false);
-    }
-  }
 
   void _showDialogKvkk() {
     showDialog(
@@ -373,7 +350,7 @@ class CustomerAddState extends State with ValidationMixin {
                     "\n\nBurada belirtilen koşullarla ilgili görüş ve önerilerinizi, info@komutteknolojisi.com mail adresinden bize iletebilirsiniz." +
                     "\n\nBİLDİRİREYİM BUNU; bu Gizlilik Politikası ve Kullanım Koşulları metninde değişiklik yapabilir. Yapılan değişiklikler anında yürürlüğe girecektir. Değişiklik yaptığımız tarihi, 'son güncelleme tarihi' olarak en alt kısımda belirtiriz." +
                     "\n\nSon güncelleme tarihi:" +
-                    "\n\18.11.2020",
+                    "\n\07.02.2021",
                 style: TextStyle(color: Colors.black, fontSize: 10.0),
               ),
             ),
@@ -383,29 +360,6 @@ class CustomerAddState extends State with ValidationMixin {
               child: new Text("Tamam"),
               onPressed: () {
                 Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _showDialog(String contextText, bool isuscces) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
-              onPressed: () {
-                if (isuscces) {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed("/login");
-                }
               },
             ),
           ],

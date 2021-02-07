@@ -109,7 +109,7 @@ class NoticeExplationState extends State with ValidationMixin {
     );
   }
 
-  BorderRadius get _loginButtonBorderStyle => BorderRadius.only(
+  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
         bottomRight: Radius.circular(20),
         topRight: Radius.circular(20),
         bottomLeft: Radius.circular(20),
@@ -119,7 +119,7 @@ class NoticeExplationState extends State with ValidationMixin {
   Widget get _saveButton => Padding(
         padding: const EdgeInsets.only(top: 50.0),
         child: InkWell(
-          borderRadius: _loginButtonBorderStyle,
+          borderRadius: loginButtonBorderStyle,
           onTap: () async {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
@@ -134,7 +134,7 @@ class NoticeExplationState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: UIHelper.PEAR_PRIMARY_COLOR, borderRadius: _loginButtonBorderStyle),
+            decoration: BoxDecoration(color: UIHelper.PEAR_PRIMARY_COLOR, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(

@@ -106,7 +106,7 @@ class ForgotPasswordState extends State with ValidationMixin {
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: InkWell(
-          borderRadius: _loginButtonBorderStyle,
+          borderRadius: loginButtonBorderStyle,
           onTap: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
@@ -114,7 +114,7 @@ class ForgotPasswordState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: _loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -138,7 +138,7 @@ class ForgotPasswordState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-  BorderRadius get _loginButtonBorderStyle => BorderRadius.only(
+  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
         bottomRight: Radius.circular(80),
         topRight: Radius.circular(80),
         bottomLeft: Radius.circular(80),

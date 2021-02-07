@@ -141,7 +141,7 @@ class SuccessShareState extends State<SuccessShare> {
     );
   }
 
-  BorderRadius get _loginButtonBorderStyle => BorderRadius.only(
+  BorderRadius get loginButtonBorderStyle => BorderRadius.only(
         bottomRight: Radius.circular(20),
         topRight: Radius.circular(20),
         bottomLeft: Radius.circular(20),
@@ -151,12 +151,12 @@ class SuccessShareState extends State<SuccessShare> {
   Widget get _anasayfa => Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: InkWell(
-          borderRadius: _loginButtonBorderStyle,
+          borderRadius: loginButtonBorderStyle,
           onTap: () {
             _doNoticeViewModel.goHome();
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: _loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -176,12 +176,12 @@ class SuccessShareState extends State<SuccessShare> {
   Widget get _newNotice => Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: InkWell(
-          borderRadius: _loginButtonBorderStyle,
+          borderRadius: loginButtonBorderStyle,
           onTap: () {
             _doNoticeViewModel.goNewNotice();
           },
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: _loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
