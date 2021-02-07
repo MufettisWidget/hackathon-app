@@ -1,16 +1,12 @@
-# MufettisWidgetApp
-
-A new Flutter project.
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Uygulamayı kendi cihazınızda ayağa kaldırmak için yapmanız gerekenler:
+android için: flutter build apk --split-per-abi
+ios için: flutter build ios 
 
-A few resources to get you started if this is your first Flutter project:
+Ayrıca kodları debug modundan da çalıtırabilirsiniz. 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Api servisi kendi sunucumuzda olduğu için  backend için yapılması gereken herhangi birşey yoktur.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
