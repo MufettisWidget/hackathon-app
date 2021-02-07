@@ -17,7 +17,7 @@ class CustomerAddView extends StatefulWidget {
 }
 
 class CustomerAddState extends State with ValidationMixin {
-  CustomerAddViewModel _loginAddViewModel;
+  CustomerAddViewModel _customerAddViewModel;
   final formKey = GlobalKey<FormState>();
   final customer = new User("", "", "", "");
   bool isKvkk = false;
@@ -27,7 +27,7 @@ class CustomerAddState extends State with ValidationMixin {
     ScreenUtil.instance.init(context);
     return BaseView<CustomerAddViewModel>(onModelReady: (model) {
       model.setContext(context);
-      _loginAddViewModel = model;
+      _customerAddViewModel = model;
     }, builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(

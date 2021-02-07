@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:MufettisWidgetApp/core/viewsmodel/camera_notice_view_model.dart';
+import 'package:MufettisWidgetApp/ui/views/baseview.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
@@ -125,6 +127,7 @@ class DisplayPictureScreen extends StatefulWidget {
 }
 
 class DisplayPictureScreenState extends State {
+  CameraNoticeViewModel _customerAddViewModel;
   String imagePath;
   Notice notice;
   DisplayPictureScreenState(this.imagePath, this.notice);
@@ -137,7 +140,11 @@ class DisplayPictureScreenState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseView<CameraNoticeViewModel>(onModelReady: (model) {
+      model.setContext(context);
+      _customerAddViewModel = model;
+    }, builder: (context, model, child) {
+      return Scaffold(
       appBar: AppBar(
         backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
         title: Text('Doğru fotoğraf mı ?'),
