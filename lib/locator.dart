@@ -8,6 +8,7 @@ import 'core/viewsmodel/change_password_view_model.dart';
 import 'core/viewsmodel/customer_login_view_model.dart';
 import 'core/viewsmodel/customer_notice_map_view_model.dart';
 import 'core/viewsmodel/do_notice_view_model.dart';
+import 'core/viewsmodel/forgot_password_view_model.dart';
 import 'core/viewsmodel/home_view_model.dart';
 import 'core/viewsmodel/lef_drawer_view_model.dart';
 import 'core/viewsmodel/main_view_model.dart';
@@ -44,4 +45,6 @@ void initLocator() {
   locator.registerFactory(() => NoticeDetailViewModel());
   locator.registerFactory(() => RenewPasswordViewModel());
   locator.registerFactory(() => NoticeExplanationdViewModel());
+  locator.registerFactory(() => ForgotPasswordViewModel());
+
 }
