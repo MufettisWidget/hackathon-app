@@ -24,6 +24,14 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Bildireyim Bunu , Bildirim Yapmak İçin Kamera Kullanım İzni Gerekiyor</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Bildireyim Bunu, Lokasyon Bildirmek İçin Lokasyon Kullanım İzni Gerekiyor</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Bildireyim Bunu, Bildirim Yapmak İçin Fotoğraf Galerisini Erişim İzni Gerekiyor</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
