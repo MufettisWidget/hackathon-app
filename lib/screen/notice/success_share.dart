@@ -69,72 +69,17 @@ class SuccessShareState extends State<SuccessShare> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      onPressed: () async {
-                        SocialShare.copyToClipboard(
-                          _linkMessage,
-                        ).then((data) {
-                          print(data);
-                        });
-                      },
-                      child: Text("Linki Kopyala"),
+                    shareCustomButton("Linki Kopyala", onpLinkiKopyala),
+                    shareCustomButton("Twitter'da Paylaş", onpTwitterPaylas),
+                    shareCustomButton("Sms Gönder", onpSmsGonder),
+                    shareCustomButton("Whatsapp'ta Paylaş", onpWhatssAppPaylas),
+                    shareCustomButton("Telegram'dan Paylaş", onpShareTelegram),
+                    shareCustomButton("Uygulama Seç", onpUygulamaSec),
+                    SizedBox(
+                      height: 10,
                     ),
-                    RaisedButton(
-                      onPressed: () async {
-                        SocialShare.shareTwitter("BildireyimBunu uygulamasindan bildirim paylaştım " + notice.twetterAddress,
-                                url: _linkMessage, hashtags: ["bildireyimbunu", notice.reportedMunicipality], trailingText: "\n" + notice.explation)
-                            .then((data) {
-                          print(data);
-                        });
-                      },
-                      child: Text("Twitter'da Paylaş"),
-                    ),
-                    RaisedButton(
-                      onPressed: () async {
-                        SocialShare.shareSms("Bildireyim Bunu uygulamasindan bildirim paylaştım\n",
-                                url: _linkMessage, trailingText: "\n" + notice.explation)
-                            .then((data) {
-                          print(data);
-                        });
-                      },
-                      child: Text("Sms Gönder"),
-                    ),
-                    RaisedButton(
-                      onPressed: () async {
-                        await screenshotController.capture().then((image) async {
-                          SocialShare.shareOptions(_linkMessage).then((data) {
-                            print(data);
-                          });
-                        });
-                      },
-                      child: Text("Paylaşım Ayarları"),
-                    ),
-                    RaisedButton(
-                      onPressed: () async {
-                        SocialShare.shareWhatsapp(_linkMessage).then((data) {
-                          print(data);
-                        });
-                      },
-                      child: Text("Whatsapp'ta Paylaş"),
-                    ),
-                    RaisedButton(
-                      onPressed: () async {
-                        SocialShare.shareTelegram(_linkMessage).then((data) {
-                          print(data);
-                        });
-                      },
-                      child: Text("Telegram'dan Paylaş"),
-                    ),
-                    RaisedButton(
-                      onPressed: () async {
-                        SocialShare.checkInstalledAppsForShare().then((data) {
-                          print(data.toString());
-                        });
-                      },
-                      child: Text("Bütün Uygulamalarım"),
-                    ),
-                    _anasayfa,
-                    _newNotice,
+                    customButton(UIHelper.mainPage, goToMainPage),
+                    customButton(UIHelper.newNotice, _doNoticeViewModel.goNewNotice()),
                   ],
                 ),
               ),
@@ -145,55 +90,109 @@ class SuccessShareState extends State<SuccessShare> {
     );
   }
 
-  Widget get _anasayfa => Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: InkWell(
-          borderRadius: loginButtonBorderStyle,
-          onTap: () {
-            _doNoticeViewModel.goHome();
-          },
-          child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
-            height: UIHelper.dynamicHeight(200),
-            width: UIHelper.dynamicWidth(1000),
-            child: Center(
-              child: Text(
-                UIHelper.mainPage,
-                style: TextStyle(
-                  color: UIHelper.PEAR_PRIMARY_COLOR,
-                  fontSize: UIHelper.dynamicSp(40),
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
+  void goToMainPage() {
+    _doNoticeViewModel.goHome();
+  }
 
-  Widget get _newNotice => Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: InkWell(
-          borderRadius: loginButtonBorderStyle,
-          onTap: () {
-            _doNoticeViewModel.goNewNotice();
-          },
-          child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
-            height: UIHelper.dynamicHeight(200),
-            width: UIHelper.dynamicWidth(1000),
-            child: Center(
+  void onpShareTelegram() {
+    SocialShare.shareTelegram(_linkMessage).then((data) {
+      print(data);
+    });
+  }
+
+  void onpWhatssAppPaylas() {
+    SocialShare.shareWhatsapp(_linkMessage).then((data) {
+      print(data);
+    });
+  }
+
+  void onpUygulamaSec() {
+    SocialShare.shareOptions(_linkMessage).then((data) {
+      print(data);
+    });
+  }
+
+  void onpSmsGonder() {
+    SocialShare.shareSms("Bildireyim Bunu uygulamasindan bildirim paylaştım\n", url: _linkMessage, trailingText: "\n" + notice.explation)
+        .then((data) {
+      print(data);
+    });
+  }
+
+  void onpTwitterPaylas() {
+    {
+      SocialShare.shareTwitter("BildireyimBunu uygulamasindan bildirim paylaştım " + notice.twetterAddress,
+              url: _linkMessage, hashtags: ["bildireyimbunu", notice.reportedMunicipality], trailingText: "\n" + notice.explation)
+          .then((data) {
+        print(data);
+      });
+    }
+  }
+
+  void onpLinkiKopyala() {
+    {
+      SocialShare.copyToClipboard(
+        _linkMessage,
+      ).then((data) {
+        print(data);
+      });
+    }
+  }
+
+  Container shareCustomButton(String text, onPressed) {
+    return Container(
+      height: 50.0,
+      margin: EdgeInsets.all(10),
+      child: RaisedButton(
+        onPressed: onPressed,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+        padding: EdgeInsets.all(0.0),
+        child: Ink(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF8996E8), Color(0xFF4873FF)],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: loginButtonBorderStyle,
+            ),
+            child: Container(
+              constraints: BoxConstraints(maxWidth: 250.0, minHeight: 50.0),
+              alignment: Alignment.center,
               child: Text(
-                UIHelper.newNotice,
-                style: TextStyle(
-                  color: UIHelper.PEAR_PRIMARY_COLOR,
-                  fontSize: UIHelper.dynamicSp(40),
-                  fontWeight: FontWeight.w700,
-                ),
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            )),
+      ),
+    );
+  }
+
+  Widget customButton(String text, onPressed) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: InkWell(
+        borderRadius: loginButtonBorderStyle,
+        onTap: onPressed,
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
+          height: UIHelper.dynamicHeight(200),
+          width: UIHelper.dynamicWidth(1000),
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: UIHelper.PEAR_PRIMARY_COLOR,
+                fontSize: UIHelper.dynamicSp(40),
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 
   @override
   void dispose() {
