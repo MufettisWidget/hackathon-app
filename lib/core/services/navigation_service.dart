@@ -5,15 +5,15 @@ import '../enum/paged_name.dart';
 
 //sayfa routerları için
 class NavigationService {
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   final _removeAllOldRoutes = (Route<dynamic> route) => false;
 
-  Future<dynamic> navigateTo(Pages routeType, [Object arguments = "", int extraVal]) async {
+  Future<dynamic> navigateTo(Pages routeType, [Object arguments = '', int extraVal]) async {
     return await navigatorKey.currentState.pushNamed(_named(routeType), arguments: arguments);
   }
 
-  pop() {
+  Future<void> pop() async {
     if (isPop()) {
       return navigatorKey.currentState.pop();
     }
@@ -24,14 +24,14 @@ class NavigationService {
     return navigatorKey.currentState.canPop();
   }
 
-  Future<dynamic> navigateToRemove(Pages routeType, [Object arguments = ""]) async {
+  Future<dynamic> navigateToRemove(Pages routeType, [Object arguments = '']) async {
     return await navigatorKey.currentState.pushNamedAndRemoveUntil(_named(routeType), _removeAllOldRoutes, arguments: arguments);
   }
 
   void fullScreenPopup() {
-    navigatorKey.currentState.push(new MaterialPageRoute<Null>(
+    navigatorKey.currentState.push(MaterialPageRoute<Null>(
         builder: (BuildContext context) {
-          return new Container();
+          return Container();
         },
         fullscreenDialog: true));
   }
@@ -39,31 +39,31 @@ class NavigationService {
   String _named(Pages page) {
     switch (page) {
       case Pages.Splash:
-        return "/splash";
+        return '/splash';
 
       case Pages.Login:
-        return "/login";
+        return '/login';
 
       case Pages.Signin:
-        return "/signin";
+        return '/signin';
 
       case Pages.MyAccount:
-        return "/myAccount";
+        return '/myAccount';
 
       case Pages.Home:
-        return "/main";
+        return '/main';
 
       case Pages.DoNotice:
-        return "/doNotice";
+        return '/doNotice';
 
       case Pages.MyNotice:
-        return "/myNotice";
+        return '/myNotice';
 
       case Pages.News:
-        return "/newsRoute";
+        return '/newsRoute';
 
       default:
-        return "/";
+        return '/';
     }
   }
 }

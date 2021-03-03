@@ -1,15 +1,13 @@
-import 'dart:async';
 import 'dart:ui';
 
-import 'package:MufettisWidgetApp/core/viewsmodel/my_profile_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
+import '../../core/viewsmodel/my_profile_view_model.dart';
+import '../../ui/views/baseview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/shared_prefernces_api.dart';
 import '../../shared/style/ui_helper.dart';
 import '../../ui/widget/list_group_item_widget.dart';
-import '../../ui/widget/nothc_widget.dart';
 import 'change_mail_addressl.dart';
 import 'change_password.dart';
 import 'my_notice.dart';
@@ -43,8 +41,7 @@ class _ProfileViewState extends State<ProfileView> {
                         Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/default_user_image.png"),
+                              image: AssetImage('assets/images/default_user_image.png'),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -53,18 +50,14 @@ class _ProfileViewState extends State<ProfileView> {
                           filter: ImageFilter.blur(sigmaX: 4, sigmaY: 0),
                           child: Container(
                               decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                                colors: [
-                                  UIHelper.PEAR_PRIMARY_COLOR,
-                                  UIHelper.WHITE,
-                                ]),
+                            gradient: LinearGradient(begin: Alignment.bottomCenter, end: Alignment.topCenter, colors: [
+                              UIHelper.PEAR_PRIMARY_COLOR,
+                              UIHelper.WHITE,
+                            ]),
                           )),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).padding.top),
+                          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                           child: Column(
                             children: <Widget>[
                               Container(
@@ -72,16 +65,14 @@ class _ProfileViewState extends State<ProfileView> {
                                 child: Row(
                                   children: <Widget>[
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          left: UIHelper.dynamicHeight(48)),
+                                      padding: EdgeInsets.only(left: UIHelper.dynamicHeight(48)),
                                       child: InkWell(
                                         onTap: () {
                                           Navigator.of(context).pushNamed('/');
                                         },
                                         child: Icon(
                                           Icons.arrow_back,
-                                          color:
-                                              Color.fromRGBO(255, 255, 255, 1),
+                                          color: Color.fromRGBO(255, 255, 255, 1),
                                         ),
                                       ),
                                     ),
@@ -96,22 +87,17 @@ class _ProfileViewState extends State<ProfileView> {
                                   child: AspectRatio(
                                     aspectRatio: 1,
                                     child: CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                          "assets/images/default_user_image.png"),
+                                      backgroundImage: AssetImage('assets/images/default_user_image.png'),
                                       backgroundColor: Colors.grey,
                                     ),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsets.all(UIHelper.dynamicHeight(24)),
+                                padding: EdgeInsets.all(UIHelper.dynamicHeight(24)),
                                 child: Text(
                                   SharedManager().loginRequest.nameSurname,
-                                  style: TextStyle(
-                                      color: UIHelper.WHITE,
-                                      fontSize: UIHelper.dynamicScaleSp(54),
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: UIHelper.WHITE, fontSize: UIHelper.dynamicScaleSp(54), fontWeight: FontWeight.bold),
                                 ),
                               ),
                               SizedBox(
@@ -135,11 +121,8 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         title: Align(
                           child: Text(
-                            "Hesap Bilgileri",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: UIHelper.dynamicScaleSp(72)),
+                            'Hesap Bilgileri',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: UIHelper.dynamicScaleSp(72)),
                           ),
                           alignment: Alignment.centerLeft,
                         ),
@@ -147,40 +130,27 @@ class _ProfileViewState extends State<ProfileView> {
                       Column(
                         children: <Widget>[
                           ListGroupItemView(
-                            title: "Üye Bilgilerim",
+                            title: 'Üye Bilgilerim',
                             onPress: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyProfileInfo()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileInfo()));
                             },
                           ),
                           ListGroupItemView(
-                            title: "Şifre Değiştir",
+                            title: 'Şifre Değiştir',
                             onPress: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChangePassword()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
                             },
                           ),
                           ListGroupItemView(
-                            title: "E-Posta Değiştir",
+                            title: 'E-Posta Değiştir',
                             onPress: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ChangeMailAddress()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeMailAddress()));
                             },
                           ),
                           ListGroupItemView(
-                            title: "Bildirimlerim",
+                            title: 'Bildirimlerim',
                             onPress: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyNoticeView()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MyNoticeView()));
                             },
                           ),
                         ],

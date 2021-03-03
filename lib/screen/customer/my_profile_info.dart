@@ -1,18 +1,16 @@
-import 'package:MufettisWidgetApp/core/viewsmodel/my_profile_info_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
-import 'package:connectivity/connectivity.dart';
+import '../../core/viewsmodel/my_profile_info_view_model.dart';
+import '../../ui/views/baseview.dart';
+import '../../ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../apis/account/acoount_api.dart';
 import '../../core/shared_prefernces_api.dart';
 import '../../mixin/validation_mixin.dart';
 import '../../model/user.dart';
 import '../../shared/style/ui_helper.dart';
 
 class MyProfileInfo extends StatefulWidget {
-  static const String routeName = "/myAccount";
+  static const String routeName = '/myAccount';
 
   @override
   State<StatefulWidget> createState() => MyProfileInfoState();
@@ -22,13 +20,13 @@ class MyProfileInfoState extends State with ValidationMixin {
   MyProfileInfoViewModel _myProfileInfoViewModel;
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController userName = new TextEditingController();
-  TextEditingController usermail = new TextEditingController();
-  TextEditingController userPhone = new TextEditingController();
-  String newPassword = "";
-  String newPasswordAgain = "";
+  TextEditingController userName = TextEditingController();
+  TextEditingController usermail = TextEditingController();
+  TextEditingController userPhone = TextEditingController();
+  String newPassword = '';
+  String newPasswordAgain = '';
 
-  User user = new User("", "", "", "");
+  User user = User('', '', '', '');
   @override
   Widget build(BuildContext context) {
     getCustomerDetail();
@@ -191,7 +189,7 @@ class MyProfileInfoState extends State with ValidationMixin {
           onTap: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
-              _myProfileInfoViewModel.saveNewPassword(userName.text);
+              _myProfileInfoViewModel.updateProfilInfo(userName.text);
             }
           },
           child: Container(
@@ -217,7 +215,7 @@ class MyProfileInfoState extends State with ValidationMixin {
   Widget passwordNameField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(labelText: "Şifre", hintText: "Şifre"),
+      decoration: InputDecoration(labelText: 'Şifre', hintText: 'Şifre'),
     );
   }
 
@@ -227,6 +225,7 @@ class MyProfileInfoState extends State with ValidationMixin {
         fontWeight: FontWeight.bold,
       );
 
+  // ignore: always_declare_return_types
   getCustomerDetail() async {
     if (SharedManager().loginRequest != null) {
       user = SharedManager().loginRequest;
@@ -235,7 +234,7 @@ class MyProfileInfoState extends State with ValidationMixin {
       usermail.text = user.mailAddress;
       userPhone.text = user.phone;
     } else {
-      String _token = SharedManager().jwtToken;
+      var _token = SharedManager().jwtToken;
       if (_token != null) {}
     }
   }

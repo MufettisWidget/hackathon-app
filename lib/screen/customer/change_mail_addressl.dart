@@ -1,6 +1,6 @@
-import 'package:MufettisWidgetApp/core/viewsmodel/change_mail_address_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
+import '../../core/viewsmodel/change_mail_address_view_model.dart';
+import '../../ui/views/baseview.dart';
+import '../../ui/views/custom_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +10,7 @@ import '../../mixin/validation_mixin.dart';
 import '../../shared/style/ui_helper.dart';
 
 class ChangeMailAddress extends StatefulWidget {
-  static const String routeName = "/changeMailAddress";
+  static const String routeName = '/changeMailAddress';
 
   @override
   State<StatefulWidget> createState() => ChangeMailAddressState();
@@ -19,9 +19,9 @@ class ChangeMailAddress extends StatefulWidget {
 class ChangeMailAddressState extends State with ValidationMixin {
   ChangeMailAddressViewModel _changeMailAddressViewModel;
   final formKey = GlobalKey<FormState>();
-  TextEditingController usermail = new TextEditingController();
-  String password = "";
-  String newEmail = "";
+  TextEditingController usermail = TextEditingController();
+  String password = '';
+  String newEmail = '';
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +177,7 @@ class ChangeMailAddressState extends State with ValidationMixin {
   Widget passwordNameField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(labelText: "Şifre", hintText: "Şifre"),
+      decoration: InputDecoration(labelText: 'Şifre', hintText: 'Şifre'),
     );
   }
 

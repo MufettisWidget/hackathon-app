@@ -17,9 +17,9 @@ class GoodNotice {
   String _twetterAddress;
   String _noticeDate;
 
-  GoodNotice(this._city, this._district, this._neighborhood, this._street, this._streetNo);
+  GoodNotice(_city, _district, _neighborhood, _street, _streetNo);
 
-  GoodNotice.withId(this._id);
+  GoodNotice.withId(_id);
 
   String get id => _id;
   String get city => _city;
@@ -67,7 +67,7 @@ class GoodNotice {
   }
 
   set streetNo(String value) {
-    if (value.length >= 1) {
+    if (value.isNotEmpty) {
       _streetNo = value;
     }
   }
@@ -85,19 +85,19 @@ class GoodNotice {
   }
 
   set userId(String value) {
-    if (value.length >= 1) {
+    if (value.isNotEmpty) {
       _userId = value;
     }
   }
 
   set explation(String value) {
-    if (value.length >= 1) {
+    if (value.isNotEmpty) {
       _explation = value;
     }
   }
 
   set photoName(String value) {
-    if (value.length >= 1) {
+    if (value.isNotEmpty) {
       _photoName = value;
     }
   }
@@ -125,35 +125,35 @@ class GoodNotice {
   }
 
   Map<String, dynamic> toMap() {
-    var map = Map<String, dynamic>();
-    map["city"] = city;
-    map["district"] = _district;
-    map["street"] = _street;
-    map["neighborhood"] = _neighborhood;
+    var map = <String, dynamic>{};
+    map['city'] = city;
+    map['district'] = _district;
+    map['street'] = _street;
+    map['neighborhood'] = _neighborhood;
 
     if (_id != null) {
-      map["id"] = _id;
+      map['id'] = _id;
     }
 
     return map;
   }
 
   GoodNotice.fromObject(dynamic o) {
-    this._id = o["Id"];
-    this.city = o["City"];
-    this._district = o["District"];
-    this._neighborhood = o["Neighborhood"];
-    this._street = o["Street"];
-    this._streetNo = o["StreetNo"];
-    this._latitude = o["Latitude"];
-    this._longitude = o["Longitude"];
-    this._userId = o["UserId"];
-    this._noticeStatus = o["NoticeStatus"];
-    this._explation = o["Explation"];
-    this._photoName = o["PhotoName"];
-    this._reportedMunicipality = o["ReportedMunicipality"];
-    this._twetterAddress = o["TwetterAddress"];
-    this._noticeDate = o["NoticeDate"];
+    _id = o['Id'];
+    city = o['City'];
+    _district = o['District'];
+    _neighborhood = o['Neighborhood'];
+    _street = o['Street'];
+    _streetNo = o['StreetNo'];
+    _latitude = o['Latitude'];
+    _longitude = o['Longitude'];
+    _userId = o['UserId'];
+    _noticeStatus = o['NoticeStatus'];
+    _explation = o['Explation'];
+    _photoName = o['PhotoName'];
+    _reportedMunicipality = o['ReportedMunicipality'];
+    _twetterAddress = o['TwetterAddress'];
+    _noticeDate = o['NoticeDate'];
   }
 
   GoodNotice.fromJson(Map<String, dynamic> json) {
@@ -176,20 +176,20 @@ class GoodNotice {
 
   Map toJson(GoodNotice notice) {
     return {
-      "city": notice.city,
-      "district": notice.district,
-      "neighborhood": notice.neighborhood,
-      "street": notice.street,
-      "streetNo": notice.streetNo,
-      "latitude": notice.latitude,
-      "longitude": notice.longitude,
-      "userId": notice.userId,
-      "noticeStatus": notice._noticeStatus,
-      "explation": notice.explation,
-      "photoName": notice.photoName,
-      "reportedMunicipality": notice.reportedMunicipality,
-      "twetterAddress": notice.twetterAddress,
-      "noticeDare": notice.noticeDate,
+      'city': notice.city,
+      'district': notice.district,
+      'neighborhood': notice.neighborhood,
+      'street': notice.street,
+      'streetNo': notice.streetNo,
+      'latitude': notice.latitude,
+      'longitude': notice.longitude,
+      'userId': notice.userId,
+      'noticeStatus': notice._noticeStatus,
+      'explation': notice.explation,
+      'photoName': notice.photoName,
+      'reportedMunicipality': notice.reportedMunicipality,
+      'twetterAddress': notice.twetterAddress,
+      'noticeDare': notice.noticeDate,
     };
   }
 }

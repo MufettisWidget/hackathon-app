@@ -1,23 +1,18 @@
-
-import 'package:MufettisWidgetApp/core/viewsmodel/base_model.dart';
+import 'base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class NoticeDetailViewModel extends BaseModel {
-  final noticeDetailScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_noticeDetailScaffoldKey");
+  final noticeDetailScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_noticeDetailScaffoldKey');
 
   BuildContext _context;
 
   BuildContext get context => _context;
 
+  // ignore: empty_constructor_bodies
   NoticeDetailViewModel() {}
 
-
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
-
-
 }
-

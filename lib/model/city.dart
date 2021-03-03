@@ -6,7 +6,7 @@ class City {
   int closedCount;
   int solutionRate;
 
-  City({this.cityName, this.twitterAddress});
+  City({cityName, twitterAddress});
 
   City.fromJson(Map<String, dynamic> json) {
     cityName = json['CityName'];
@@ -17,12 +17,12 @@ class City {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cityName'] = this.cityName;
-    data['twitterAddress'] = this.twitterAddress;
-    data['notifeCount'] = this.notifeCount;
-    data['closedCount'] = this.closedCount;
-    data['solutionRate'] = this.solutionRate;
+    final data = <String, dynamic>{};
+    data['cityName'] = cityName;
+    data['twitterAddress'] = twitterAddress;
+    data['notifeCount'] = notifeCount;
+    data['closedCount'] = closedCount;
+    data['solutionRate'] = solutionRate;
 
     return data;
   }

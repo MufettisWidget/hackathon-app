@@ -8,12 +8,10 @@ import 'package:flutter/widgets.dart';
 
 import '../../apis/city/city_api.dart';
 import '../../apis/district/district_api.dart';
-import '../../apis/news/news_api.dart';
 import '../../apis/notice/notice_api.dart';
 import '../../apis/token/token_api.dart';
 import '../../model/district.dart';
 import '../../model/jwt_token.dart';
-import '../../model/news.dart';
 import '../../model/notice.dart';
 import '../../model/reponseModel/reponseNotice.dart';
 import '../enum/paged_name.dart';
@@ -26,21 +24,21 @@ class SplashViewModel extends BaseModel {
   BuildContext get context => _context;
 
   List<Notice> noticeList;
-  SharedManager _sharedManager = new SharedManager();
+  final SharedManager _sharedManager = SharedManager();
 
   SplashViewModel() {
-    noticeList = new List<Notice>();
+    noticeList = <Notice>[];
   }
 
   Future login() async {
     if (_sharedManager.loginRequest != null) {
       var userLogin = SharedManager().loginRequest;
 
-      NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
+      await NoticeApiServices.instance.getmyNotice(SharedManager().loginRequest.id).then((response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> map = jsonDecode(response.body);
           var responseNotice = ResponseNotice.fromJson(map);
-          userLogin.noticies = new List<Notice>();
+          userLogin.noticies = <Notice>[];
           userLogin.noticies = responseNotice.notices;
           SharedManager().loginRequest = userLogin;
         } else {}
@@ -62,17 +60,17 @@ class SplashViewModel extends BaseModel {
 
     String generateSignature(String dataIn, signature) {
       var encodedKey = utf8.encode(signature);
-      var hmacSha256 = new Hmac(sha256, encodedKey);
+      var hmacSha256 = Hmac(sha256, encodedKey);
       var bytesDataIn = utf8.encode(dataIn);
       var digest = hmacSha256.convert(bytesDataIn);
-      String singedValue = digest.toString();
+      var singedValue = digest.toString();
       return singedValue;
     }
 
-    String deviceId = await _getId();
-    String cryptoToken = generateSignature(deviceId, "BldrmBunu");
+    var deviceId = await _getId();
+    var cryptoToken = generateSignature(deviceId, 'BldrmBunu');
 
-    TokenApiServices.instance.getToken(deviceId, cryptoToken).then((response) {
+    await TokenApiServices.instance.getToken(deviceId, cryptoToken).then((response) {
       if (response.statusCode == 200) {
         Map<String, dynamic> map = jsonDecode(response.body);
         var returnToken = JwtToken.fromJson(map);
@@ -103,7 +101,7 @@ class SplashViewModel extends BaseModel {
             Map<String, dynamic> map = jsonDecode(response.body);
             var mostDistrict = District.fromJson(map);
             SharedManager().mostDistrictCount = mostDistrict.notifeCount.toString();
-            SharedManager().mostDistrictName = mostDistrict.cityName.toString() + " - " + mostDistrict.districtName.toString();
+            SharedManager().mostDistrictName = mostDistrict.cityName.toString() + ' - ' + mostDistrict.districtName.toString();
           }
         });
 
@@ -114,7 +112,7 @@ class SplashViewModel extends BaseModel {
 
             SharedManager().mostDistrictSolitionCount = '% ' + mostDistrictSolutionRate.solutionRate.toString();
             SharedManager().mostDistrictSolitionName =
-                mostDistrictSolutionRate.cityName.toString() + " - " + mostDistrictSolutionRate.districtName.toString();
+                mostDistrictSolutionRate.cityName.toString() + ' - ' + mostDistrictSolutionRate.districtName.toString();
           }
         });
 
@@ -130,9 +128,8 @@ class SplashViewModel extends BaseModel {
     });
   }
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
 
     login().whenComplete(() {
       Future.delayed(Duration(milliseconds: 3000), () {

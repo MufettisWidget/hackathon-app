@@ -1,18 +1,15 @@
 import 'dart:convert';
 
-import 'package:MufettisWidgetApp/apis/account/acoount_api.dart';
-import 'package:MufettisWidgetApp/apis/city/city_api.dart';
-import 'package:MufettisWidgetApp/apis/district/district_api.dart';
-import 'package:MufettisWidgetApp/apis/notice/notice_api.dart';
-import 'package:MufettisWidgetApp/core/enum/singing_character.dart';
-import 'package:MufettisWidgetApp/core/enum/viewstate.dart';
-import 'package:MufettisWidgetApp/model/city.dart';
-import 'package:MufettisWidgetApp/model/district.dart';
-import 'package:MufettisWidgetApp/model/notice.dart';
-import 'package:MufettisWidgetApp/model/reponseModel/reponseNotice.dart';
-import 'package:MufettisWidgetApp/model/user.dart';
-import 'package:MufettisWidgetApp/screen/notice/success_share.dart';
-import 'package:connectivity/connectivity.dart';
+import '../../apis/city/city_api.dart';
+import '../../apis/district/district_api.dart';
+import '../../apis/notice/notice_api.dart';
+import '../enum/singing_character.dart';
+import '../enum/viewstate.dart';
+import '../../model/city.dart';
+import '../../model/district.dart';
+import '../../model/notice.dart';
+import '../../model/reponseModel/reponseNotice.dart';
+import '../../screen/notice/success_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -21,18 +18,20 @@ import 'base_model.dart';
 
 //Kullanıcının Bildirim eklemesini sayğalan model
 class NoticeExplanationdViewModel extends BaseModel {
-  final noticeExplanationScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_noticeExplanationScaffoldKey");
+  final noticeExplanationScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_noticeExplanationScaffoldKey');
 
   BuildContext _context;
 
   BuildContext get context => _context;
 
+  // ignore: empty_constructor_bodies
   NoticeExplanationdViewModel() {}
 
   void setContext(BuildContext context) {
-    this._context = context;
+    context = context;
   }
 
+  // ignore: missing_return
   Future<bool> saveNotice(Notice notice, SingingCharacter character, String imagePath) {
     notice.noticeStatus = 1;
     notice.noticeDate = DateTime.now().toString();
@@ -44,7 +43,7 @@ class NoticeExplanationdViewModel extends BaseModel {
       CityApiService.instance.getCity(notice.city).then((responseCity) {
         if (responseCity.statusCode == 200) {
           Map cityMap = jsonDecode(responseCity.body);
-          notice.twetterAddress = "@" + City.fromJson(cityMap).twitterAddress;
+          notice.twetterAddress = '@' + City.fromJson(cityMap).twitterAddress;
           NoticeApiServices.instance.createNotice(notice).then((responseNotice) {
             if (responseNotice.statusCode == 201) {
               Map noticeMap = jsonDecode(responseNotice.body);
@@ -57,7 +56,7 @@ class NoticeExplanationdViewModel extends BaseModel {
                     if (response.statusCode == 200) {
                       Map<String, dynamic> map = jsonDecode(response.body);
                       var responseNotice = ResponseNotice.fromJson(map);
-                      userLogin.noticies = new List<Notice>();
+                      userLogin.noticies = <Notice>[];
                       userLogin.noticies = responseNotice.notices;
                       SharedManager().loginRequest = userLogin;
                     } else {
@@ -82,7 +81,7 @@ class NoticeExplanationdViewModel extends BaseModel {
       DistrictApiServices.instance.getDistrict(notice.city, notice.district).then((responseDistrict) {
         if (responseDistrict.statusCode == 200) {
           Map districtMap = jsonDecode(responseDistrict.body);
-          notice.twetterAddress = "@" + District.fromJson(districtMap).twitterAddress;
+          notice.twetterAddress = '@' + District.fromJson(districtMap).twitterAddress;
           NoticeApiServices.instance.createNotice(notice).then((responseNotice) {
             Map noticeMap = jsonDecode(responseNotice.body);
             //setState(() {
@@ -100,7 +99,7 @@ class NoticeExplanationdViewModel extends BaseModel {
                       setState(ViewState.Idle);
                       Map<String, dynamic> map = jsonDecode(response.body);
                       var responseNotice = ResponseNotice.fromJson(map);
-                      userLogin.noticies = new List<Notice>();
+                      userLogin.noticies = <Notice>[];
                       userLogin.noticies = responseNotice.notices;
                       SharedManager().loginRequest = userLogin;
                     } else {

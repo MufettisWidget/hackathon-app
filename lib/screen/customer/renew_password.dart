@@ -1,20 +1,17 @@
-import 'package:MufettisWidgetApp/core/viewsmodel/renew_password_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:connectivity/connectivity.dart';
+import '../../core/viewsmodel/renew_password_view_model.dart';
+import '../../ui/views/baseview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../apis/account/acoount_api.dart';
 import '../../mixin/validation_mixin.dart';
 import '../../model/user.dart';
 import '../../shared/style/ui_helper.dart';
-import 'customer_login.dart';
 
 class RenewPassword extends StatefulWidget {
   final User user;
   RenewPassword(this.user);
 
-  static const String routeName = "/renewPassword";
+  static const String routeName = '/renewPassword';
 
   @override
   State<StatefulWidget> createState() => RenewPasswordState(user);
@@ -143,7 +140,7 @@ class RenewPasswordState extends State with ValidationMixin {
   Widget passwordNameField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(labelText: "Şifre", hintText: "Şifre"),
+      decoration: InputDecoration(labelText: 'Şifre', hintText: 'Şifre'),
     );
   }
 

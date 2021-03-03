@@ -1,8 +1,6 @@
-import 'dart:convert';
-
-import 'package:MufettisWidgetApp/core/viewsmodel/change_password_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
+import '../../core/viewsmodel/change_password_view_model.dart';
+import '../../ui/views/baseview.dart';
+import '../../ui/views/custom_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +9,7 @@ import '../../mixin/validation_mixin.dart';
 import '../../shared/style/ui_helper.dart';
 
 class ChangePassword extends StatefulWidget {
-  static const String routeName = "/changePassword";
+  static const String routeName = '/changePassword';
 
   @override
   State<StatefulWidget> createState() => ChangePasswordState();
@@ -21,9 +19,9 @@ class ChangePasswordState extends State with ValidationMixin {
   ChangePasswordViewModel _changePasswordViewModel;
   final formKey = GlobalKey<FormState>();
 
-  String oldPasswordChange = "";
-  String newPassword = "";
-  String newPasswordAgain = "";
+  String oldPasswordChange = '';
+  String newPassword = '';
+  String newPasswordAgain = '';
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance.init(context);
@@ -93,8 +91,7 @@ class ChangePasswordState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -127,8 +124,7 @@ class ChangePasswordState extends State with ValidationMixin {
           cursorColor: Colors.white,
           maxLines: 1,
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -156,8 +152,7 @@ class ChangePasswordState extends State with ValidationMixin {
             oldPasswordChange = value;
           },
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -172,8 +167,7 @@ class ChangePasswordState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description =>
-      Text(UIHelper.changPasswprdExplanation, style: _helloTextStyle(30));
+  Widget get _description => Text(UIHelper.changPasswprdExplanation, style: _helloTextStyle(30));
 
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -186,8 +180,7 @@ class ChangePasswordState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(
@@ -204,13 +197,12 @@ class ChangePasswordState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _helloText =>
-      Text(UIHelper.changePassword, style: _helloTextStyle(70));
+  Widget get _helloText => Text(UIHelper.changePassword, style: _helloTextStyle(70));
 
   Widget passwordNameField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(labelText: "Şifre", hintText: "Şifre"),
+      decoration: InputDecoration(labelText: 'Şifre', hintText: 'Şifre'),
     );
   }
 
@@ -219,5 +211,4 @@ class ChangePasswordState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-
 }

@@ -8,13 +8,12 @@ class DoNoticeViewModel extends BaseModel {
   BuildContext _context;
   BuildContext get context => _context;
 
+  // ignore: empty_constructor_bodies
   DoNoticeViewModel() {}
 
-  goHome() {
-    navigator.navigateToRemove(Pages.Home);
-  }
+  Future<Future> goHome() async => navigator.navigateToRemove(Pages.Home);
 
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 }

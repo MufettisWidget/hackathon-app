@@ -18,14 +18,14 @@ class LeftDrawerViewModel extends BaseModel with WidgetsBindingObserver {
   VoidCallback returnMain;
   VoidCallback returnMainConverted;
 
-  SharedManager sharedManager = new SharedManager();
+  SharedManager sharedManager = SharedManager();
 
   LeftDrawerViewModel() {
     getCustomer();
   }
 
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
   Future getCustomer() async {
@@ -35,20 +35,22 @@ class LeftDrawerViewModel extends BaseModel with WidgetsBindingObserver {
     }
   }
 
+  // ignore: always_declare_return_types
   navigateLeftMenu(Pages _page) async {
-    navigator.pop();
+    await navigator.pop();
     final response = await navigator.navigateTo(_page);
 
-    if (response == "changeTokenStatus") {
+    if (response == 'changeTokenStatus') {
       onChangeTokenStatusModel();
-    } else if (response == "returnMain") {
+    } else if (response == 'returnMain') {
       returnMain();
-    } else if (response == "returnConvertedTlPoint") {
+    } else if (response == 'returnConvertedTlPoint') {
       returnMainConverted();
     }
   }
 
-  logout() {
+  // ignore: always_declare_return_types
+  logout() async {
     onChangeTokenStatusModel();
 
     customerDetail = null;

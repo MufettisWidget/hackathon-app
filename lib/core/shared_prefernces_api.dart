@@ -25,22 +25,23 @@ class SharedManager {
   SharedPreferences prefs;
 
   Future initInstance() async {
-    this.prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
   }
 
-  logOut() {
-    prefs.remove(ClientSharedEnum.loginRequestBb.toString());
-    prefs.remove(ClientSharedEnum.notUserTokenBb.toString());
+  // ignore: always_declare_return_types
+  logOut() async {
+    await prefs.remove(ClientSharedEnum.loginRequestBb.toString());
+    await prefs.remove(ClientSharedEnum.notUserTokenBb.toString());
 
-    prefs.remove(ClientSharedEnum.jwtToken.toString());
+    await prefs.remove(ClientSharedEnum.jwtToken.toString());
   }
 
-  String get tokenNotUser => prefs.getString(ClientSharedEnum.notUserTokenBb.toString()) ?? null;
+  String get tokenNotUser => prefs.getString(ClientSharedEnum.notUserTokenBb.toString());
   set tokenNotUser(String token) {
     prefs.setString(ClientSharedEnum.notUserTokenBb.toString(), token);
   }
 
-  String get jwtToken => prefs.getString(ClientSharedEnum.jwtToken.toString()) ?? null;
+  String get jwtToken => prefs.getString(ClientSharedEnum.jwtToken.toString());
   set jwtToken(String jwtToken) {
     prefs.setString(ClientSharedEnum.jwtToken.toString(), jwtToken);
   }
@@ -108,7 +109,7 @@ class SharedManager {
 
   List<Notice> get openNotice {
     var openNoticeJson = _getFromDisk(ClientSharedEnum.allNoticeBb.toString());
-    if (openNoticeJson == null || openNoticeJson.toString().contains("null")) {
+    if (openNoticeJson == null || openNoticeJson.toString().contains('null')) {
       return null;
     }
     Iterable l = json.decode(openNoticeJson);
@@ -122,7 +123,7 @@ class SharedManager {
 
   List<News> get news {
     var news = _getFromDisk(ClientSharedEnum.newsBb.toString());
-    if (news == null || news.toString().contains("null")) {
+    if (news == null || news.toString().contains('null')) {
       return null;
     }
     Iterable l = json.decode(news);
@@ -137,7 +138,7 @@ class SharedManager {
   HomeLocationModel get homeLocation {
     var homeLocation = _getFromDisk(ClientSharedEnum.homeLocationBb.toString());
     if (homeLocation == null) {
-      return new HomeLocationModel(lat: 40.9801401, lng: 29.0735152);
+      return HomeLocationModel(lat: 40.9801401, lng: 29.0735152);
     }
 
     return HomeLocationModel.fromJson(json.decode(homeLocation));

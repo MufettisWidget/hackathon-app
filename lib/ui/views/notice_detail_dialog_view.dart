@@ -4,6 +4,7 @@ import '../../model/notice.dart';
 import '../../shared/style/ui_helper.dart';
 import 'detail_bottom_view.dart';
 
+// ignore: must_be_immutable
 class NoticeDetailDialogView extends StatefulWidget {
   @override
   _StationDialogViewState createState() => _StationDialogViewState();

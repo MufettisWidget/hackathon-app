@@ -54,10 +54,10 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
             onTap: _mainViewModel.onTabTapped,
             fixedColor: Colors.white,
             items: <BottomNavigationBarItem>[
-              _buildBottomNavigationBarItem(Feather.home, "Anasayfa", 28, 0),
-              _buildBottomNavigationBarItem(Feather.map_pin, "Harita", 28, 1),
-              _buildBottomNavigationBarItem(Feather.plus, "Harita", 28, 2),
-              _buildBottomNavigationBarItem(Feather.bell, "Bildirimler", 28, 3),
+              _buildBottomNavigationBarItem(Feather.home, 'Anasayfa', 28, 0),
+              _buildBottomNavigationBarItem(Feather.map_pin, 'Harita', 28, 1),
+              _buildBottomNavigationBarItem(Feather.plus, 'Harita', 28, 2),
+              _buildBottomNavigationBarItem(Feather.bell, 'Bildirimler', 28, 3),
             ],
           ),
         );
@@ -72,6 +72,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           color: _mainViewModel.currentIndex == index ? Colors.white : Colors.grey,
           size: _size,
         ),
+        // ignore: deprecated_member_use
         title: Text(_title));
   }
 
@@ -92,16 +93,16 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         case AppLifecycleState.inactive:
           break;
         case AppLifecycleState.resumed:
-          print("resumed:::::::::");
+          print('resumed:::::::::');
           break;
         case AppLifecycleState.paused:
-          print("paused:::::::::");
+          print('paused:::::::::');
           break;
         case AppLifecycleState.detached:
           break;
       }
     } catch (e) {
-      print("sd");
+      print('sd');
     }
   }
 

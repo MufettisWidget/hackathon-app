@@ -30,9 +30,9 @@ class User {
     userToken = json['UserToken'];
     id = json['Id'];
     if (json['noticies'] != null) {
-      noticies = new List<Notice>();
+      noticies = <Notice>[];
       json['noticies'].forEach((v) {
-        noticies.add(new Notice.fromJson(v));
+        noticies.add(Notice.fromJson(v));
       });
     }
   }
@@ -40,16 +40,16 @@ class User {
   User.withId(this.id, this.mailAddress);
 
   Map<String, dynamic> toJson(User user) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data["mailAddress"] = user.mailAddress;
-    data["nameSurname"] = user.nameSurname;
-    data["phone"] = user.phone;
-    data["password"] = user.password;
-    data["isKvkk"] = user.isKvkk;
-    data["Id"] = user.id;
-    data["UserToken"] = user.userToken;
+    final data = <String, dynamic>{};
+    data['mailAddress'] = user.mailAddress;
+    data['nameSurname'] = user.nameSurname;
+    data['phone'] = user.phone;
+    data['password'] = user.password;
+    data['isKvkk'] = user.isKvkk;
+    data['Id'] = user.id;
+    data['UserToken'] = user.userToken;
     if (user.noticies != null) {
-      data["noticies"] = user.noticies.map((e) => e.toJson(e)).toList();
+      data['noticies'] = user.noticies.map((e) => e.toJson(e)).toList();
     }
     return data;
   }

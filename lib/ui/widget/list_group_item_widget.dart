@@ -34,7 +34,7 @@ class ListGroupItemView extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text(
-                        rightText != null ? rightText : "",
+                        rightText ?? '',
                         style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: UIHelper.dynamicScaleSp(38)),
                       ),
                       Icon(

@@ -11,7 +11,7 @@ import 'main_view_model.dart';
 
 //Tab menüdeki Tüm bildirimleri görmek için kullanılan model
 class AllNoticeViewModel extends BaseModel {
-  final noticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_allnoticeScaffoldKey");
+  final noticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_allnoticeScaffoldKey');
 
   BuildContext _context;
 
@@ -23,9 +23,8 @@ class AllNoticeViewModel extends BaseModel {
     getNoticeData(0);
   }
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
   void getNoticeData(int page) {
@@ -43,7 +42,5 @@ class AllNoticeViewModel extends BaseModel {
     }
   }
 
-  openLeftDrawer() {
-    MainViewModel.openLeftMenu();
-  }
+  Future openLeftDrawer() async => MainViewModel.openLeftMenu();
 }

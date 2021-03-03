@@ -142,7 +142,7 @@ class UIPaddingHelper {
   }
 
   static String unMaskedPhone(String _phone) {
-    return _phone.replaceAll(new RegExp('[^0-9]'), '');
+    return _phone.replaceAll(RegExp('[^0-9]'), '');
   }
 
   // static Scaffold buildScaffoldError(ErrorResponse errorResponse, String title) => Scaffold(

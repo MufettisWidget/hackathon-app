@@ -1,4 +1,4 @@
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
+import '../../ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/viewsmodel/customer_login_view_model.dart';
@@ -16,13 +16,10 @@ class CustomerLogin extends StatefulWidget {
 
 class CustomerLoginState extends State with ValidationMixin {
   CustomerLoginViewModel _loginViewModel;
-  bool _isKeyboardOpen;
   final formKey = GlobalKey<FormState>();
-  final custmer = new User("", "", "", "");
+  final custmer = User('', '', '', '');
   @override
   Widget build(BuildContext context) {
-    _isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-
     return BaseView<CustomerLoginViewModel>(
       onModelReady: (model) {
         model.setContext(context);
@@ -179,7 +176,7 @@ class CustomerLoginState extends State with ValidationMixin {
             child: SizedBox(
               height: 30,
               child: FlatButton(
-                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_context) => ForgotPassword()));
                 },
@@ -195,7 +192,7 @@ class CustomerLoginState extends State with ValidationMixin {
             child: SizedBox(
               height: 30,
               child: FlatButton(
-                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_context) => CustomerAddView()));
                 },
@@ -209,7 +206,7 @@ class CustomerLoginState extends State with ValidationMixin {
   Widget passwordNameField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(labelText: "Şifre", hintText: "Şifre"),
+      decoration: InputDecoration(labelText: 'Şifre', hintText: 'Şifre'),
     );
   }
 

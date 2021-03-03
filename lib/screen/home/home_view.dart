@@ -6,12 +6,12 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../core/shared_prefernces_api.dart';
 import '../../core/viewsmodel/home_view_model.dart';
-import '../../main.dart';
 import '../../model/lat_long.dart';
 import '../../shared/style/ui_helper.dart';
 import '../../ui/views/baseview.dart';
 import 'badge_menu.dart';
 
+// ignore: must_be_immutable
 class HomeView extends StatefulWidget {
   HomeViewModel homeViewModel;
 
@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                       child: Padding(
                     padding: EdgeInsets.all(UIHelper.dynamicHeight(30)),
                     child: Text(
-                      "Bir hatayla karşılaşıldı. \n Lütfen internet bağlantınızı kontrol ediniz.",
+                      'Bir hatayla karşılaşıldı. \n Lütfen internet bağlantınızı kontrol ediniz.',
                       style: TextStyle(fontSize: UIHelper.dynamicScaleSp(44)),
                       textAlign: TextAlign.center,
                     ),
@@ -85,7 +85,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Image.asset(
-                    "assets/icons/appicon.png",
+                    'assets/icons/appicon.png',
                     scale: 5,
                   ),
                 ),
@@ -118,7 +118,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Son Bildirimlerim",
+                        'Son Bildirimlerim',
                         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 22.0),
                       ),
                       InkWell(
@@ -126,7 +126,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                           _homeViewModel.gotoMyNoticeView();
                         },
                         child: Text(
-                          "Hepsini Gör",
+                          'Hepsini Gör',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, fontSize: 14.0),
                         ),
                       ),
@@ -154,16 +154,16 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "En Belediyeler",
+                      'En Belediyeler',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.blueGrey),
                     ),
                   ],
                 ),
               ),
-              getSmallItem(SharedManager().mostCityCount, SharedManager().mostCityName, "En Çok Bildirim Alan Büyük Şehir"),
-              getSmallItem(SharedManager().mostDistrictCount, SharedManager().mostDistrictName, "En Çok Bildirim Alan Büyük İlçe"),
-              getSmallItem(SharedManager().mostCitySolitionCount, SharedManager().mostCitySolitionName, "En İyi Çözüm Oranı Büyük Şehir"),
-              getSmallItem(SharedManager().mostDistrictSolitionCount, SharedManager().mostDistrictSolitionName, "En İyi Çözüm Oranı İlçe"),
+              getSmallItem(SharedManager().mostCityCount, SharedManager().mostCityName, 'En Çok Bildirim Alan Büyük Şehir'),
+              getSmallItem(SharedManager().mostDistrictCount, SharedManager().mostDistrictName, 'En Çok Bildirim Alan Büyük İlçe'),
+              getSmallItem(SharedManager().mostCitySolitionCount, SharedManager().mostCitySolitionName, 'En İyi Çözüm Oranı Büyük Şehir'),
+              getSmallItem(SharedManager().mostDistrictSolitionCount, SharedManager().mostDistrictSolitionName, 'En İyi Çözüm Oranı İlçe'),
             ],
           ),
         ));
@@ -175,21 +175,20 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     }
   }
 
+  // ignore: missing_return
   Future<String> get _getCurrentLocation async {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> placemark = await Geolocator()
-        .placemarkFromCoordinates(double.parse(position.latitude.toStringAsFixed(7)), double.parse(position.longitude.toStringAsFixed(7)));
+    var position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     SharedManager().homeLocation.lat = position.latitude;
     SharedManager().homeLocation.lng = position.longitude;
 
-    HomeLocationModel aa = new HomeLocationModel();
+    var aa = HomeLocationModel();
     aa.lat = position.latitude;
     aa.lng = position.longitude;
   }
 }
 
-getSmallItem(count, name, flavor) {
+Padding getSmallItem(count, name, flavor) {
   return Padding(
     padding: EdgeInsets.all(16.0),
     child: Card(
@@ -202,12 +201,12 @@ getSmallItem(count, name, flavor) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "$name",
+                '$name',
                 style: TextStyle(fontSize: 20.0, color: Colors.blueGrey, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 5.0),
               Text(
-                "$flavor",
+                '$flavor',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 14.0,
@@ -232,7 +231,7 @@ getSmallItem(count, name, flavor) {
               color: UIHelper.PEAR_PRIMARY_COLOR,
               child: Center(
                 child: Text(
-                  "$count",
+                  '$count',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: Colors.white),
                 ),
               ),
@@ -247,7 +246,7 @@ getSmallItem(count, name, flavor) {
 class MyClip extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Path path = Path();
+    var path = Path();
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height - 60.0);
     path.quadraticBezierTo(size.width - 70.0, size.height, size.width / 2, size.height - 20);
@@ -265,7 +264,7 @@ class MyClip extends CustomClipper<Path> {
 class MyClip2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Path path = Path();
+    var path = Path();
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);

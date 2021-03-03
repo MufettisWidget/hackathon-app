@@ -1,6 +1,6 @@
-import 'package:MufettisWidgetApp/core/viewsmodel/customer_add_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
+import '../../core/viewsmodel/customer_add_view_model.dart';
+import '../../ui/views/baseview.dart';
+import '../../ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +10,7 @@ import '../../shared/style/ui_helper.dart';
 import 'customer_login.dart';
 
 class CustomerAddView extends StatefulWidget {
-  static const String routeName = "/customerAdd";
+  static const String routeName = '/customerAdd';
 
   @override
   State<StatefulWidget> createState() => CustomerAddState();
@@ -19,7 +19,7 @@ class CustomerAddView extends StatefulWidget {
 class CustomerAddState extends State with ValidationMixin {
   CustomerAddViewModel _customerAddViewModel;
   final formKey = GlobalKey<FormState>();
-  final customer = new User("", "", "", "");
+  final customer = User('', '', '', '');
   bool isKvkk = false;
 
   @override
@@ -67,7 +67,7 @@ class CustomerAddState extends State with ValidationMixin {
             child: SizedBox(
               height: 30,
               child: FlatButton(
-                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_context) => CustomerLogin()));
                 },
@@ -233,7 +233,7 @@ class CustomerAddState extends State with ValidationMixin {
                 customer.isKvkk = true;
                 _customerAddViewModel.saveCustomer(customer);
               } else {
-                _customerAddViewModel.showDialogkVkk("Kvkk Onaylamaniz Gerekmektedir", true);
+                _customerAddViewModel.showDialogkVkk('Kvkk Onaylamaniz Gerekmektedir', true);
               }
             }
           },
@@ -260,7 +260,7 @@ class CustomerAddState extends State with ValidationMixin {
   Widget emailNameField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(labelText: "E-Mail", hintText: "mail@mail.com"),
+      decoration: InputDecoration(labelText: 'E-Mail', hintText: 'mail@mail.com'),
       validator: validateEmail,
       onSaved: (String value) {
         customer.mailAddress = value;
@@ -281,7 +281,7 @@ class CustomerAddState extends State with ValidationMixin {
         controlAffinity: ListTileControlAffinity.leading,
         checkColor: Colors.red,
         title: Text(
-          "Bildireyim Bunu tarafından kişişel verilerimin işlenmesini ve ticari elektronik ileti almayı kabul ederek açık rıza veriyorum.",
+          'Bildireyim Bunu tarafından kişişel verilerimin işlenmesini ve ticari elektronik ileti almayı kabul ederek açık rıza veriyorum.',
           style: TextStyle(color: Colors.white, fontSize: 12.0),
         ),
       ),
@@ -298,7 +298,7 @@ class CustomerAddState extends State with ValidationMixin {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              "Aydınlatma metni için tıklayınız.",
+              'Aydınlatma metni için tıklayınız.',
               textAlign: TextAlign.right,
               style: TextStyle(color: Colors.red, decoration: TextDecoration.underline, fontSize: 15.0),
             ),
@@ -309,7 +309,7 @@ class CustomerAddState extends State with ValidationMixin {
   Widget passwordNameField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(labelText: "Şifre", hintText: "Şifre"),
+      decoration: InputDecoration(labelText: 'Şifre', hintText: 'Şifre'),
     );
   }
 
@@ -318,6 +318,4 @@ class CustomerAddState extends State with ValidationMixin {
         fontSize: UIHelper.dynamicSp(fontSize),
         fontWeight: FontWeight.bold,
       );
-
- 
 }

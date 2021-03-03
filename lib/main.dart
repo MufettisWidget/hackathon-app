@@ -9,19 +9,20 @@ import 'locator.dart';
 import 'screen/router.dart' as rt;
 import 'shared/style/ui_helper.dart';
 
-String get baseUrl => "https://apis.bildireyimbunu.com/";
-//String get baseUrl => "http://localhost:5010/";
+// String get baseUrl => 'https://apis.bildireyimbunu.com/';
+String get baseUrl => ' http://42873335930f.ngrok.io/';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _applicationConfigure();
 
+  // ignore: unused_local_variable
   CameraDescription firstCamera;
   final cameras = await availableCameras();
 
   firstCamera = cameras.first;
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(BildireyimBunu());
 }
 
@@ -43,7 +44,7 @@ class BildireyimBunu extends StatelessWidget {
         accentColor: Colors.grey,
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
-        fontFamily: "Lato",
+        fontFamily: 'Lato',
       ),
     );
   }

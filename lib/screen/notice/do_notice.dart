@@ -31,9 +31,8 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
   TextEditingController controllerStreetNo;
   double latitude;
   double longitude;
-  SharedManager _sharedManager = new SharedManager();
-  Completer<GoogleMapController> _controller = Completer();
-  Set<Marker> _markers = {};
+  final Completer<GoogleMapController> _controller = Completer();
+  final Set<Marker> _markers = {};
   BitmapDescriptor pinLocationIcon;
 
   LatLng pinPosition = LatLng(41.016276, 29.1180298);
@@ -41,18 +40,18 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
   @override
   void initState() {
     super.initState();
-    controllerCity = TextEditingController(text: "");
-    controllerDisctirct = TextEditingController(text: "");
-    controllerStreet = TextEditingController(text: "");
-    controllerSubStreet = TextEditingController(text: "");
+    controllerCity = TextEditingController(text: '');
+    controllerDisctirct = TextEditingController(text: '');
+    controllerStreet = TextEditingController(text: '');
+    controllerSubStreet = TextEditingController(text: '');
     _getCurrentLocation;
-    _currentPosition = new CameraPosition(
+    _currentPosition = CameraPosition(
       bearing: 0,
       target: LatLng(SharedManager().homeLocation.lat, SharedManager().homeLocation.lng),
       zoom: 15.0,
     );
-    controllerNeighborhood = TextEditingController(text: "");
-    controllerStreetNo = TextEditingController(text: "");
+    controllerNeighborhood = TextEditingController(text: '');
+    controllerStreetNo = TextEditingController(text: '');
     setCustomMapPin();
   }
 
@@ -75,7 +74,7 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => _doNoticeViewModel.goHome(),
             ),
-            title: Text("Bildirim Yap"),
+            title: Text('Bildirim Yap'),
             backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
             actions: <Widget>[
               Visibility(
@@ -136,46 +135,47 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
 
   Widget city() {
     return TextFormField(
-        controller: controllerCity, decoration: InputDecoration(labelText: "Şehir", hintText: "Şehir"), showCursor: true, readOnly: true);
+        controller: controllerCity, decoration: InputDecoration(labelText: 'Şehir', hintText: 'Şehir'), showCursor: true, readOnly: true);
   }
 
   Widget dictrict() {
     return TextFormField(
-        controller: controllerDisctirct, decoration: InputDecoration(labelText: "İlçe", hintText: "İlçe"), showCursor: true, readOnly: true);
+        controller: controllerDisctirct, decoration: InputDecoration(labelText: 'İlçe', hintText: 'İlçe'), showCursor: true, readOnly: true);
   }
 
   Widget neighborhood() {
     return TextFormField(
-        controller: controllerNeighborhood, decoration: InputDecoration(labelText: "Mahalle", hintText: "Mahalle"), showCursor: true, readOnly: true);
+        controller: controllerNeighborhood, decoration: InputDecoration(labelText: 'Mahalle', hintText: 'Mahalle'), showCursor: true, readOnly: true);
   }
 
   Widget street() {
     return TextFormField(
         controller: controllerStreet,
-        decoration: InputDecoration(labelText: "Cadde-Sokak", hintText: "Cadde-Sokak"),
+        decoration: InputDecoration(labelText: 'Cadde-Sokak', hintText: 'Cadde-Sokak'),
         showCursor: true,
         readOnly: true);
   }
 
   Widget streetno() {
     return TextFormField(
-        controller: controllerStreetNo, decoration: InputDecoration(labelText: "No", hintText: "No"), showCursor: true, readOnly: false);
+        controller: controllerStreetNo, decoration: InputDecoration(labelText: 'No', hintText: 'No'), showCursor: true, readOnly: false);
   }
 
   Widget subStreet() {
     return TextFormField(
         controller: controllerSubStreet,
         decoration: InputDecoration(
-          labelText: "Sokak",
-          hintText: "Sokak",
+          labelText: 'Sokak',
+          hintText: 'Sokak',
         ),
         showCursor: false,
         readOnly: false);
   }
 
+  // ignore: missing_return
   Future<String> get _getCurrentLocation async {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> placemark = await Geolocator()
+    var position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    var placemark = await Geolocator()
         .placemarkFromCoordinates(double.parse(position.latitude.toStringAsFixed(7)), double.parse(position.longitude.toStringAsFixed(7)));
     _currentPosition = CameraPosition(
       target: LatLng(double.parse(position.latitude.toStringAsFixed(7)), double.parse(position.longitude.toStringAsFixed(7))),
@@ -185,15 +185,16 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
     latitude = position.latitude;
     longitude = position.longitude;
 
-    Placemark place = placemark[0];
+    var place = placemark[0];
     controllerCity.text = place.administrativeArea.toString();
     controllerDisctirct.text = place.subAdministrativeArea.toString();
     controllerNeighborhood.text = place.subLocality.toString();
     controllerStreet.text = place.thoroughfare.toString();
     controllerStreetNo.text = place.subThoroughfare.toString();
 
-    if (controllerCity.text != "") {
+    if (controllerCity.text != '') {
       if (mounted)
+        // ignore: curly_braces_in_flow_control_structures
         setState(() {
           isVisible = true;
         });
@@ -206,10 +207,9 @@ class DoNoticeState extends State<DoNoticeView> with ValidationMixin {
     final cameras = await availableCameras();
 
     final firstCamera = cameras.first;
-    Notice notice =
-        new Notice(controllerCity.text, controllerDisctirct.text, controllerNeighborhood.text, controllerStreet.text, controllerStreetNo.text);
+    var notice = Notice(controllerCity.text, controllerDisctirct.text, controllerNeighborhood.text, controllerStreet.text, controllerStreetNo.text);
     notice.latitude = latitude;
     notice.longitude = longitude;
-    Navigator.push(context, MaterialPageRoute(builder: (_context) => TakePictureScreen(camera: firstCamera, notice: notice)));
+    await Navigator.push(context, MaterialPageRoute(builder: (_context) => TakePictureScreen(camera: firstCamera, notice: notice)));
   }
 }

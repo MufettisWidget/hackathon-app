@@ -14,23 +14,23 @@ import '../shared_prefernces_api.dart';
 import 'base_model.dart';
 
 class CustomerLoginViewModel extends BaseModel {
-  final noticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_customerLoginScaffoldKey");
+  final noticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_customerLoginScaffoldKey');
 
   BuildContext _context;
 
   BuildContext get context => _context;
 
-  CustomerLoginViewModel() {}
-  @override
+  CustomerLoginViewModel();
+
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
   Future<void> saveCustomer(User user) async {
     if (state == ViewState.Busy) {
       return;
     } else {
-      bool isConncet = false;
+      var isConncet = false;
 
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.mobile) {
@@ -40,7 +40,7 @@ class CustomerLoginViewModel extends BaseModel {
       }
       if (isConncet) {
         setState(ViewState.Busy);
-        AccountApiServices.loginUser(user.mailAddress, user.password).then((response) {
+        await AccountApiServices.loginUser(user.mailAddress, user.password).then((response) {
           if (response.statusCode == 200) {
             Map userMap = jsonDecode(response.body);
             var userLogin = User.fromJson(userMap);
@@ -50,7 +50,7 @@ class CustomerLoginViewModel extends BaseModel {
               if (response.statusCode == 200) {
                 Map<String, dynamic> map = jsonDecode(response.body);
                 var responseNotice = ResponseNotice.fromJson(map);
-                userLogin.noticies = new List<Notice>();
+                userLogin.noticies = <Notice>[];
                 userLogin.noticies = responseNotice.notices;
                 SharedManager().loginRequest = userLogin;
 
@@ -63,12 +63,12 @@ class CustomerLoginViewModel extends BaseModel {
               }
             });
           } else {
-            _showDialog("Yanlış E-posta yada Şifre");
+            _showDialog('Yanlış E-posta yada Şifre');
             setState(ViewState.Idle);
           }
         });
       } else {
-        _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
+        _showDialog('Lütfen internet bağlantınızı kontrol ediniz.');
       }
     }
   }
@@ -78,11 +78,11 @@ class CustomerLoginViewModel extends BaseModel {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
+          title: Text('Bildiri'),
+          content: Text(contextText),
           actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
+            FlatButton(
+              child: Text('Kapat'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

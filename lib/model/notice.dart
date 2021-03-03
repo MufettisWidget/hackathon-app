@@ -40,22 +40,22 @@ class Notice {
   }
 
   Map<String, dynamic> toJson(Notice notice) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data["Id"] = notice.id;
-    data["City"] = notice.city;
-    data["District"] = notice.district;
-    data["Neighborhood"] = notice.neighborhood;
-    data["Street"] = notice.street;
-    data["StreetNo"] = notice.streetNo;
-    data["Latitude"] = notice.latitude;
-    data["Longitude"] = notice.longitude;
-    data["UserId"] = notice.userId;
-    data["NoticeStatus"] = notice.noticeStatus;
-    data["Explation"] = notice.explation;
-    data["PhotoName"] = notice.photoName;
-    data["ReportedMunicipality"] = notice.reportedMunicipality;
-    data["TwetterAddress"] = notice.twetterAddress;
-    data["NoticeDate"] = notice.noticeDate;
+    final data = <String, dynamic>{};
+    data['Id'] = notice.id;
+    data['City'] = notice.city;
+    data['District'] = notice.district;
+    data['Neighborhood'] = notice.neighborhood;
+    data['Street'] = notice.street;
+    data['StreetNo'] = notice.streetNo;
+    data['Latitude'] = notice.latitude;
+    data['Longitude'] = notice.longitude;
+    data['UserId'] = notice.userId;
+    data['NoticeStatus'] = notice.noticeStatus;
+    data['Explation'] = notice.explation;
+    data['PhotoName'] = notice.photoName;
+    data['ReportedMunicipality'] = notice.reportedMunicipality;
+    data['TwetterAddress'] = notice.twetterAddress;
+    data['NoticeDate'] = notice.noticeDate;
 
     return data;
   }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:MufettisWidgetApp/apis/account/acoount_api.dart';
-import 'package:MufettisWidgetApp/core/enum/viewstate.dart';
-import 'package:MufettisWidgetApp/model/user.dart';
+import '../../apis/account/acoount_api.dart';
+import '../enum/viewstate.dart';
+import '../../model/user.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,21 +12,21 @@ import 'base_model.dart';
 
 // E-posta adresini değiştirmek için kullan model
 class ChangeMailAddressViewModel extends BaseModel {
-  final changeMailAddressScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_changeMailAddressScaffoldKey");
+  final changeMailAddressScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_changeMailAddressScaffoldKey');
 
   BuildContext _context;
 
   BuildContext get context => _context;
 
+  // ignore: empty_constructor_bodies
   ChangeMailAddressViewModel() {}
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
   Future<void> saveNewEmail(String password, String email) async {
-    bool isConncet = false;
+    var isConncet = false;
 
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
@@ -35,7 +35,7 @@ class ChangeMailAddressViewModel extends BaseModel {
       isConncet = true;
     }
     if (isConncet) {
-      AccountApiServices.changeMailAddress(SharedManager().loginRequest.id, password, email).then((response) {
+      await AccountApiServices.changeMailAddress(SharedManager().loginRequest.id, password, email).then((response) {
         setState(ViewState.Busy);
         if (response.statusCode == 200) {
           Map userMap = jsonDecode(response.body);
@@ -45,15 +45,15 @@ class ChangeMailAddressViewModel extends BaseModel {
 
           SharedManager().loginRequest = userLogin;
 
-          _showDialog("E-Posta Adresi Değiştirilmiştir.");
+          _showDialog('E-Posta Adresi Değiştirilmiştir.');
           setState(ViewState.Idle);
         } else {
-          _showDialog("Mevcut şifre yanlıştır.");
+          _showDialog('Mevcut şifre yanlıştır.');
           setState(ViewState.Idle);
         }
       });
     } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
+      _showDialog('Lütfen internet bağlantınızı kontrol ediniz.');
     }
   }
 
@@ -62,14 +62,14 @@ class ChangeMailAddressViewModel extends BaseModel {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
+          title: Text('Bildiri'),
+          content: Text(contextText),
           actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
+            FlatButton(
+              child: Text('Kapat'),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/myAccount");
+                Navigator.of(context).pushNamed('/myAccount');
               },
             ),
           ],

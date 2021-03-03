@@ -18,6 +18,7 @@ class BadgeMenuView extends StatefulWidget {
 }
 
 class _BadgeMenuViewState extends State<BadgeMenuView> {
+  // ignore: unused_field
   BadgeMenuViewModel _badgeMenuViewModel;
 
   @override

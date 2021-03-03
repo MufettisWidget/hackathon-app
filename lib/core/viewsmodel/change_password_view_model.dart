@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:MufettisWidgetApp/apis/account/acoount_api.dart';
-import 'package:MufettisWidgetApp/core/enum/viewstate.dart';
-import 'package:MufettisWidgetApp/model/user.dart';
+import '../../apis/account/acoount_api.dart';
+import '../enum/viewstate.dart';
+import '../../model/user.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,21 +12,21 @@ import 'base_model.dart';
 
 //Kullanıcının şifresini değiştirmesi için kullanılan model
 class ChangePasswordViewModel extends BaseModel {
-  final changePasswordScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_changePasswordScaffoldKey");
+  final changePasswordScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_changePasswordScaffoldKey');
 
   BuildContext _context;
 
   BuildContext get context => _context;
 
+  // ignore: empty_constructor_bodies
   ChangePasswordViewModel() {}
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
   Future<void> saveNewPassword(String oldPassword, String newPassword) async {
-    bool isConncet = false;
+    var isConncet = false;
 
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
@@ -35,7 +35,7 @@ class ChangePasswordViewModel extends BaseModel {
       isConncet = true;
     }
     if (isConncet) {
-      AccountApiServices.changePassword(SharedManager().loginRequest.id, oldPassword, newPassword).then((response) {
+      await AccountApiServices.changePassword(SharedManager().loginRequest.id, oldPassword, newPassword).then((response) {
         setState(ViewState.Busy);
         if (response.statusCode == 200) {
           Map userMap = jsonDecode(response.body);
@@ -45,15 +45,15 @@ class ChangePasswordViewModel extends BaseModel {
 
           SharedManager().loginRequest = userLogin;
 
-          _showDialog("Şifre Değiştirilmiştir.");
+          _showDialog('Şifre Değiştirilmiştir.');
           setState(ViewState.Idle);
         } else {
-          _showDialog("Mevcut şifre yanlıştır.");
+          _showDialog('Mevcut şifre yanlıştır.');
           setState(ViewState.Idle);
         }
       });
     } else {
-      _showDialog("Lütfen internet bağlantınızı kontrol ediniz.");
+      _showDialog('Lütfen internet bağlantınızı kontrol ediniz.');
     }
   }
 
@@ -62,14 +62,14 @@ class ChangePasswordViewModel extends BaseModel {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Bildiri"),
-          content: new Text(contextText),
+          title: Text('Bildiri'),
+          content: Text(contextText),
           actions: <Widget>[
-            new FlatButton(
-              child: new Text("Kapat"),
+            FlatButton(
+              child: Text('Kapat'),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/myAccount");
+                Navigator.of(context).pushNamed('/myAccount');
               },
             ),
           ],

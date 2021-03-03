@@ -3,7 +3,7 @@ class HomeRequestModel {
   double latitude;
   double longitude;
 
-  HomeRequestModel({this.token, this.latitude, this.longitude});
+  HomeRequestModel({token, latitude, longitude});
 
   HomeRequestModel.fromJson(Map<String, dynamic> json) {
     token = json['Token'];
@@ -12,10 +12,10 @@ class HomeRequestModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Token'] = this.token;
-    data['Latitude'] = this.latitude;
-    data['Longitude'] = this.longitude;
+    final data = <String, dynamic>{};
+    data['Token'] = token;
+    data['Latitude'] = latitude;
+    data['Longitude'] = longitude;
     return data;
   }
 }

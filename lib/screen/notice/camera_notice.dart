@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:MufettisWidgetApp/core/viewsmodel/camera_notice_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
+import '../../core/viewsmodel/camera_notice_view_model.dart';
+import '../../ui/views/baseview.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
@@ -100,7 +100,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             await _controller.takePicture(path);
 
-            Navigator.push(
+            await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => DisplayPictureScreen(path, notice),
@@ -123,10 +123,12 @@ class DisplayPictureScreen extends StatefulWidget {
 
   DisplayPictureScreen(this.imagePath, this.notice);
 
-  State<StatefulWidget> createState() => DisplayPictureScreenState(this.imagePath, this.notice);
+  @override
+  State<StatefulWidget> createState() => DisplayPictureScreenState(imagePath, notice);
 }
 
 class DisplayPictureScreenState extends State {
+  // ignore: unused_field
   CameraNoticeViewModel _customerAddViewModel;
   String imagePath;
   Notice notice;
@@ -135,7 +137,7 @@ class DisplayPictureScreenState extends State {
   void initState() {
     super.initState();
 
-    notice = this.notice;
+    notice = notice;
   }
 
   @override

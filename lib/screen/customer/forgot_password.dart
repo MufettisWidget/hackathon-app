@@ -1,20 +1,14 @@
-import 'dart:convert';
-
-import 'package:MufettisWidgetApp/core/viewsmodel/forgot_password_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
-import 'package:connectivity/connectivity.dart';
+import '../../core/viewsmodel/forgot_password_view_model.dart';
+import '../../ui/views/baseview.dart';
+import '../../ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../apis/account/acoount_api.dart';
 import '../../mixin/validation_mixin.dart';
-import '../../model/user.dart';
 import '../../shared/style/ui_helper.dart';
-import 'renew_password.dart';
 
 class ForgotPassword extends StatefulWidget {
-  static const String routeName = "/forgotPassword";
+  static const String routeName = '/forgotPassword';
 
   @override
   State<StatefulWidget> createState() => ForgotPasswordState();
@@ -23,7 +17,7 @@ class ForgotPassword extends StatefulWidget {
 class ForgotPasswordState extends State with ValidationMixin {
   ForgotPasswordViewModel _forgotPasswordViewModel;
   final formKey = GlobalKey<FormState>();
-  String mailAddres = "";
+  String mailAddres = '';
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +89,7 @@ class ForgotPasswordState extends State with ValidationMixin {
             mailAddres = value;
           },
           decoration: InputDecoration(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -111,8 +104,7 @@ class ForgotPasswordState extends State with ValidationMixin {
         ),
       );
 
-  Widget get _description =>
-      Text(UIHelper.forgatPasswordAccount, style: _helloTextStyle(30));
+  Widget get _description => Text(UIHelper.forgatPasswordAccount, style: _helloTextStyle(30));
 
   Widget get _loginButton => Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -125,8 +117,7 @@ class ForgotPasswordState extends State with ValidationMixin {
             }
           },
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: loginButtonBorderStyle),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: loginButtonBorderStyle),
             height: UIHelper.dynamicHeight(200),
             width: UIHelper.dynamicWidth(1000),
             child: Center(

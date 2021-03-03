@@ -48,10 +48,11 @@ class MainViewModel extends BaseModel {
     doNoticeView = DoNoticeView();
     customerLogin = CustomerLogin();
     bottomBarChildren.insert(0, homeView);
-    if (SharedManager().jwtToken != null)
+    if (SharedManager().jwtToken != null) {
       bottomBarChildren.insert(2, doNoticeView);
-    else
+    } else {
       bottomBarChildren.insert(2, customerLogin);
+    }
 
     leftDrawerWidget = LeftDrawerWidget(
       onChangeTokenStatus: () {
@@ -75,12 +76,9 @@ class MainViewModel extends BaseModel {
     notifyListeners();
   }
 
-  static openLeftMenu() {
-    mainScaffoldKey.currentState.openDrawer();
-  }
+  static Future<void> openLeftMenu() async => mainScaffoldKey.currentState.openDrawer();
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 }

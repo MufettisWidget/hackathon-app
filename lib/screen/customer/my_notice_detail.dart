@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:MufettisWidgetApp/core/core_helper.dart';
-import 'package:MufettisWidgetApp/core/viewsmodel/my_notice_detail_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
+import '../../core/core_helper.dart';
+import '../../core/viewsmodel/my_notice_detail_view_model.dart';
+import '../../ui/views/baseview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,10 +18,12 @@ class MyNoticeDetail extends StatefulWidget {
 
   MyNoticeDetail(this.notice);
 
+  @override
   State<StatefulWidget> createState() => MyNoticeDetailState(notice);
 }
 
 class MyNoticeDetailState extends State with ValidationMixin {
+  // ignore: unused_field
   MyNoticeDetailViewModel _myNoticeDetailViewModel;
   final formKey = GlobalKey<FormState>();
   Notice notice;
@@ -29,14 +31,14 @@ class MyNoticeDetailState extends State with ValidationMixin {
   MyNoticeDetailState(this.notice);
   TextEditingController controllerExplation;
   CameraPosition _currentPosition;
-  Set<Marker> _markers = {};
-  Completer<GoogleMapController> _controller = Completer();
+  final Set<Marker> _markers = {};
+  final Completer<GoogleMapController> _controller = Completer();
   BitmapDescriptor pinLocationIcon;
   @override
   void initState() {
     super.initState();
-    controllerExplation = TextEditingController(text: "");
-    _currentPosition = new CameraPosition(
+    controllerExplation = TextEditingController(text: '');
+    _currentPosition = CameraPosition(
       target: LatLng(notice.latitude, notice.longitude),
       zoom: 17.4746,
     );
@@ -45,9 +47,7 @@ class MyNoticeDetailState extends State with ValidationMixin {
   }
 
   void setCustomMapPin() async {
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 5.5),
-        'assets/images/destination_map_marker.png');
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 5.5), 'assets/images/destination_map_marker.png');
   }
 
   @override
@@ -60,7 +60,7 @@ class MyNoticeDetailState extends State with ValidationMixin {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-          title: Text("Bildirim Detayı"),
+          title: Text('Bildirim Detayı'),
           actions: <Widget>[],
         ),
         body: SingleChildScrollView(
@@ -86,9 +86,7 @@ class MyNoticeDetailState extends State with ValidationMixin {
                   SizedBox(height: 10.0),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(flex: 9, child: noticeexplatipn())
-                    ],
+                    children: <Widget>[Expanded(flex: 9, child: noticeexplatipn())],
                   ),
                   SizedBox(height: 40.0),
                   Row(
@@ -110,20 +108,13 @@ class MyNoticeDetailState extends State with ValidationMixin {
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: header)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: header)]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: ": " + detail)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + detail)]),
           ),
         ),
       ],
@@ -156,9 +147,7 @@ class MyNoticeDetailState extends State with ValidationMixin {
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: notice.explation)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: notice.explation)]),
           ),
         ),
       ],
@@ -166,31 +155,31 @@ class MyNoticeDetailState extends State with ValidationMixin {
   }
 
   Widget reportedMunicipality() {
-    return createRow("Belediye", notice.reportedMunicipality);
+    return createRow('Belediye', notice.reportedMunicipality);
   }
 
   Widget city() {
-    return createRow("Şehir", notice.city);
+    return createRow('Şehir', notice.city);
   }
 
   Widget district() {
-    return createRow("İlçe", notice.district);
+    return createRow('İlçe', notice.district);
   }
 
   Widget street() {
-    return createRow("Sokak", notice.street);
+    return createRow('Sokak', notice.street);
   }
 
   Widget streetNo() {
-    return createRow("No", notice.streetNo);
+    return createRow('No', notice.streetNo);
   }
 
   Widget status() {
-    return createRow("Durumu", CoreHelper.getStatus(notice.noticeStatus));
+    return createRow('Durumu', CoreHelper.getStatus(notice.noticeStatus));
   }
 
   Widget createDate() {
-    return createRow("Tarih", CoreHelper.parseDateData(notice.noticeDate));
+    return createRow('Tarih', CoreHelper.parseDateData(notice.noticeDate));
   }
 
   Widget image() {
@@ -211,10 +200,7 @@ class MyNoticeDetailState extends State with ValidationMixin {
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
             setState(() {
-              _markers.add(Marker(
-                  markerId: MarkerId('USER_MARKER'),
-                  position: LatLng(notice.latitude, notice.longitude),
-                  icon: pinLocationIcon));
+              _markers.add(Marker(markerId: MarkerId('USER_MARKER'), position: LatLng(notice.latitude, notice.longitude), icon: pinLocationIcon));
             });
           },
         ),

@@ -1,4 +1,4 @@
-import 'package:MufettisWidgetApp/main.dart';
+import '../../main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,32 +19,31 @@ class HomeViewModel extends BaseModel {
 
   int currentPosition = 0;
   int bannerListSize = 0;
-  SharedManager sharedManager = new SharedManager();
+  SharedManager sharedManager = SharedManager();
 
   HomeRequestModel _homeRequestModel;
   LocationManager newLocationManager;
 
-  List<Notice> customerNotice = null;
+  List<Notice> customerNotice;
 
-  SharedManager _sharedManager = new SharedManager();
+  final SharedManager _sharedManager = SharedManager();
   LatLng currentUserLocation;
 
   bool pointVisibility = false;
 
   HomeViewModel() {
-    customerNotice = new List<Notice>();
-    _homeRequestModel = new HomeRequestModel();
+    customerNotice = <Notice>[];
+    _homeRequestModel = HomeRequestModel();
     newLocationManager = LocationManager();
   }
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
   Future getHomeData() async {
     try {
-      newLocationManager.getLocation(
+      await newLocationManager.getLocation(
         onLocationValue: (val) {
           currentUserLocation = val;
           _sharedManager.homeLocation = HomeLocationModel(lat: currentUserLocation.latitude, lng: currentUserLocation.longitude);
@@ -52,7 +51,7 @@ class HomeViewModel extends BaseModel {
         },
         isLocationTrack: false,
         onRejectPermission: () {
-          currentUserLocation = new LatLng(40.9801401, 29.0735152);
+          currentUserLocation = LatLng(40.9801401, 29.0735152);
           _sharedManager.homeLocation = HomeLocationModel(lat: currentUserLocation.latitude, lng: currentUserLocation.longitude);
           setData();
         },
@@ -64,27 +63,33 @@ class HomeViewModel extends BaseModel {
     notifyListeners();
   }
 
-  setHomeDataShared() {}
+  // ignore: always_declare_return_types
+  setHomeDataShared() async {}
 
-  openLeftDrawer() {
-    MainViewModel.openLeftMenu();
+  // ignore: always_declare_return_types
+  openLeftDrawer() async {
+    return MainViewModel.openLeftMenu();
   }
 
+  // ignore: always_declare_return_types
   gotoMyNoticeView() {
     navigator.navigateTo(Pages.MyNotice);
   }
 
+  // ignore: always_declare_return_types
   updateHomeDataPoint() {
     notifyListeners();
   }
 
+  // ignore: always_declare_return_types
   setData({double lat, double lng}) async {
     _homeRequestModel.token = SharedManager().jwtToken;
     _homeRequestModel.latitude = lat;
     _homeRequestModel.longitude = lng;
   }
 
-  String getPointVal() {
+  // ignore: missing_return
+  Future<String> getPointVal() async {
     if (_sharedManager.jwtToken == null) {
       return null;
     }
@@ -96,7 +101,7 @@ class HomeViewModel extends BaseModel {
   }
 }
 
-getItem(img) {
+InkWell getItem(img) {
   return InkWell(
       child: Container(
     margin: EdgeInsets.all(2.0),

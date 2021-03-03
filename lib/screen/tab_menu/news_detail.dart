@@ -1,17 +1,12 @@
-import 'dart:async';
 import 'dart:ui';
 
-import 'package:MufettisWidgetApp/core/core_helper.dart';
+import '../../core/core_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 
-import '../../apis/notice/notice_api.dart';
 import '../../main.dart';
 import '../../mixin/validation_mixin.dart';
 import '../../model/news.dart';
-import '../../model/notice.dart';
 import '../../shared/style/ui_helper.dart';
 
 class NewsDetail extends StatefulWidget {
@@ -19,6 +14,7 @@ class NewsDetail extends StatefulWidget {
 
   NewsDetail(this.news);
 
+  @override
   State<StatefulWidget> createState() => NewsDetailState(news);
 }
 
@@ -39,7 +35,7 @@ class NewsDetailState extends State with ValidationMixin {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-        title: Text("Haber  Detayı"),
+        title: Text('Haber  Detayı'),
         actions: <Widget>[],
       ),
       body: SingleChildScrollView(
@@ -50,7 +46,7 @@ class NewsDetailState extends State with ValidationMixin {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(this.news.title,
+                  Text(news.title,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15.0,
@@ -71,14 +67,14 @@ class NewsDetailState extends State with ValidationMixin {
               SizedBox(height: 20.0),
               Row(children: <Widget>[
                 Flexible(
-                  child: new Container(
-                    padding: new EdgeInsets.only(right: 13.0),
-                    child: new Text(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 13.0),
+                    child: Text(
                       news.detail,
-                      style: new TextStyle(
+                      style: TextStyle(
                         fontSize: 13.0,
                         fontFamily: 'Roboto',
-                        color: new Color(0xFF212121),
+                        color: Color(0xFF212121),
                       ),
                     ),
                   ),
@@ -92,34 +88,29 @@ class NewsDetailState extends State with ValidationMixin {
     );
   }
 
-
   Widget createDate() {
     return Row(
       children: [
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold), children: [TextSpan(text: "Tarih")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'Tarih')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ": " + CoreHelper.parseDateData(news.newsDate))]),
+            text: TextSpan(
+                style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + CoreHelper.parseDateData(news.newsDate))]),
           ),
         ),
       ],
     );
   }
 
-
   Widget image() {
     return Image(
       image: NetworkImage(baseUrl + 'UploadFile/' + news.photoName + '.jpg'),
     );
   }
-
-
-
 }
-

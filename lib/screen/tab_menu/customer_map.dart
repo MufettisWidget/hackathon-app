@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
@@ -48,7 +47,7 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
     );
   }
 
-  _buildAppBar() {
+  AppBar _buildAppBar() {
     return AppBar(
       actions: <Widget>[
         IconButton(
@@ -61,10 +60,10 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
                 mode: Mode.overlay,
                 context: context,
                 hint: 'Ara',
-                language: "tr",
-                components: [Component(Component.country, "tr")],
+                language: 'tr',
+                components: [Component(Component.country, 'tr')],
                 apiKey: CoreHelper.kGoogleApiKey);
-            _customerNoticeMapViewModel.displayPrediction(p);
+            await _customerNoticeMapViewModel.displayPrediction(p);
           },
         ),
       ],
@@ -77,7 +76,7 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
         padding: EdgeInsets.only(top: UIHelper.dynamicHeight(20)),
         child: Container(
           child: Image.asset(
-            "assets/icons/appicon.png",
+            'assets/icons/appicon.png',
             scale: 5,
           ),
         ),
@@ -88,7 +87,7 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
     );
   }
 
-  _buildGoogleMap(GoogleMapController mapController) {
+  GoogleMap _buildGoogleMap(GoogleMapController mapController) {
     return GoogleMap(
         myLocationButtonEnabled: false,
         myLocationEnabled: false,
@@ -99,7 +98,7 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
           zoom: 10,
           target: LatLng(_customerNoticeMapViewModel.currentUserLocation.latitude, _customerNoticeMapViewModel.currentUserLocation.longitude),
         ),
-        markers: _customerNoticeMapViewModel.selectedMarker.length != 0
+        markers: _customerNoticeMapViewModel.selectedMarker.isNotEmpty
             ? _customerNoticeMapViewModel.selectedMarker
             : _customerNoticeMapViewModel.markerSet,
         polylines: _customerNoticeMapViewModel.polyline,
@@ -124,17 +123,6 @@ class _CustomerNoticeMapViewState extends State<CustomerNoticeMapView> {
             ),
           );
         });
-  }
-
-  Widget _paddingListItem({Widget child}) {
-    return Padding(
-      padding: EdgeInsets.only(
-          top: ScreenUtil.instance.setHeight(12),
-          bottom: ScreenUtil.instance.setHeight(12),
-          left: ScreenUtil.instance.setHeight(60),
-          right: ScreenUtil.instance.setHeight(50)),
-      child: child,
-    );
   }
 
   Padding buildStationDetailImage({Widget image}) {

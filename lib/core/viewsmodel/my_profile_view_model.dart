@@ -1,25 +1,23 @@
-import 'package:MufettisWidgetApp/core/viewsmodel/base_model.dart';
-import 'package:MufettisWidgetApp/shared/style/ui_helper.dart';
-import 'package:MufettisWidgetApp/ui/widget/nothc_widget.dart';
+import 'base_model.dart';
+import '../../shared/style/ui_helper.dart';
+import '../../ui/widget/nothc_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MyProfileViewModel extends BaseModel {
-  final myProfileViewModel =
-      GlobalKey<ScaffoldState>(debugLabel: "_myProfileViewModel");
+  final myProfileViewModel = GlobalKey<ScaffoldState>(debugLabel: '_myProfileViewModel');
 
   BuildContext _context;
 
   BuildContext get context => _context;
 
-  MyProfileViewModel() {}
+  MyProfileViewModel();
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
-   Future showModalBottom() async {
+  Future showModalBottom() async {
     await showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(

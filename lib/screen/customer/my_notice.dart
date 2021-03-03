@@ -1,9 +1,7 @@
-import 'package:MufettisWidgetApp/core/core_helper.dart';
+import '../../core/core_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:intl/intl.dart';
-
 import '../../core/viewsmodel/my_notice_view_model.dart';
 import '../../model/notice.dart';
 import '../../shared/style/ui_helper.dart';
@@ -12,6 +10,7 @@ import 'my_notice_detail.dart';
 
 class MyNoticeView extends StatefulWidget {
   MyNoticeView({Key key}) : super(key: key);
+  @override
   State<StatefulWidget> createState() => MyNoticeState();
 }
 
@@ -66,7 +65,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: 15.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "Bildirilen Birim")]),
+                                              children: [TextSpan(text: 'Bildirilen Birim')]),
                                         ),
                                       ),
                                       Expanded(
@@ -74,7 +73,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: UIHelper.PEAR_PRIMARY_COLOR, fontSize: 15.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].reportedMunicipality)]),
+                                              children: [TextSpan(text: ': ' + _myNoticeViewModel.noticies[index].reportedMunicipality)]),
                                         ),
                                       ),
                                     ],
@@ -87,7 +86,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "Şehir")]),
+                                              children: [TextSpan(text: 'Şehir')]),
                                         ),
                                       ),
                                       Expanded(
@@ -95,7 +94,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].city)]),
+                                              children: [TextSpan(text: ': ' + _myNoticeViewModel.noticies[index].city)]),
                                         ),
                                       ),
                                     ],
@@ -108,7 +107,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "İlce")]),
+                                              children: [TextSpan(text: 'İlce')]),
                                         ),
                                       ),
                                       Expanded(
@@ -116,7 +115,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].district)]),
+                                              children: [TextSpan(text: ': ' + _myNoticeViewModel.noticies[index].district)]),
                                         ),
                                       ),
                                     ],
@@ -129,7 +128,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "Sokak-Cadde ")]),
+                                              children: [TextSpan(text: 'Sokak-Cadde ')]),
                                         ),
                                       ),
                                       Expanded(
@@ -137,7 +136,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].street)]),
+                                              children: [TextSpan(text: ': ' + _myNoticeViewModel.noticies[index].street)]),
                                         ),
                                       ),
                                     ],
@@ -150,7 +149,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "No ")]),
+                                              children: [TextSpan(text: 'No ')]),
                                         ),
                                       ),
                                       Expanded(
@@ -158,7 +157,7 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                              children: [TextSpan(text: ": " + _myNoticeViewModel.noticies[index].streetNo)]),
+                                              children: [TextSpan(text: ': ' + _myNoticeViewModel.noticies[index].streetNo)]),
                                         ),
                                       ),
                                     ],
@@ -171,14 +170,14 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "Tarih ")]),
+                                              children: [TextSpan(text: 'Tarih ')]),
                                         ),
                                       ),
                                       Expanded(
                                         flex: 7,
                                         child: RichText(
                                           text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [
-                                            TextSpan(text: ": " + CoreHelper.parseDateData(_myNoticeViewModel.noticies[index].noticeDate))
+                                            TextSpan(text: ': ' + CoreHelper.parseDateData(_myNoticeViewModel.noticies[index].noticeDate))
                                           ]),
                                         ),
                                       ),
@@ -192,14 +191,14 @@ class MyNoticeState extends State<MyNoticeView> {
                                         child: RichText(
                                           text: TextSpan(
                                               style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold),
-                                              children: [TextSpan(text: "Durumu")]),
+                                              children: [TextSpan(text: 'Durumu')]),
                                         ),
                                       ),
                                       Expanded(
                                         flex: 7,
                                         child: RichText(
                                           text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [
-                                            TextSpan(text: ": " + CoreHelper.getStatus(_myNoticeViewModel.noticies[index].noticeStatus))
+                                            TextSpan(text: ': ' + CoreHelper.getStatus(_myNoticeViewModel.noticies[index].noticeStatus))
                                           ]),
                                         ),
                                       ),
@@ -270,7 +269,7 @@ class MyNoticeState extends State<MyNoticeView> {
       );
 
   Widget _iconLabelButtonEdit(Notice notice) => InkWell(
-        child: _iconLabelEdit("Detay"),
+        child: _iconLabelEdit('Detay'),
         onTap: () {
           gotoEditNotice(notice);
         },
@@ -278,7 +277,7 @@ class MyNoticeState extends State<MyNoticeView> {
 
   Widget _iconLabelButtonDelete(Notice notice) => Visibility(
         child: InkWell(
-          child: _iconLabelDelete("Sil"),
+          child: _iconLabelDelete('Sil'),
           onTap: () {
             _myNoticeViewModel.gotoDelete(notice);
           },
@@ -287,7 +286,7 @@ class MyNoticeState extends State<MyNoticeView> {
       );
 
   Widget _iconLabelButtonSuccess(Notice notice) => InkWell(
-        child: _iconLabelSuccess("", notice.noticeStatus),
+        child: _iconLabelSuccess('', notice.noticeStatus),
         onTap: () {
           _myNoticeViewModel.gotoSucces(notice);
         },

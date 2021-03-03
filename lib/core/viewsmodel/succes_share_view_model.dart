@@ -8,18 +8,13 @@ class SuccesShareViewModel extends BaseModel {
   BuildContext _context;
   BuildContext get context => _context;
 
-  SuccesShareViewModel() {}
+  SuccesShareViewModel();
 
-  goHome() {
-    navigator.navigateToRemove(Pages.Home);
-  }
+  Future<Future> goHome() async => navigator.navigateToRemove(Pages.Home);
 
-  goNewNotice() {
-    navigator.navigateToRemove(Pages.DoNotice);
-  }
+  Future<Future> goNewNotice() async => navigator.navigateToRemove(Pages.DoNotice);
 
-  @override
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 }

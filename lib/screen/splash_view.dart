@@ -14,7 +14,7 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  String _animationName = "bildireyim_bunu_flare";
+  final String _animationName = 'bildireyim_bunu_flare';
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
               value: SystemUiOverlayStyle.light,
               child: Container(
                 padding: EdgeInsets.all(UIHelper.dynamicHeight(100)),
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomLeft,
@@ -39,7 +39,7 @@ class _SplashViewState extends State<SplashView> {
                 ),
                 child: Center(
                   child: FlareActor(
-                    "assets/images/bildireyim_bunu.flr",
+                    'assets/images/bildireyim_bunu.flr',
                     fit: BoxFit.contain,
                     animation: _animationName,
                   ),

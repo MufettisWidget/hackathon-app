@@ -52,18 +52,16 @@ class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> with Widget
         case AppLifecycleState.inactive:
           break;
         case AppLifecycleState.resumed:
-          print("resumed:::::::::");
-          //Adjust.onResume();
+          print('resumed:::::::::');
           break;
         case AppLifecycleState.paused:
-          print("paused:::::::::");
-          // Adjust.onPause();
+          print('paused:::::::::');
           break;
         case AppLifecycleState.detached:
           break;
       }
     } catch (e) {
-      print("sd");
+      print('sd');
     }
   }
 
@@ -73,18 +71,4 @@ class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> with Widget
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
   }
-
-/*  @override
-  Widget build(BuildContext context) {
-    //değişikleri alt childlara uyarıyor
-    return ChangeNotifierProvider<T>(
-      builder: (context) => model,
-      //tüketici viewmodel ondan türeyen modeller ile sayfaya dokunulup işlem yapılabilir
-      // getit DI sayesınde A-> B modeli data bind edilebilir değiştireiblir
-      child: Consumer<T>(
-        builder: widget.builder,
-      ),
-    );
-  }*/
-
 }

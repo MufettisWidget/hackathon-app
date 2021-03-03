@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import '../../ui/views/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:social_share/social_share.dart';
@@ -13,7 +12,7 @@ import '../../ui/views/baseview.dart';
 
 class SuccessShare extends StatefulWidget {
   final Notice notice;
-  static const String routeName = "/successShare";
+  static const String routeName = '/successShare';
 
   SuccessShare(this.notice);
 
@@ -26,10 +25,7 @@ class SuccessShareState extends State<SuccessShare> {
   final formKey = GlobalKey<FormState>();
   Notice notice;
   SuccessShareState(this.notice);
-  String _platformVersion = 'Unknown';
-  bool _isCreatingLink = false;
-  String _linkMessage = "https://google.com";
-  String _testString = "Arkaşlarına paylaşıp daha çok insana ulaşmasını sağlayabilirsiniz";
+  final String _linkMessage = 'https://google.com';
 
   @override
   void initState() {
@@ -39,13 +35,9 @@ class SuccessShareState extends State<SuccessShare> {
   }
 
   Future<void> initPlatformState() async {
-    String platformVersion;
-
     if (!mounted) return;
 
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    setState(() {});
   }
 
   ScreenshotController screenshotController = ScreenshotController();
@@ -69,12 +61,12 @@ class SuccessShareState extends State<SuccessShare> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    shareCustomButton("Linki Kopyala", onpLinkiKopyala),
-                    shareCustomButton("Twitter'da Paylaş", onpTwitterPaylas),
-                    shareCustomButton("Sms Gönder", onpSmsGonder),
-                    shareCustomButton("Whatsapp'ta Paylaş", onpWhatssAppPaylas),
-                    shareCustomButton("Telegram'dan Paylaş", onpShareTelegram),
-                    shareCustomButton("Uygulama Seç", onpUygulamaSec),
+                    shareCustomButton('Linki Kopyala', onpLinkiKopyala),
+                    shareCustomButton('Twitterda Paylaş', onpTwitterPaylas),
+                    shareCustomButton('Sms Gönder', onpSmsGonder),
+                    shareCustomButton('Whatsappta Paylaş', onpWhatssAppPaylas),
+                    shareCustomButton('Telegramdan Paylaş', onpShareTelegram),
+                    shareCustomButton('Uygulama Seç', onpUygulamaSec),
                     SizedBox(
                       height: 10,
                     ),
@@ -109,7 +101,7 @@ class SuccessShareState extends State<SuccessShare> {
   }
 
   void onpSmsGonder() {
-    SocialShare.shareSms("Bildireyim Bunu uygulamasindan bildirim paylaştım\n", url: _linkMessage, trailingText: "\n" + notice.explation)
+    SocialShare.shareSms('Bildireyim Bunu uygulamasindan bildirim paylaştım\n', url: _linkMessage, trailingText: '\n' + notice.explation)
         .then((data) {
       print(data);
     });
@@ -117,8 +109,8 @@ class SuccessShareState extends State<SuccessShare> {
 
   void onpTwitterPaylas() {
     {
-      SocialShare.shareTwitter("BildireyimBunu uygulamasindan bildirim paylaştım " + notice.twetterAddress,
-              url: _linkMessage, hashtags: ["bildireyimbunu", notice.reportedMunicipality], trailingText: "\n" + notice.explation)
+      SocialShare.shareTwitter('BildireyimBunu uygulamasindan bildirim paylaştım ' + notice.twetterAddress,
+              url: _linkMessage, hashtags: ['bildireyimbunu', notice.reportedMunicipality], trailingText: '\n' + notice.explation)
           .then((data) {
         print(data);
       });

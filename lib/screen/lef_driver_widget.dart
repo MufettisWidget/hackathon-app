@@ -43,10 +43,10 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
                   child: ListView(
                     padding: EdgeInsets.only(top: 30),
                     children: <Widget>[
-                      _buildListTile("Bildirim Yap", Icons.add_comment, context, SharedManager().loginRequest == null ? Pages.Login : Pages.DoNotice,
+                      _buildListTile('Bildirim Yap', Icons.add_comment, context, SharedManager().loginRequest == null ? Pages.Login : Pages.DoNotice,
                           isBagde: true),
                       _buildListTile(
-                          "Bildirimlerim", Icons.notification_important, context, SharedManager().loginRequest == null ? Pages.Login : Pages.MyNotice,
+                          'Bildirimlerim', Icons.notification_important, context, SharedManager().loginRequest == null ? Pages.Login : Pages.MyNotice,
                           isBagde: true),
                       Visibility(
                         visible: SharedManager().loginRequest != null,
@@ -54,7 +54,7 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
                       ),
                       Visibility(
                         visible: SharedManager().loginRequest == null,
-                        child: _buildListTile("Giriş Yap", Icons.login, context, Pages.Login),
+                        child: _buildListTile('Giriş Yap', Icons.login, context, Pages.Login),
                       ),
                       Visibility(
                         visible: SharedManager().loginRequest == null,
@@ -83,7 +83,7 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Image.asset(
-                          "assets/icons/appicon.png",
+                          'assets/icons/appicon.png',
                           scale: 6,
                         ),
                       ],
@@ -98,68 +98,13 @@ class LeftDrawerState extends State<LeftDrawerWidget> {
     );
   }
 
-  Widget get _drawerUserContent {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              _leftDrawerViewModel.navigator.pop();
-              _leftDrawerViewModel.navigateLeftMenu(SharedManager().loginRequest != null ? Pages.Profile : Pages.Login);
-            },
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: CircleAvatar(
-                backgroundImage: _leftDrawerViewModel.customerDetail == null || _leftDrawerViewModel.customerDetail.nameSurname == null
-                    ? AssetImage("assets/images/default_user_image.png")
-                    : Image.network(_leftDrawerViewModel.customerDetail.nameSurname).image,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: UIHelper.dynamicHeight(12),
-        ),
-        Visibility(
-          visible: _leftDrawerViewModel.customerDetail == null ? false : true,
-          child: Text(_leftDrawerViewModel.customerDetail == null ? "" : "${_leftDrawerViewModel.customerDetail.nameSurname} ",
-              style: TextStyle(
-                fontFamily: 'GothamNarrow',
-                color: Colors.grey,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.normal,
-              )),
-        ),
-        SizedBox(
-          height: UIHelper.dynamicHeight(12),
-        ),
-        InkWell(
-          onTap: () {
-            _leftDrawerViewModel.navigator.pop();
-            _leftDrawerViewModel.navigateLeftMenu(SharedManager().loginRequest != null ? Pages.Profile : Pages.Login);
-          },
-          child: new Text(_leftDrawerViewModel.customerDetail == null ? "Login" : "Register",
-              style: TextStyle(
-                fontFamily: 'GothamNarrow',
-                color: Color(0xff888888),
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal,
-              )),
-        )
-      ],
-    );
-  }
-
   ListTile _buildListTile(String _title, IconData _icon, BuildContext context, Pages _page, {bool isBagde = false}) {
     return ListTile(
       leading: Icon(
         _icon,
         color: Colors.grey,
       ),
-      title: new Text(_title,
+      title: Text(_title,
           style: TextStyle(
             fontFamily: 'Lato',
             color: Colors.grey,

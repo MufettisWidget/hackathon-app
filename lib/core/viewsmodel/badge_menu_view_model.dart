@@ -10,11 +10,12 @@ class BadgeMenuViewModel extends BaseModel {
 
   BuildContext get context => _context;
 
-  SharedManager sharedManager = new SharedManager();
+  SharedManager sharedManager = SharedManager();
 
+  // ignore: empty_constructor_bodies
   BadgeMenuViewModel() {}
 
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 }

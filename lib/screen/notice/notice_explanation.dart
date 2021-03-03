@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:MufettisWidgetApp/core/enum/singing_character.dart';
-import 'package:MufettisWidgetApp/core/viewsmodel/notice_explanation_view_model.dart';
-import 'package:MufettisWidgetApp/model/reponseModel/reponseNotice.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
-import 'package:MufettisWidgetApp/ui/views/custom_button.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import '../../core/enum/singing_character.dart';
+import '../../core/viewsmodel/notice_explanation_view_model.dart';
+import '../../model/reponseModel/reponseNotice.dart';
+import '../../ui/views/baseview.dart';
+import '../../ui/views/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,6 +26,7 @@ class NoticeExplation extends StatefulWidget {
 
   NoticeExplation(this.notice, this.imagePath);
 
+  @override
   State<StatefulWidget> createState() => NoticeExplationState(notice, imagePath);
 }
 
@@ -36,14 +36,12 @@ class NoticeExplationState extends State with ValidationMixin {
   String imagePath;
   NoticeExplationState(this.notice, this.imagePath);
   TextEditingController controllerExplation;
-  bool _isCreatingLink = false;
-  String _linkMessage;
   SingingCharacter _character = SingingCharacter.districtNotice;
   NoticeExplanationdViewModel noticeExplanationdViewModel;
   @override
   void initState() {
     super.initState();
-    controllerExplation = TextEditingController(text: "");
+    controllerExplation = TextEditingController(text: '');
   }
 
   @override
@@ -57,7 +55,7 @@ class NoticeExplationState extends State with ValidationMixin {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-          title: Text("Açıklama ekleyin"),
+          title: Text('Açıklama ekleyin'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -82,7 +80,7 @@ class NoticeExplationState extends State with ValidationMixin {
       maxLines: null,
       maxLength: 200,
       validator: validateExplation,
-      decoration: InputDecoration(labelText: "Açıklama", hintText: "Açıklama"),
+      decoration: InputDecoration(labelText: 'Açıklama', hintText: 'Açıklama'),
       onSaved: (String value) {
         notice.explation = value;
       },
@@ -127,14 +125,14 @@ class NoticeExplationState extends State with ValidationMixin {
           onTap: () async {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
-              showDialog(
+              await showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   });
-              noticeExplanationdViewModel.saveNotice(notice, _character, imagePath);
+              await noticeExplanationdViewModel.saveNotice(notice, _character, imagePath);
             }
           },
           child: Container(
@@ -155,7 +153,8 @@ class NoticeExplationState extends State with ValidationMixin {
         ),
       );
 
-  Future<bool> saveNoticessss(Notice notice) {
+  // ignore: missing_return
+  Future<bool> saveNoticessss(Notice notice) async {
     setState(() {
       notice.noticeStatus = 1;
       notice.noticeDate = DateTime.now().toString();
@@ -167,7 +166,7 @@ class NoticeExplationState extends State with ValidationMixin {
         CityApiService.instance.getCity(notice.city).then((responseCity) {
           if (responseCity.statusCode == 200) {
             Map cityMap = jsonDecode(responseCity.body);
-            notice.twetterAddress = "@" + City.fromJson(cityMap).twitterAddress;
+            notice.twetterAddress = '@' + City.fromJson(cityMap).twitterAddress;
             NoticeApiServices.instance.createNotice(notice).then((responseNotice) {
               setState(() {
                 if (responseNotice.statusCode == 201) {
@@ -181,7 +180,7 @@ class NoticeExplationState extends State with ValidationMixin {
                         if (response.statusCode == 200) {
                           Map<String, dynamic> map = jsonDecode(response.body);
                           var responseNotice = ResponseNotice.fromJson(map);
-                          userLogin.noticies = new List<Notice>();
+                          userLogin.noticies = <Notice>[];
                           userLogin.noticies = responseNotice.notices;
                           SharedManager().loginRequest = userLogin;
                         } else {
@@ -206,7 +205,7 @@ class NoticeExplationState extends State with ValidationMixin {
         DistrictApiServices.instance.getDistrict(notice.city, notice.district).then((responseDistrict) {
           if (responseDistrict.statusCode == 200) {
             Map districtMap = jsonDecode(responseDistrict.body);
-            notice.twetterAddress = "@" + District.fromJson(districtMap).twitterAddress;
+            notice.twetterAddress = '@' + District.fromJson(districtMap).twitterAddress;
             NoticeApiServices.instance.createNotice(notice).then((responseNotice) {
               Map noticeMap = jsonDecode(responseNotice.body);
               setState(() {
@@ -217,11 +216,11 @@ class NoticeExplationState extends State with ValidationMixin {
                       if (responseImage.statusCode == 200) {
                         var userLogin = SharedManager().loginRequest;
 
-                        NoticeApiServices.instance.getmyNotice(userLogin.id).then((response) {
+                        await NoticeApiServices.instance.getmyNotice(userLogin.id).then((response) {
                           if (response.statusCode == 200) {
                             Map<String, dynamic> map = jsonDecode(response.body);
                             var responseNotice = ResponseNotice.fromJson(map);
-                            userLogin.noticies = new List<Notice>();
+                            userLogin.noticies = <Notice>[];
                             userLogin.noticies = responseNotice.notices;
                             SharedManager().loginRequest = userLogin;
                           } else {

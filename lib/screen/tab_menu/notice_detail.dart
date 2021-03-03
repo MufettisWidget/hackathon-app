@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:MufettisWidgetApp/core/core_helper.dart';
-import 'package:MufettisWidgetApp/core/viewsmodel/notice_detail_view_model.dart';
-import 'package:MufettisWidgetApp/ui/views/baseview.dart';
+import '../../core/core_helper.dart';
+import '../../core/viewsmodel/notice_detail_view_model.dart';
+import '../../ui/views/baseview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
-
 import '../../main.dart';
 import '../../model/notice.dart';
 import '../../shared/style/ui_helper.dart';
@@ -19,26 +17,28 @@ class NoticeDetail extends StatefulWidget {
 
   NoticeDetail(this.notice);
 
+  @override
   State<StatefulWidget> createState() => NoticeDetailState(notice);
 }
 
-class NoticeDetailState extends State{
+class NoticeDetailState extends State {
+  // ignore: unused_field
   NoticeDetailViewModel _noticeDetailViewModel;
   final formKey = GlobalKey<FormState>();
   Notice notice;
   NoticeDetailState(this.notice);
   TextEditingController controllerExplation;
   CameraPosition _currentPosition;
-  Set<Marker> _markers = {};
-  Completer<GoogleMapController> _controller = Completer();
+  final Set<Marker> _markers = {};
+  final Completer<GoogleMapController> _controller = Completer();
   BitmapDescriptor pinLocationIcon;
   @override
   void initState() {
     super.initState();
 
     if (notice.latitude != null) {
-      controllerExplation = TextEditingController(text: "");
-      _currentPosition = new CameraPosition(
+      controllerExplation = TextEditingController(text: '');
+      _currentPosition = CameraPosition(
         target: LatLng(notice.latitude, notice.longitude),
         zoom: 17.4746,
       );
@@ -48,9 +48,7 @@ class NoticeDetailState extends State{
   }
 
   void setCustomMapPin() async {
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/images/destination_map_marker.png');
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), 'assets/images/destination_map_marker.png');
   }
 
   @override
@@ -66,7 +64,7 @@ class NoticeDetailState extends State{
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: UIHelper.PEAR_PRIMARY_COLOR,
-            title: Text("Bildirim Detayı"),
+            title: Text('Bildirim Detayı'),
             actions: <Widget>[],
           ),
           body: SingleChildScrollView(
@@ -92,9 +90,7 @@ class NoticeDetailState extends State{
                     SizedBox(height: 10.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(flex: 9, child: noticeexplatipn())
-                      ],
+                      children: <Widget>[Expanded(flex: 9, child: noticeexplatipn())],
                     ),
                     SizedBox(height: 40.0),
                     Row(
@@ -104,9 +100,7 @@ class NoticeDetailState extends State{
                     SizedBox(height: 40.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(flex: 9, child: _footerButtonRow(notice))
-                      ],
+                      children: <Widget>[Expanded(flex: 9, child: _footerButtonRow(notice))],
                     ),
                   ],
                 ),
@@ -149,20 +143,14 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "Belediye")]),
+            text:
+                TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'Belediye')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: ": " + notice.reportedMunicipality)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + notice.reportedMunicipality)]),
           ),
         ),
       ],
@@ -175,20 +163,13 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "Şehir")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'Şehir')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: ": " + notice.city)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + notice.city)]),
           ),
         ),
       ],
@@ -201,20 +182,13 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "İlçe")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'İlçe')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: ": " + notice.district)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + notice.district)]),
           ),
         ),
       ],
@@ -227,20 +201,13 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "Sokak")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'Sokak')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: ": " + notice.street)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + notice.street)]),
           ),
         ),
       ],
@@ -253,20 +220,13 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "No")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'No')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: ": " + notice.streetNo)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: ': ' + notice.streetNo)]),
           ),
         ),
       ],
@@ -279,25 +239,15 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "Durumu")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'Durumu')]),
           ),
         ),
         Expanded(
           flex: 7,
           child: RichText(
             text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-                children: [
-                  TextSpan(text: ": " + CoreHelper.getStatus(notice.noticeStatus))
-                ]),
+                style: TextStyle(color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.bold),
+                children: [TextSpan(text: ': ' + CoreHelper.getStatus(notice.noticeStatus))]),
           ),
         ),
       ],
@@ -310,12 +260,7 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 3,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold),
-                children: [TextSpan(text: "Tarih")]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.bold), children: [TextSpan(text: 'Tarih')]),
           ),
         ),
         Expanded(
@@ -323,9 +268,7 @@ class NoticeDetailState extends State{
           child: RichText(
             text: TextSpan(
                 style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [
-                  TextSpan(text: ": " + CoreHelper.parseDateData(notice.noticeDate))
-                ]),
+                children: [TextSpan(text: ': ' + CoreHelper.parseDateData(notice.noticeDate))]),
           ),
         ),
       ],
@@ -338,17 +281,12 @@ class NoticeDetailState extends State{
         Expanded(
           flex: 7,
           child: RichText(
-            text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 12.0),
-                children: [TextSpan(text: notice.explation)]),
+            text: TextSpan(style: TextStyle(color: Colors.black, fontSize: 12.0), children: [TextSpan(text: notice.explation)]),
           ),
         ),
       ],
     );
   }
-
-
-
 
   Widget image() {
     return Image(
@@ -368,10 +306,7 @@ class NoticeDetailState extends State{
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
             setState(() {
-              _markers.add(Marker(
-                  markerId: MarkerId('USER_MARKER'),
-                  position: LatLng(notice.latitude, notice.longitude),
-                  icon: pinLocationIcon));
+              _markers.add(Marker(markerId: MarkerId('USER_MARKER'), position: LatLng(notice.latitude, notice.longitude), icon: pinLocationIcon));
             });
           },
         ),

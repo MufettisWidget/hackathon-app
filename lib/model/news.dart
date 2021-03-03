@@ -23,15 +23,15 @@ class News {
   }
 
   Map<String, dynamic> toJson(News news) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
 
-    data["Id"] = news.id;
-    data["Detail"] = news.detail;
-    data["Title"] = news.title;
-    data["NewsStatus"] = news.noticeStatus;
-    data["PhotoName"] = news.photoName;
-    data["NewsMunicipality"] = news.newsMunicipality;
-    data["NoticeDate"] = news.newsDate;
+    data['Id'] = news.id;
+    data['Detail'] = news.detail;
+    data['Title'] = news.title;
+    data['NewsStatus'] = news.noticeStatus;
+    data['PhotoName'] = news.photoName;
+    data['NewsMunicipality'] = news.newsMunicipality;
+    data['NoticeDate'] = news.newsDate;
     return data;
   }
 }

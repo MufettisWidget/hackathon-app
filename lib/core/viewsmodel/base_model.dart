@@ -15,15 +15,16 @@ class BaseModel extends ChangeNotifier {
   }
 
   void setState(ViewState state) {
-    if (state == _state)
+    if (state == _state) {
       return;
-    else
+    } else {
       _state = state;
+    }
 
     try {
       notifyListeners();
     } catch (e) {
-      print("BM: notifyListeners ERROR");
+      print('BM: notifyListeners ERROR');
     }
   }
 
@@ -32,7 +33,7 @@ class BaseModel extends ChangeNotifier {
     try {
       super.notifyListeners();
     } catch (e) {
-      print("BM: notifyListeners ERROR");
+      print('BM: notifyListeners ERROR');
     }
   }
 

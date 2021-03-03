@@ -12,7 +12,7 @@ class ResponseNotice {
   factory ResponseNotice.fromJson(Map<String, dynamic> json) {
     Iterable list = json['Data'];
     print(list.runtimeType);
-    List<Notice> _notices = list.map((i) => Notice.fromJson(i)).toList();
+    var _notices = list.map((i) => Notice.fromJson(i)).toList();
 
     return ResponseNotice(
       notices: _notices,

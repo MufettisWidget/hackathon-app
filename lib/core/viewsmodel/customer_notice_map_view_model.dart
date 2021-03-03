@@ -25,7 +25,7 @@ import 'base_model.dart';
 import 'main_view_model.dart';
 
 class CustomerNoticeMapViewModel extends BaseModel {
-  final customerNoticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "_customerNoticeScaffoldKey");
+  final customerNoticeScaffoldKey = GlobalKey<ScaffoldState>(debugLabel: '_customerNoticeScaffoldKey');
 
   BuildContext _context;
 
@@ -35,9 +35,9 @@ class CustomerNoticeMapViewModel extends BaseModel {
   GoogleMapController mapController;
 
   Notice currentSelectNotice;
-  List<Notice> noticeList = new List();
+  List<Notice> noticeList = [];
 
-  List<LatLng> polyLineList = new List();
+  List<LatLng> polyLineList = [];
   String points;
   String km;
 
@@ -46,8 +46,8 @@ class CustomerNoticeMapViewModel extends BaseModel {
   LocationManager newLocationManager;
   final Set<Polyline> polyline = {};
 
-  Set<Marker> markerSet = Set();
-  Set<Marker> selectedMarker = new Set();
+  Set<Marker> markerSet = {};
+  Set<Marker> selectedMarker = {};
 
   String mapStyle;
   bool isBottomModalOpen = false;
@@ -56,32 +56,32 @@ class CustomerNoticeMapViewModel extends BaseModel {
   int currentDistancePosition = 0;
   PolylinePoints polylinePoints;
   List<LatLng> polylineCoordinates = [];
-  Set<Polyline> _polylines = Set<Polyline>();
+  final Set<Polyline> _polylines = <Polyline>{};
   String infoViewText;
 
   SharedManager _sharedManager;
 
-  final String USER_MARKER_ID = "UserMarker";
-  final String SEARCHED_MARKER_ID = "SEARCHED_MARKER_ID";
+  final String USER_MARKER_ID = 'UserMarker';
+  final String SEARCHED_MARKER_ID = 'SEARCHED_MARKER_ID';
 
   bool pointVisibility = false;
 
-  places.GoogleMapsPlaces _places = places.GoogleMapsPlaces(apiKey: CoreHelper.kGoogleApiKey);
+  final places.GoogleMapsPlaces _places = places.GoogleMapsPlaces(apiKey: CoreHelper.kGoogleApiKey);
 
   CustomerNoticeMapViewModel() {
-    newLocationManager = new LocationManager();
-    _sharedManager = new SharedManager();
-    polylinePoints = new PolylinePoints();
+    newLocationManager = LocationManager();
+    _sharedManager = SharedManager();
+    polylinePoints = PolylinePoints();
 
-    rootBundle.loadString("assets/style/map_style.json").then((text) => {mapStyle = text});
+    rootBundle.loadString('assets/style/map_style.json').then((text) => {mapStyle = text});
 
-    if (_sharedManager.homeLocation != null) {
-      currentUserLocation = new LatLng(_sharedManager.homeLocation.lat, _sharedManager.homeLocation.lng);
+    if (_sharedManager.homeLocation.lat != null) {
+      currentUserLocation = LatLng(_sharedManager.homeLocation.lat, _sharedManager.homeLocation.lng);
     }
 
     newLocationManager.getLocation(
       onLocationValue: (val) {
-        print(new DateTime.now());
+        print(DateTime.now());
         currentUserLocation = val;
         addMarkerUser();
         print(val.latitude);
@@ -91,7 +91,7 @@ class CustomerNoticeMapViewModel extends BaseModel {
       onRejectPermission: () {
         addMarkerUser();
 
-        snackBarWarningMessage("Lütfen Lokasyon izni verin.");
+        snackBarWarningMessage('Lütfen Lokasyon izni verin.');
       },
     );
 
@@ -99,21 +99,23 @@ class CustomerNoticeMapViewModel extends BaseModel {
   }
 
   void setContext(BuildContext context) {
-    this._context = context;
+    _context = context;
   }
 
+  // ignore: always_declare_return_types
   getAllNoticiesFilter() async {
-    navigator.pop();
+    await navigator.pop();
     await getAllNoticies(isFilter: true);
   }
 
+  // ignore: always_declare_return_types
   getAllNoticies({bool isFilter, bool isFilterReset}) async {
     setState(ViewState.Busy);
     if (SharedManager().openNotice != null) {
       noticeList = SharedManager().openNotice;
       addNoticeMarkers(true);
     } else {
-      NoticeApiServices.instance.getAllNoticeNoPage().then((response) {
+      await NoticeApiServices.instance.getAllNoticeNoPage().then((response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> map = jsonDecode(response.body);
           var responseNotice = ResponseNotice.fromJson(map);
@@ -125,13 +127,14 @@ class CustomerNoticeMapViewModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
+  // ignore: always_declare_return_types
   addMarkerUser() async {
     try {
       markerSet.remove(markerSet.firstWhere((Marker marker) => marker.markerId.value == USER_MARKER_ID));
     } catch (e) {
-      print("Marker Yok");
+      print('Marker Yok');
     }
-    Marker m = Marker(
+    var m = Marker(
         icon: await BitmapDescriptor.fromAssetImage(
             ImageConfiguration(
               devicePixelRatio: 4,
@@ -145,14 +148,16 @@ class CustomerNoticeMapViewModel extends BaseModel {
     notifyListeners();
   }
 
+  // ignore: always_declare_return_types
   addNoticeMarkers(bool isFiltered) async {
-    List<LatLng> filteredList = [];
+    var filteredList = <LatLng>[];
 
     setState(ViewState.Busy);
-    markerSet = new Set();
+    // ignore: prefer_collection_literals
+    markerSet = Set();
     await addMarkerUser();
-    for (int i = 0; i < noticeList.length; i++) {
-      Marker resultMarker = Marker(
+    for (var i = 0; i < noticeList.length; i++) {
+      var resultMarker = Marker(
         icon: await BitmapDescriptor.fromAssetImage(
             ImageConfiguration(
               devicePixelRatio: 4,
@@ -180,11 +185,12 @@ class CustomerNoticeMapViewModel extends BaseModel {
               )));
             }
           });
+          // ignore: empty_catches
         } catch (e) {}
       } else {
-        LatLngBounds bound = CoreHelper.boundsFromLatLngList(filteredList);
+        var bound = CoreHelper.boundsFromLatLngList(filteredList);
         if (mapController != null) {
-          mapController.animateCamera(CameraUpdate.newLatLngBounds(bound, 100));
+          await mapController.animateCamera(CameraUpdate.newLatLngBounds(bound, 100));
         }
       }
     }
@@ -193,23 +199,21 @@ class CustomerNoticeMapViewModel extends BaseModel {
     notifyListeners();
   }
 
-  openLeftDrawer() {
-    MainViewModel.openLeftMenu();
-  }
+  Future openLeftDrawer() async => MainViewModel.openLeftMenu();
 
   void drawPolyLine() async {
-    List<PointLatLng> result = await polylinePoints.getRouteBetweenCoordinates("AIzaSyALnT7pxhQRDuQ3X5RdHEFfUbGtr4w7VL8",
-        currentUserLocation.latitude, currentUserLocation.longitude, currentSelectNotice.latitude, currentSelectNotice.longitude);
+    var result = await polylinePoints.getRouteBetweenCoordinates('AIzaSyALnT7pxhQRDuQ3X5RdHEFfUbGtr4w7VL8', currentUserLocation.latitude,
+        currentUserLocation.longitude, currentSelectNotice.latitude, currentSelectNotice.longitude);
 
     if (result.isNotEmpty) {
       result.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
-      _polylines.add(Polyline(width: 2, polylineId: PolylineId("poly"), color: Color.fromARGB(255, 40, 122, 198), points: polylineCoordinates));
+      _polylines.add(Polyline(width: 2, polylineId: PolylineId('poly'), color: Color.fromARGB(255, 40, 122, 198), points: polylineCoordinates));
     }
 
     polyline.add(Polyline(
-      polylineId: PolylineId("station"),
+      polylineId: PolylineId('station'),
       visible: true,
       width: 3,
       endCap: Cap.roundCap,
@@ -219,31 +223,35 @@ class CustomerNoticeMapViewModel extends BaseModel {
     ));
   }
 
-  changePoint(int currentPoint) {
+  // ignore: always_declare_return_types
+  changePoint(int currentPoint) async {
     currentPointPosition = currentPoint;
     notifyListeners();
   }
 
-  changeDistance(int currentDistance) {
+  // ignore: always_declare_return_types
+  changeDistance(int currentDistance) async {
     currentDistancePosition = currentDistance;
     notifyListeners();
   }
 
-  snackBarWarningMessage(String _message) {
-    UIPaddingHelper.showSnackBar(key: customerNoticeScaffoldKey, child: Text(_message ?? "")).whenComplete(() {
-      navigator.pop();
-    });
-  }
+  // ignore: always_declare_return_types
+  snackBarWarningMessage(String _message) async =>
+      UIPaddingHelper.showSnackBar(key: customerNoticeScaffoldKey, child: Text(_message ?? '')).whenComplete(() {
+        navigator.pop();
+      });
 
+  // ignore: always_declare_return_types
   onMapCreated(GoogleMapController _controller) async {
     mapController = _controller;
-    mapController.setMapStyle(mapStyle);
+    await mapController.setMapStyle(mapStyle);
     controller.complete(_controller);
 
     focusMyLocation();
   }
 
-  focusMyLocation() {
+  // ignore: always_declare_return_types
+  focusMyLocation() async {
     try {
       Future.delayed(Duration(milliseconds: 300), () {
         if (mapController != null) {
@@ -253,35 +261,37 @@ class CustomerNoticeMapViewModel extends BaseModel {
           )));
         }
       });
+      // ignore: empty_catches
     } catch (e) {}
   }
 
+  // ignore: always_declare_return_types
   showModal(int index) async {
     setState(ViewState.Busy);
 
     currentSelectNotice = noticeList[index];
 
-    LatLng latLng_1 = LatLng(currentSelectNotice.latitude, currentSelectNotice.longitude);
-    LatLng latLng_2 = LatLng(currentUserLocation.latitude, currentUserLocation.longitude);
-    List<LatLng> list = [];
+    var latLng_1 = LatLng(currentSelectNotice.latitude, currentSelectNotice.longitude);
+    var latLng_2 = LatLng(currentUserLocation.latitude, currentUserLocation.longitude);
+    var list = <LatLng>[];
     list.add(latLng_1);
     list.add(latLng_2);
 
-    LatLngBounds bound = CoreHelper.boundsFromLatLngList(list);
+    var bound = CoreHelper.boundsFromLatLngList(list);
     if (mapController != null) {
-      mapController.animateCamera(CameraUpdate.newLatLngBounds(bound, 100));
+      await mapController.animateCamera(CameraUpdate.newLatLngBounds(bound, 100));
     }
 
     if (true) {
       if (customerNoticeScaffoldKey.currentState != null) {
-        showGeneralDialog(
+        await showGeneralDialog(
           context: customerNoticeScaffoldKey.currentState.context,
           barrierColor: Colors.black12.withOpacity(0.2),
           barrierDismissible: false,
           transitionDuration: Duration(milliseconds: 100),
           pageBuilder: (_, __, ___) {
             return NoticeDetailDialogView(
-              distanceMinute: currentSelectNotice.city ?? "",
+              distanceMinute: currentSelectNotice.city ?? '',
               currentPointPosition: currentPointPosition,
               currentDistancePosition: currentDistancePosition,
               noticeDetail: currentSelectNotice,
@@ -296,7 +306,7 @@ class CustomerNoticeMapViewModel extends BaseModel {
           },
         );
 
-        Marker resultMarker = Marker(
+        var resultMarker = Marker(
           icon: await BitmapDescriptor.fromAssetImage(
               ImageConfiguration(
                 devicePixelRatio: 4,
@@ -311,7 +321,7 @@ class CustomerNoticeMapViewModel extends BaseModel {
         selectedMarker.add(resultMarker);
         selectedMarker.add(markerSet.firstWhere((Marker marker) => marker.markerId == MarkerId(USER_MARKER_ID)));
 
-        newLocationManager.stopService();
+        await newLocationManager.stopService();
 
         Future.delayed(Duration(milliseconds: 10), () {
           if (mapController != null) {
@@ -322,18 +332,20 @@ class CustomerNoticeMapViewModel extends BaseModel {
         changeModalOpenStatus(true);
         setState(ViewState.Idle);
       }
+      // ignore: dead_code
     } else {
       snackBarWarningMessage('Bilgiler getirilemedi.');
     }
   }
 
+  // ignore: always_declare_return_types
   launchMaps(String _url) async {
     if (currentUserLocation != null) {
-      String url = _url;
+      var url = _url;
       if (await canLaunch(url)) {
         await launch(url);
       } else {
-        print("Harita açılamadı");
+        print('Harita açılamadı');
       }
     }
   }
@@ -351,7 +363,8 @@ class CustomerNoticeMapViewModel extends BaseModel {
     changeModalOpenStatus(false);
   }
 
-  changeModalOpenStatus(bool val) {
+  // ignore: always_declare_return_types
+  changeModalOpenStatus(bool val) async {
     isBottomModalOpen = val;
     notifyListeners();
   }
@@ -395,11 +408,11 @@ class CustomerNoticeMapViewModel extends BaseModel {
     await getAllNoticies(isFilter: false, isFilterReset: true);
 
     if (p != null) {
-      places.PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+      var detail = await _places.getDetailsByPlaceId(p.placeId);
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
 
-      Marker m = Marker(
+      var m = Marker(
           icon: await BitmapDescriptor.fromAssetImage(
               ImageConfiguration(
                 devicePixelRatio: 4,
@@ -418,15 +431,17 @@ class CustomerNoticeMapViewModel extends BaseModel {
             zoom: 11,
           )));
         });
+        // ignore: empty_catches
       } catch (e) {}
     }
   }
 
-  removeSearchPin() {
+  // ignore: always_declare_return_types
+  removeSearchPin() async {
     try {
       markerSet.remove(markerSet.firstWhere((Marker marker) => marker.markerId.value == SEARCHED_MARKER_ID));
     } catch (e) {
-      print("Marker Yok");
+      print('Marker Yok');
     }
   }
 

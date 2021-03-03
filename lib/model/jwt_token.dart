@@ -10,9 +10,9 @@ class JwtToken {
   }
 
   Map<String, dynamic> toJson(JwtToken token) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
 
-    data["token"] = token.token;
+    data['token'] = token.token;
     return data;
   }
 }

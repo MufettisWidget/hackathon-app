@@ -19,13 +19,13 @@ class District {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cityName'] = this.cityName;
-    data['districtName'] = this.districtName;
-    data['twitterAddress'] = this.twitterAddress;
-    data['notifeCount'] = this.notifeCount;
-    data['closedCount'] = this.closedCount;
-    data['solutionRate'] = this.solutionRate;
+    final data = <String, dynamic>{};
+    data['cityName'] = cityName;
+    data['districtName'] = districtName;
+    data['twitterAddress'] = twitterAddress;
+    data['notifeCount'] = notifeCount;
+    data['closedCount'] = closedCount;
+    data['solutionRate'] = solutionRate;
     return data;
   }
 }

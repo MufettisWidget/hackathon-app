@@ -8,14 +8,14 @@ class HomeLocationModel {
   HomeLocationModel.fromJson(Map<String, dynamic> json) {
     lat = json['lat'];
     lng = json['lng'];
-     city = json['city'];
+    city = json['city'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
-    data['city'] = this.city;
+    final data = <String, dynamic>{};
+    data['lat'] = lat;
+    data['lng'] = lng;
+    data['city'] = city;
     return data;
   }
 }
